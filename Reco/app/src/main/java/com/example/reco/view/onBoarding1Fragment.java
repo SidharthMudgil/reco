@@ -1,4 +1,4 @@
-package com.example.reco.fragment;
+package com.example.reco.view;
 
 import android.os.Bundle;
 
