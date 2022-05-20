@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Reco</string>
+    <string name="ob_title_chat">Ask the Reco</string>
+    <string name="ob_title_enjoy">Enjoy the music</string>
+    <string name="ob_title_time">Save the time</string>
+    <string name="ob_text_chat">This is my name and whats your name</string>
+    <string name="ob_text_enjoy">This is my name and whats your name</string>
+    <string name="ob_text_time">This is my name and whats your name</string>
+    <string name="img_desc_1">girl with chat image</string>
+    <string name="img_desc_2">bird chirping</string>
+    <string name="img_desc_3">girl watching plant</string>
 </resources>

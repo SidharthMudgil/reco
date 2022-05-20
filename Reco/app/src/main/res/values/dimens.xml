@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="ob_title">36sp</dimen>
+    <dimen name="ob_text">24sp</dimen>
+</resources>
