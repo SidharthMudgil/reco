@@ -1,12 +1,27 @@
 <resources>
     <string name="app_name">Reco</string>
-    <string name="ob_title_chat">Ask the Reco</string>
-    <string name="ob_title_enjoy">Enjoy the music</string>
-    <string name="ob_title_time">Save the time</string>
-    <string name="ob_text_chat">Start a chat and get free music recommendations</string>
-    <string name="ob_text_enjoy">enjoy the songs depending on your mood</string>
-    <string name="ob_text_time">get freedom from daily music hunt</string>
-    <string name="img_desc_1">girl with chat image</string>
-    <string name="img_desc_2">bird chirping</string>
-    <string name="img_desc_3">girl watching plant</string>
+
+    <!-- onBoarding screen -->
+    <!-- titles -->
+    <string name="slide_title_1">Ask the Reco</string>
+    <string name="slide_title_2">Enjoy the music</string>
+    <string name="slide_title_3">Save the time</string>
+
+    <!--  description  -->
+    <string name="slide_text_1">Start a chat and get free song recommendations</string>
+    <string name="slide_text_2">enjoy the songs depending on your mood</string>
+    <string name="slide_text_3">get freedom from daily song hunting</string>
+
+    <!--  image description -->
+    <string name="slide_img_desc">app introduction</string>
+
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
 </resources>
