@@ -9,8 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="5dp"
-        >
+        android:layout_margin="5dp" >
 
         <ImageView
             android:id="@+id/imageView"
@@ -30,7 +29,7 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/ob_title"
             android:textAlignment="center"
-            android:textStyle="bold"
+            android:fontFamily="@font/aileron_regular"
             android:textColor="@color/onBoarding_title_blue"
             android:text="@string/ob_title_time"
             app:layout_constraintVertical_bias="0"
@@ -41,8 +40,11 @@
 
         <TextView
             android:id="@+id/ob_text"
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/ob_text_width"
+            android:layout_height="@dimen/ob_text_height"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:fontFamily="@font/aileron_semi_bold"
             android:textSize="@dimen/ob_text"
             android:textColor="@color/onBoarding_text_gray"
             android:textAlignment="center"

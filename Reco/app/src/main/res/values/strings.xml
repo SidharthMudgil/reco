@@ -3,9 +3,9 @@
     <string name="ob_title_chat">Ask the Reco</string>
     <string name="ob_title_enjoy">Enjoy the music</string>
     <string name="ob_title_time">Save the time</string>
-    <string name="ob_text_chat">This is my name and whats your name</string>
-    <string name="ob_text_enjoy">This is my name and whats your name</string>
-    <string name="ob_text_time">This is my name and whats your name</string>
+    <string name="ob_text_chat">Start a chat and get free music recommendations</string>
+    <string name="ob_text_enjoy">enjoy the songs depending on your mood</string>
+    <string name="ob_text_time">get freedom from daily music hunt</string>
     <string name="img_desc_1">girl with chat image</string>
     <string name="img_desc_2">bird chirping</string>
     <string name="img_desc_3">girl watching plant</string>

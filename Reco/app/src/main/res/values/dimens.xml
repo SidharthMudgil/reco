@@ -2,4 +2,6 @@
 <resources>
     <dimen name="ob_title">36sp</dimen>
     <dimen name="ob_text">24sp</dimen>
+    <dimen name="ob_text_width">320dp</dimen>
+    <dimen name="ob_text_height">70dp</dimen>
 </resources>
