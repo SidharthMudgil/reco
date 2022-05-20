@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.onBoarding1Fragment">
+    android:layout_height="match_parent" >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -12,11 +10,11 @@
         android:layout_margin="5dp" >
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/slide_img"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_chat_dark"
-            android:contentDescription="@string/img_desc_1"
+            android:layout_height="470dp"
+            android:src="@drawable/ic_chat"
+            android:contentDescription="@string/slide_img_desc"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -24,22 +22,21 @@
             app:layout_constraintVertical_bias="0" />
 
         <TextView
-            android:id="@+id/ob_title"
+            android:id="@+id/slide_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/ob_title"
             android:fontFamily="@font/aileron_regular"
             android:textAlignment="center"
             android:textColor="@color/onBoarding_title_blue"
-            android:text="@string/ob_title_chat"
             app:layout_constraintVertical_bias="0"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+            app:layout_constraintTop_toBottomOf="@+id/slide_img" />
 
         <TextView
-            android:id="@+id/ob_text"
+            android:id="@+id/slide_desc"
             android:layout_width="@dimen/ob_text_width"
             android:layout_height="@dimen/ob_text_height"
             android:fontFamily="@font/aileron_semi_bold"
@@ -48,12 +45,11 @@
             android:textSize="@dimen/ob_text"
             android:textColor="@color/onBoarding_text_gray"
             android:textAlignment="center"
-            android:text="@string/ob_text_chat"
             app:layout_constraintVertical_bias="0.19"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ob_title" />
+            app:layout_constraintTop_toBottomOf="@+id/slide_title" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
