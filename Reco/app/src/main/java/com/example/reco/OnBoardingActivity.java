@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.reco.controller.OnBoardingScreenAdapter;
+import com.example.reco.utils.DepthPageTransformer;
 import com.example.reco.utils.WobbleInterpolator;
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
 
@@ -28,6 +29,10 @@ public class OnBoardingActivity extends AppCompatActivity {
     TextView nextBtn;
     boolean firstTime = true;
 
+    ViewPager2 viewPager;
+    WormDotsIndicator dotsIndicator;
+    OnBoardingScreenAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,11 +40,12 @@ public class OnBoardingActivity extends AppCompatActivity {
 
         nextBtn = findViewById(R.id.nextBtn);
 
-        OnBoardingScreenAdapter adapter = new OnBoardingScreenAdapter(OnBoardingActivity.this);
-        ViewPager2 viewPager = findViewById(R.id.viewPager);
+        adapter = new OnBoardingScreenAdapter(OnBoardingActivity.this);
+        viewPager = findViewById(R.id.viewPager);
         viewPager.setAdapter(adapter);
+        viewPager.setPageTransformer(new DepthPageTransformer());
 
-        WormDotsIndicator dotsIndicator = findViewById(R.id.dotsIndicator);
+        dotsIndicator = findViewById(R.id.dotsIndicator);
         dotsIndicator.attachTo(viewPager);
 
         Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.wobble);
@@ -82,5 +88,11 @@ public class OnBoardingActivity extends AppCompatActivity {
                 handler.post(Update);
             }
         }, DELAY_MS, PERIOD_MS);
+
+        nextBtn.setOnClickListener(view -> {
+//            SharedPreferences sharedPreferences =
+//            Intent intent = new Intent(OnBoardingActivity.this, /*TODO make login signup activity*/);
+//            startActivity(/*loginActivity*/);
+        });
     }
 }
