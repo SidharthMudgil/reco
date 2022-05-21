@@ -1,4 +1,4 @@
-package com.example.reco.view.onboarding;
+package com.sidharth.reco.view.onboarding;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.reco.R;
+import com.sidharth.reco.R;
 
 public class Slide1Fragment extends Fragment {
 

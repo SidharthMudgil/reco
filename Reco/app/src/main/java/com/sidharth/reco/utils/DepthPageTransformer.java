@@ -1,8 +1,7 @@
-package com.example.reco.utils;
+package com.sidharth.reco.utils;
 
 import android.view.View;
 
-import androidx.annotation.RequiresApi;
 import androidx.viewpager2.widget.ViewPager2;
 
 public class DepthPageTransformer implements ViewPager2.PageTransformer {

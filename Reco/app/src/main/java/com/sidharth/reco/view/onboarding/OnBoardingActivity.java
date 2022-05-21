@@ -1,4 +1,4 @@
-package com.example.reco.view.onboarding;
+package com.sidharth.reco.view.onboarding;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,10 +10,10 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.reco.R;
-import com.example.reco.controller.OnBoardingScreenAdapter;
-import com.example.reco.utils.DepthPageTransformer;
-import com.example.reco.utils.WobbleInterpolator;
+import com.sidharth.reco.R;
+import com.sidharth.reco.controller.OnBoardingScreenAdapter;
+import com.sidharth.reco.utils.DepthPageTransformer;
+import com.sidharth.reco.utils.WobbleInterpolator;
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
 
 import java.util.Timer;

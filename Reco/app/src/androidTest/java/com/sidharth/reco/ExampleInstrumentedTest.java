@@ -1,4 +1,4 @@
-package com.example.reco;
+package com.sidharth.reco;
 
 import android.content.Context;
 
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
     public void useAppContext() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.example.reco", appContext.getPackageName());
+        assertEquals("com.sidharth.reco", appContext.getPackageName());
     }
 }

@@ -1,4 +1,4 @@
-package com.example.reco;
+package com.sidharth.reco;
 
 import org.junit.Test;
 

@@ -6,7 +6,7 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "com.example.reco"
+        applicationId "com.sidharth.reco"
         minSdk 22
         targetSdk 31
         versionCode 1
@@ -28,7 +28,7 @@ android {
     buildFeatures {
         viewBinding true
     }
-    namespace 'com.example.reco'
+    namespace 'com.sidharth.reco'
 }
 
 dependencies {

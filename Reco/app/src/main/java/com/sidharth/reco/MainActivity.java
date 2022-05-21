@@ -1,11 +1,11 @@
-package com.example.reco;
+package com.sidharth.reco;
 
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.reco.view.onboarding.OnBoardingActivity;
+import com.sidharth.reco.view.onboarding.OnBoardingActivity;
 
 public class MainActivity extends AppCompatActivity {
 
