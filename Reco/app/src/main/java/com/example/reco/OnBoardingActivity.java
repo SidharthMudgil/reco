@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.reco.controller.OnBoardingScreenAdapter;
+import com.example.reco.utils.WobbleInterpolator;
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
 
 import java.util.Timer;
@@ -20,14 +21,19 @@ public class OnBoardingActivity extends AppCompatActivity {
 
     int currentPage = 0;
     Timer timer;
+    Handler handler;
     final long DELAY_MS = 500;
     final long PERIOD_MS = 3000;
 
+    TextView nextBtn;
+    boolean firstTime = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_boarding);
+
+        nextBtn = findViewById(R.id.nextBtn);
 
         OnBoardingScreenAdapter adapter = new OnBoardingScreenAdapter(OnBoardingActivity.this);
         ViewPager2 viewPager = findViewById(R.id.viewPager);
@@ -37,16 +43,21 @@ public class OnBoardingActivity extends AppCompatActivity {
         dotsIndicator.attachTo(viewPager);
 
         Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.wobble);
+        WobbleInterpolator interpolator = new WobbleInterpolator(0.2, 20);
+        animation.setInterpolator(interpolator);
 
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
                 currentPage = position;
-                TextView nextBtn = findViewById(R.id.nextBtn);
                 if (position == 2) {
                     nextBtn.setVisibility(View.VISIBLE);
-                    nextBtn.startAnimation(animation);
+                    if (firstTime)
+                    {
+                        nextBtn.startAnimation(animation);
+                    }
+                    firstTime = false;
                 }
                 else {
                     nextBtn.setVisibility(View.GONE);
@@ -54,7 +65,7 @@ public class OnBoardingActivity extends AppCompatActivity {
             }
         });
 
-        final Handler handler = new Handler();
+        handler = new Handler();
         final Runnable Update = () -> {
             if (currentPage == adapter.getItemCount()) {
                 currentPage = 0;
