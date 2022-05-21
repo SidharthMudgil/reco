@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.Slide1Fragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp" >
+
+        <ImageView
+            android:id="@+id/slide_img"
+            android:layout_width="wrap_content"
+            android:layout_height="470dp"
+            android:src="@drawable/ic_chat"
+            android:contentDescription="@string/slide_img_desc"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0" />
+
+        <TextView
+            android:id="@+id/slide_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/ob_title"
+            android:text="@string/slide_title_1"
+            android:fontFamily="@font/aileron_regular"
+            android:textAlignment="center"
+            android:textColor="@color/onBoarding_title_blue"
+            app:layout_constraintVertical_bias="0"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/slide_img" />
+
+        <TextView
+            android:id="@+id/slide_desc"
+            android:layout_width="@dimen/ob_text_width"
+            android:layout_height="@dimen/ob_text_height"
+            android:text="@string/slide_text_1"
+            android:fontFamily="@font/aileron_semi_bold"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:textSize="@dimen/ob_text"
+            android:textColor="@color/onBoarding_text_gray"
+            android:textAlignment="center"
+            app:layout_constraintVertical_bias="0.19"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/slide_title" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>
