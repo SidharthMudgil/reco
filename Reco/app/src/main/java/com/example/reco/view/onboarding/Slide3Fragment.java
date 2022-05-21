@@ -1,4 +1,4 @@
-package com.example.reco.view;
+package com.example.reco.view.onboarding;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,9 +9,8 @@ import androidx.fragment.app.Fragment;
 
 import com.example.reco.R;
 
-public class Slide1Fragment extends Fragment {
-
-    public Slide1Fragment() {
+public class Slide3Fragment extends Fragment {
+    public Slide3Fragment() {
     }
 
     @Override
@@ -22,6 +21,6 @@ public class Slide1Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_slide1, container, false);
+        return inflater.inflate(R.layout.fragment_slide3, container, false);
     }
 }

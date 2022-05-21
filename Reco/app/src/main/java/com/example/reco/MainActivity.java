@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.reco.view.onboarding.OnBoardingActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override

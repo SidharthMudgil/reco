@@ -1,4 +1,4 @@
-package com.example.reco.view;
+package com.example.reco.view.onboarding;
 
 import android.os.Bundle;
 

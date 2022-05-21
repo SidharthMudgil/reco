@@ -1,4 +1,4 @@
-package com.example.reco;
+package com.example.reco.view.onboarding;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.reco.R;
 import com.example.reco.controller.OnBoardingScreenAdapter;
 import com.example.reco.utils.DepthPageTransformer;
 import com.example.reco.utils.WobbleInterpolator;

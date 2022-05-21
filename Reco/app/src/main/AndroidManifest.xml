@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Reco">
         <activity
-            android:name=".OnBoardingActivity"
+            android:name=".view.onboarding.OnBoardingActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
