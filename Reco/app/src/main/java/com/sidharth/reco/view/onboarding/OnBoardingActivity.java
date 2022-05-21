@@ -21,11 +21,10 @@ import java.util.TimerTask;
 
 public class OnBoardingActivity extends AppCompatActivity {
 
-    int currentPage = 0;
     Timer timer;
     Handler handler;
-    final long DELAY_MS = 500;
-    final long PERIOD_MS = 3000;
+    final long DELAY_MS = 3000;
+    final long PERIOD_MS = 4000;
 
     TextView nextBtn;
     boolean firstTime = true;
@@ -41,47 +40,49 @@ public class OnBoardingActivity extends AppCompatActivity {
 
         nextBtn = findViewById(R.id.nextBtn);
 
+//        viewPager and adapter
         adapter = new OnBoardingScreenAdapter(OnBoardingActivity.this);
         viewPager = findViewById(R.id.viewPager);
         viewPager.setAdapter(adapter);
         viewPager.setPageTransformer(new DepthPageTransformer());
 
+//        dotsIndicator for viewPager
         dotsIndicator = findViewById(R.id.dotsIndicator);
         dotsIndicator.attachTo(viewPager);
 
+//        nextBtn animation and interpolator
         Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.wobble);
         WobbleInterpolator interpolator = new WobbleInterpolator(0.2, 20);
         animation.setInterpolator(interpolator);
 
+//        show and animate nextBtn on last slide
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-                currentPage = position;
                 if (position == 2) {
                     nextBtn.setVisibility(View.VISIBLE);
-                    if (firstTime)
-                    {
+                    if (firstTime) {
                         nextBtn.startAnimation(animation);
                     }
                     firstTime = false;
-                }
-                else {
+                } else {
                     nextBtn.setVisibility(View.GONE);
                 }
             }
         });
 
+//        slide left viewPager if not touched
         handler = new Handler();
         final Runnable Update = () -> {
-            if (currentPage == adapter.getItemCount()) {
-                currentPage = 0;
+            if (viewPager.getCurrentItem() == adapter.getItemCount() - 1) {
                 timer.cancel();
             } else {
-                viewPager.setCurrentItem(currentPage++, true);
+                viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true);
             }
         };
 
+//        run handler after DELAY_MS
         timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
@@ -90,10 +91,21 @@ public class OnBoardingActivity extends AppCompatActivity {
             }
         }, DELAY_MS, PERIOD_MS);
 
+//        run loginActivity on nextBtn pressed
         nextBtn.setOnClickListener(view -> {
 //            SharedPreferences sharedPreferences =
 //            Intent intent = new Intent(OnBoardingActivity.this, /*TODO make login signup activity*/);
 //            startActivity(/*loginActivity*/);
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+//        slide-right on backButton pressed
+        if (viewPager.getCurrentItem() == 0) {
+            super.onBackPressed();
+        } else {
+            viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
+        }
     }
 }
