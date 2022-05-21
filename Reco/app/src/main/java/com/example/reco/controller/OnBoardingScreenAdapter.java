@@ -1,4 +1,6 @@
-package com.example.reco;
+package com.example.reco.controller;
+
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -17,12 +19,15 @@ public class OnBoardingScreenAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        if (position == 0)
+        if (position == 0) {
             return new Slide1Fragment();
-        else if (position == 1)
+        }
+        else if (position == 1) {
             return new Slide2Fragment();
-        else
+        }
+        else {
             return new Slide3Fragment();
+        }
     }
 
     @Override
