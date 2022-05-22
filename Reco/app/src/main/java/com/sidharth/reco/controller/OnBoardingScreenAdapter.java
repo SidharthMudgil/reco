@@ -23,9 +23,7 @@ public class OnBoardingScreenAdapter extends FragmentStateAdapter {
         else if (position == 1) {
             return new Slide2Fragment();
         }
-        else {
-            return new Slide3Fragment();
-        }
+        return new Slide3Fragment();
     }
 
     @Override

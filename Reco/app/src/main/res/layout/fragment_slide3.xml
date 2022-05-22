@@ -14,7 +14,8 @@
         <ImageView
             android:id="@+id/slide_img"
             android:layout_width="wrap_content"
-            android:layout_height="470dp"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent=".65"
             android:src="@drawable/ic_time"
             android:contentDescription="@string/slide_img_desc"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -24,14 +25,14 @@
             app:layout_constraintVertical_bias="0.2" />
 
         <TextView
-            android:id="@+id/slide_title"
+            android:id="@+id/tv_slideTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/slideTitle_textSize"
             android:fontFamily="@font/aileron_regular"
             android:textAlignment="center"
             android:text="@string/slide_title_3"
-            android:textColor="@color/slide_yellow"
+            android:textColor="@color/yellow_400"
             app:layout_constraintVertical_bias="0"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -39,9 +40,11 @@
             app:layout_constraintTop_toBottomOf="@+id/slide_img" />
 
         <TextView
-            android:id="@+id/slide_desc"
-            android:layout_width="@dimen/slideDesc_width"
-            android:layout_height="@dimen/slideDesc_height"
+            android:id="@+id/tv_slideDesc"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent=".1"
+            app:layout_constraintWidth_percent=".8"
             android:fontFamily="@font/aileron_semi_bold"
             android:paddingLeft="@dimen/slideDesc_padding"
             android:paddingRight="@dimen/slideDesc_padding"
@@ -53,7 +56,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/slide_title" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_slideTitle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

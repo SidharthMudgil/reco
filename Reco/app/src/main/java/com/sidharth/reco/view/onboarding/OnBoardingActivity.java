@@ -36,9 +36,9 @@ public class OnBoardingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_on_boarding);
+        setContentView(R.layout.activity_onboarding);
 
-        nextBtn = findViewById(R.id.nextBtn);
+        nextBtn = findViewById(R.id.tv_next);
 
 //        viewPager and adapter
         adapter = new OnBoardingScreenAdapter(OnBoardingActivity.this);

@@ -10,8 +10,10 @@
     
 
     <!-- onBoarding screen -->
-    <color name="slide_yellow">#FFC727</color>
-    <color name="slide_green">#92E3A9</color>
-    <color name="slide_blue">#407BFF</color>
+    <color name="yellow_400">#FFC727</color>
+    <color name="green_400">#92E3A9</color>
+    <color name="blue_400">#407BFF</color>
     <color name="slide_gray">#B6B6B7</color>
+    <color name="purple_100">#905CE4</color>
+    <color name="gray_800">#060607</color>
 </resources>

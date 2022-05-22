@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Reco</string>
-
-    <!-- onBoarding screen -->
+    
+<!-- onBoarding screen -->
     <!-- titles -->
     <string name="slide_title_1">Ask the Reco</string>
     <string name="slide_title_2">Enjoy the music</string>
@@ -19,4 +19,13 @@
     <string name="btn_next">Next</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="image_welcomeBack">welcome back image</string>
+    <string name="image_welcome">welcome image</string>
+    
+<!--    login screen -->
+    <string name="login">LOGIN</string>
+    <string name="signUp">SIGNUP</string>
+    <string name="tab1">login</string>
+    <string name="tab2">Sign Up</string>
+
 </resources>

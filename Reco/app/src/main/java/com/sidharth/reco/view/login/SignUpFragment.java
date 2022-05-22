@@ -10,8 +10,8 @@ import android.view.ViewGroup;
 
 import com.sidharth.reco.R;
 
-public class signupFragment extends Fragment {
-    public signupFragment() {
+public class SignUpFragment extends Fragment {
+    public SignUpFragment() {
     }
 
     @Override
