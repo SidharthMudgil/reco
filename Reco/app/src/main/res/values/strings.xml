@@ -13,9 +13,8 @@
     <string name="slide_text_3">get freedom from daily song hunting</string>
 
     <!--  image description -->
-    <string name="slide_img_desc">app introduction</string>
+    <string name="slide_img_desc">onBoarding image</string>
 
     <!--  Buttons text-->
     <string name="btn_next">Next</string>
-
 </resources>
