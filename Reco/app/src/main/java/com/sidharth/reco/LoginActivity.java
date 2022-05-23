@@ -14,7 +14,7 @@ public class LoginActivity extends AppCompatActivity {
 
     final String[] TAB_TITLES = {
             "login",
-            "sign up"
+            "register"
     };
 
     @Override

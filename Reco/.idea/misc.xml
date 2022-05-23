@@ -10,7 +10,7 @@
         <entry key="..\:/Project Reco/Reco/app/src/main/res/drawable/ic_enjoy_dark.xml" value="0.1945" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.147265625" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/layout-w936dp/activity_login.xml" value="0.168359375" />
-        <entry key="..\:/Project Reco/Reco/app/src/main/res/layout/activity_login.xml" value="0.22447916666666667" />
+        <entry key="..\:/Project Reco/Reco/app/src/main/res/layout/activity_login.xml" value="1.0" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/layout/activity_main.xml" value="0.21041666666666667" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/layout/activity_on_boarding.xml" value="0.22447916666666667" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/layout/activity_onboarding.xml" value="0.22447916666666667" />
@@ -24,6 +24,7 @@
         <entry key="..\:/Project Reco/Reco/app/src/main/res/layout/fragment_slide3.xml" value="0.22447916666666667" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/layout/slide_layout.xml" value="0.22447916666666667" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/layout/slides_layout.xml" value="0.22447916666666667" />
+        <entry key="..\:/Project Reco/Reco/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1045" />
       </map>
     </option>
   </component>
