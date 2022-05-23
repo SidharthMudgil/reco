@@ -14,4 +14,19 @@
     <dimen name="slide_margin">5dp</dimen>
     <dimen name="slideImg_height">470dp</dimen>
     <dimen name="slideDesc_padding">8dp</dimen>
+    <dimen name="card_cornerRadius">10dp</dimen>
+    <dimen name="card_elevation">4dp</dimen>
+    <dimen name="card_width">0dp</dimen>
+    <dimen name="card_height">0dp</dimen>
+    <dimen name="alternateTV_textSize">18sp</dimen>
+    <dimen name="signIn_signUp_cornerRadius">10dp</dimen>
+    <dimen name="signIn_signUp_width">0dp</dimen>
+    <dimen name="signIn_signUp_height">0dp</dimen>
+    <dimen name="signIn_signUp_textSize">18sp</dimen>
+    <dimen name="textInputLayout_width">0dp</dimen>
+    <dimen name="textInputLayout_elevation">4dp</dimen>
+    <dimen name="signInSignUpPrompt_textSize">24sp</dimen>
+    <dimen name="appLogo_width">0dp</dimen>
+    <dimen name="appLogo_height">0dp</dimen>
+    <dimen name="signUpTV_textSize">18sp</dimen>
 </resources>

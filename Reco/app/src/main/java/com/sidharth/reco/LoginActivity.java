@@ -12,22 +12,9 @@ import com.sidharth.reco.controller.TabPagerAdapter;
 
 public class LoginActivity extends AppCompatActivity {
 
-    final String[] TAB_TITLES = {
-            "login",
-            "register"
-    };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        ViewPager2 viewPager = findViewById(R.id.viewPager);
-        TabLayout tabLayout = findViewById(R.id.tabLayout);
-
-        viewPager.setAdapter(new TabPagerAdapter(this));
-        new TabLayoutMediator(tabLayout, viewPager,
-                (tab, position) -> tab.setText(TAB_TITLES[position])
-        ).attach();
     }
 }

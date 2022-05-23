@@ -5,13 +5,7 @@
     <solid
         android:color="@color/white" />
 
-    <size
-        android:width="100dp"
-        android:height="10dp" />
-
     <corners
-        android:topLeftRadius="40dp"
-        android:topRightRadius="40dp"
-        />
+        android:radius="20dp" />
 
 </shape>

@@ -3,6 +3,212 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.login.LoginFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_appLogo"
+            android:layout_width="@dimen/appLogo_width"
+            android:layout_height="@dimen/appLogo_height"
+            android:contentDescription="@string/imgDesc_appLogo"
+            android:src="@drawable/ic_logo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent=".16"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/mtv_loginPrompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/aileron_bold"
+            android:text="@string/login_to_your_account"
+            android:textSize="@dimen/signInSignUpPrompt_textSize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/textInputLayout1"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintStart_toStartOf="@+id/textInputLayout1"
+            app:layout_constraintTop_toBottomOf="@id/iv_appLogo"
+            app:layout_constraintVertical_bias="0.07" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout1"
+            android:layout_width="@dimen/textInputLayout_width"
+            android:layout_height="wrap_content"
+            app:boxBackgroundMode="none"
+            android:elevation="@dimen/textInputLayout_elevation"
+            android:background="@drawable/bg_login"
+            app:layout_constraintWidth_percent=".8"
+            android:hint="@string/email"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/textInputLayout2"
+            app:layout_constraintTop_toBottomOf="@+id/mtv_loginPrompt">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_email"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:inputType="textEmailAddress" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout2"
+            android:layout_width="@dimen/textInputLayout_width"
+            android:layout_height="wrap_content"
+            app:boxBackgroundMode="none"
+            android:elevation="@dimen/textInputLayout_elevation"
+            android:background="@drawable/bg_login"
+            android:hint="@string/password"
+            app:endIconDrawable="@drawable/bg_login"
+            app:layout_constraintBottom_toTopOf="@+id/mb_signIn"
+            app:layout_constraintEnd_toEndOf="@+id/textInputLayout1"
+            app:layout_constraintStart_toStartOf="@id/textInputLayout1"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout1">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_password"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:inputType="textPassword" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/mb_signIn"
+            android:layout_width="@dimen/signIn_signUp_width"
+            android:layout_height="@dimen/signIn_signUp_height"
+            app:cornerRadius="@dimen/signIn_signUp_cornerRadius"
+            android:backgroundTint="@color/purple_100"
+            android:fontFamily="@font/aileron_regular"
+            android:text="@string/sign_in"
+            android:textSize="@dimen/signIn_signUp_textSize"
+            app:layout_constraintVertical_bias=".6"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent=".08"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent=".6" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/mtv_alternate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/aileron_regular"
+            android:text="@string/or_sign_in_with"
+            android:textSize="@dimen/alternateTV_textSize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/mb_signIn"
+            app:layout_constraintStart_toStartOf="@id/mb_signIn"
+            app:layout_constraintTop_toBottomOf="@id/mb_signIn"
+            app:layout_constraintVertical_bias="0.2" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_google"
+            android:layout_width="@dimen/card_width"
+            android:layout_height="@dimen/card_height"
+            android:elevation="@dimen/card_elevation"
+            app:cardCornerRadius="@dimen/card_cornerRadius"
+            app:layout_constraintBottom_toBottomOf="@id/card_facebook"
+            app:layout_constraintEnd_toStartOf="@+id/card_facebook"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/card_facebook"
+            app:layout_constraintWidth_percent=".2">
+
+            <ImageView
+                android:id="@+id/ib_google"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/imgBtnDesc_google"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_google" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_facebook"
+            android:layout_width="@dimen/card_width"
+            android:layout_height="@dimen/card_height"
+            android:elevation="@dimen/card_elevation"
+            app:cardCornerRadius="@dimen/card_cornerRadius"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/card_twitter"
+            app:layout_constraintHeight_percent=".06"
+            app:layout_constraintStart_toEndOf="@+id/card_google"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias=".82"
+            app:layout_constraintWidth_percent=".2">
+
+            <ImageView
+                android:id="@+id/ib_facebook"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/imgBtnDesc_facebook"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_facebook" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_twitter"
+            android:layout_width="@dimen/card_width"
+            android:layout_height="@dimen/card_height"
+            android:elevation="@dimen/card_elevation"
+            app:cardCornerRadius="@dimen/card_cornerRadius"
+            app:layout_constraintBottom_toBottomOf="@id/card_facebook"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/card_facebook"
+            app:layout_constraintTop_toTopOf="@+id/card_facebook"
+            app:layout_constraintWidth_percent=".2">
+
+            <ImageView
+                android:id="@+id/ib_twitter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/imgBtnDesc_twitter"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_twitter" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/mtv_signUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/aileron_regular"
+            android:text="@string/don_t_have_an_account"
+            android:textSize="@dimen/signUpTV_textSize"
+            app:layout_constraintHorizontal_bias="0.4"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/card_twitter"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.97" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/mtvBtn_signUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/aileron_regular"
+            android:text="@string/sign_up"
+            android:textColor="@color/purple_100"
+            android:textSize="@dimen/signUpTV_textSize"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintBottom_toBottomOf="@id/mtv_signUp"
+            app:layout_constraintEnd_toEndOf="@id/card_twitter"
+            app:layout_constraintStart_toEndOf="@id/mtv_signUp"
+            app:layout_constraintTop_toTopOf="@id/mtv_signUp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
