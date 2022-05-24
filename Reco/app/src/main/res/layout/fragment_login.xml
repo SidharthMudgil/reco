@@ -115,7 +115,7 @@
             app:layout_constraintEnd_toStartOf="@+id/card_facebook"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/card_facebook"
-            app:layout_constraintWidth_percent=".14">
+            app:layout_constraintWidth_percent=".16">
 
             <ImageView
                 android:id="@+id/ib_google"
@@ -134,12 +134,12 @@
             android:elevation="@dimen/card_elevation"
             app:cardCornerRadius="@dimen/card_cornerRadius"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/card_twitter"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent=".04"
             app:layout_constraintStart_toEndOf="@+id/card_google"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias=".86"
-            app:layout_constraintWidth_percent=".14">
+            app:layout_constraintWidth_percent=".16">
 
             <ImageView
                 android:id="@+id/ib_facebook"
@@ -148,28 +148,6 @@
                 android:contentDescription="@string/imgBtnDesc_facebook"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_facebook" />
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_twitter"
-            android:layout_width="@dimen/card_width"
-            android:layout_height="@dimen/card_height"
-            android:elevation="@dimen/card_elevation"
-            app:cardCornerRadius="@dimen/card_cornerRadius"
-            app:layout_constraintBottom_toBottomOf="@id/card_facebook"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/card_facebook"
-            app:layout_constraintTop_toTopOf="@+id/card_facebook"
-            app:layout_constraintWidth_percent=".14">
-
-            <ImageView
-                android:id="@+id/ib_twitter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/imgBtnDesc_twitter"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_twitter" />
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -182,7 +160,7 @@
             android:textSize="@dimen/signUpTV_textSize"
             app:layout_constraintHorizontal_bias="0.4"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/card_twitter"
+            app:layout_constraintEnd_toEndOf="@+id/card_facebook"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.97" />
@@ -197,7 +175,7 @@
             android:textSize="@dimen/signUpTV_textSize"
             app:layout_constraintHorizontal_bias="0.1"
             app:layout_constraintBottom_toBottomOf="@id/mtv_signUp"
-            app:layout_constraintEnd_toEndOf="@id/card_twitter"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/mtv_signUp"
             app:layout_constraintTop_toTopOf="@id/mtv_signUp" />
 

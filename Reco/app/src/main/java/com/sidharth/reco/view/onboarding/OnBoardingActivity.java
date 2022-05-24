@@ -102,6 +102,7 @@ public class OnBoardingActivity extends AppCompatActivity {
             Intent intent = new Intent(OnBoardingActivity.this, LoginActivity.class);
             startActivity(intent);
         });
+
     }
 
     @Override
