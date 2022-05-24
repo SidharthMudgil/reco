@@ -31,57 +31,49 @@
             android:text="@string/login_to_your_account"
             android:textSize="@dimen/signInSignUpPrompt_textSize"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/textInputLayout1"
+            app:layout_constraintEnd_toEndOf="@+id/emailET"
             app:layout_constraintHorizontal_bias="0"
-            app:layout_constraintStart_toStartOf="@+id/textInputLayout1"
+            app:layout_constraintStart_toStartOf="@+id/emailET"
             app:layout_constraintTop_toBottomOf="@id/iv_appLogo"
-            app:layout_constraintVertical_bias="0.07" />
+            app:layout_constraintVertical_bias="0.1" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout1"
+        <EditText
+            android:id="@id/emailET"
             android:layout_width="@dimen/textInputLayout_width"
-            android:layout_height="wrap_content"
-            app:boxBackgroundMode="none"
+            android:layout_height="0dp"
             android:elevation="@dimen/textInputLayout_elevation"
             android:background="@drawable/bg_login"
+            android:gravity="center_vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp"
             app:layout_constraintWidth_percent=".8"
+            app:layout_constraintHeight_percent=".07"
             android:hint="@string/email"
+            android:inputType="textEmailAddress"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/textInputLayout2"
-            app:layout_constraintTop_toBottomOf="@+id/mtv_loginPrompt">
+            app:layout_constraintBottom_toTopOf="@+id/passwordET"
+            app:layout_constraintTop_toBottomOf="@+id/mtv_loginPrompt"
+            android:autofillHints="" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/input_email"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:inputType="textEmailAddress" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayout2"
+        <EditText
+            android:id="@id/passwordET"
             android:layout_width="@dimen/textInputLayout_width"
-            android:layout_height="wrap_content"
-            app:boxBackgroundMode="none"
+            android:layout_height="0dp"
             android:elevation="@dimen/textInputLayout_elevation"
             android:background="@drawable/bg_login"
+            android:gravity="center_vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp"
+            app:layout_constraintWidth_percent=".8"
+            app:layout_constraintHeight_percent=".07"
             android:hint="@string/password"
-            app:endIconDrawable="@drawable/bg_login"
+            android:inputType="textPassword"
             app:layout_constraintBottom_toTopOf="@+id/mb_signIn"
-            app:layout_constraintEnd_toEndOf="@+id/textInputLayout1"
-            app:layout_constraintStart_toStartOf="@id/textInputLayout1"
-            app:layout_constraintTop_toBottomOf="@+id/textInputLayout1">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/input_password"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:inputType="textPassword" />
-
-        </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintEnd_toEndOf="@+id/emailET"
+            app:layout_constraintStart_toStartOf="@id/emailET"
+            app:layout_constraintTop_toBottomOf="@+id/emailET"
+            android:autofillHints="" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/mb_signIn"
@@ -92,7 +84,7 @@
             android:fontFamily="@font/aileron_regular"
             android:text="@string/sign_in"
             android:textSize="@dimen/signIn_signUp_textSize"
-            app:layout_constraintVertical_bias=".6"
+            app:layout_constraintVertical_bias=".64"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent=".08"
@@ -110,8 +102,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/mb_signIn"
             app:layout_constraintStart_toStartOf="@id/mb_signIn"
-            app:layout_constraintTop_toBottomOf="@id/mb_signIn"
-            app:layout_constraintVertical_bias="0.2" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.77" />
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card_google"
@@ -123,7 +115,7 @@
             app:layout_constraintEnd_toStartOf="@+id/card_facebook"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/card_facebook"
-            app:layout_constraintWidth_percent=".2">
+            app:layout_constraintWidth_percent=".14">
 
             <ImageView
                 android:id="@+id/ib_google"
@@ -143,11 +135,11 @@
             app:cardCornerRadius="@dimen/card_cornerRadius"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/card_twitter"
-            app:layout_constraintHeight_percent=".06"
+            app:layout_constraintHeight_percent=".04"
             app:layout_constraintStart_toEndOf="@+id/card_google"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias=".82"
-            app:layout_constraintWidth_percent=".2">
+            app:layout_constraintVertical_bias=".86"
+            app:layout_constraintWidth_percent=".14">
 
             <ImageView
                 android:id="@+id/ib_facebook"
@@ -169,7 +161,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/card_facebook"
             app:layout_constraintTop_toTopOf="@+id/card_facebook"
-            app:layout_constraintWidth_percent=".2">
+            app:layout_constraintWidth_percent=".14">
 
             <ImageView
                 android:id="@+id/ib_twitter"

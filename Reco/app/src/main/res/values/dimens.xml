@@ -19,7 +19,7 @@
     <dimen name="card_width">0dp</dimen>
     <dimen name="card_height">0dp</dimen>
     <dimen name="alternateTV_textSize">18sp</dimen>
-    <dimen name="signIn_signUp_cornerRadius">10dp</dimen>
+    <dimen name="signIn_signUp_cornerRadius">18dp</dimen>
     <dimen name="signIn_signUp_width">0dp</dimen>
     <dimen name="signIn_signUp_height">0dp</dimen>
     <dimen name="signIn_signUp_textSize">18sp</dimen>
