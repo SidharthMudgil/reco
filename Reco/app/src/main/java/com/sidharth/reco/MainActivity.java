@@ -11,11 +11,11 @@ import com.sidharth.reco.view.onboarding.OnBoardingActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    static private final int STATE_ON_BOARDING = 0;
-    static private final int STATE_LOGIN_SIGNUP = 1;
-    static private final int STATE_SPLASH_APP = 2;
+    private static final int STATE_ON_BOARDING = 0;
+    private static final int STATE_LOGIN_SIGNUP = 1;
+    private static final int STATE_SPLASH_APP = 2;
 
-    static private final String STATE = "sidharth.reco.state";
+    public static final String STATE_KEY = "sidharth.reco.state";
 
     private Intent intent = null;
 
@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         SharedPreferences sharedPreferences = getSharedPreferences(getPackageName(), MODE_PRIVATE);
-        int state = sharedPreferences.getInt(STATE, 0);
+        int state = sharedPreferences.getInt(STATE_KEY, 0);
 
         switch (state) {
             case STATE_ON_BOARDING:

@@ -1,5 +1,7 @@
 package com.sidharth.reco.view.onboarding;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -10,10 +12,12 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.sidharth.reco.MainActivity;
 import com.sidharth.reco.R;
 import com.sidharth.reco.controller.OnBoardingScreenAdapter;
 import com.sidharth.reco.utils.DepthPageTransformer;
 import com.sidharth.reco.utils.WobbleInterpolator;
+import com.sidharth.reco.view.login.LoginActivity;
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
 
 import java.util.Timer;
@@ -93,9 +97,10 @@ public class OnBoardingActivity extends AppCompatActivity {
 
 //        run loginActivity on nextBtn pressed
         nextBtn.setOnClickListener(view -> {
-//            SharedPreferences sharedPreferences =
-//            Intent intent = new Intent(OnBoardingActivity.this, /*TODO make login signup activity*/);
-//            startActivity(/*loginActivity*/);
+            SharedPreferences sharedPreferences = getSharedPreferences(getPackageName(), MODE_PRIVATE);
+            sharedPreferences.edit().putInt(MainActivity.STATE_KEY, 1).apply();
+            Intent intent = new Intent(OnBoardingActivity.this, LoginActivity.class);
+            startActivity(intent);
         });
     }
 
@@ -103,7 +108,10 @@ public class OnBoardingActivity extends AppCompatActivity {
     public void onBackPressed() {
 //        slide-right on backButton pressed
         if (viewPager.getCurrentItem() == 0) {
-            super.onBackPressed();
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         } else {
             viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
         }
