@@ -35,9 +35,14 @@ public class LoginFragment extends Fragment {
 
             assert getActivity() != null;
             FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.fragmentContainer, new SignUpFragment()).commit();
+            transaction.replace(R.id.fragmentContainer, new SignUpFragment())
+                    .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+                    .addToBackStack(LoginFragment.class.getName())
+                    .commit();
         });
 
         return view;
     }
+
+
 }
