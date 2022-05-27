@@ -41,20 +41,20 @@
             android:id="@id/emailET"
             android:layout_width="@dimen/textInputLayout_width"
             android:layout_height="0dp"
-            android:elevation="@dimen/textInputLayout_elevation"
+            android:autofillHints=""
             android:background="@drawable/bg_login"
+            android:elevation="@dimen/textInputLayout_elevation"
             android:gravity="center_vertical"
-            android:paddingStart="20dp"
-            android:paddingEnd="0dp"
-            app:layout_constraintWidth_percent=".8"
-            app:layout_constraintHeight_percent=".07"
             android:hint="@string/email"
             android:inputType="textEmailAddress"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp"
             app:layout_constraintBottom_toTopOf="@+id/passwordET"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent=".07"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mtv_loginPrompt"
-            android:autofillHints="" />
+            app:layout_constraintWidth_percent=".8" />
 
         <EditText
             android:id="@id/passwordET"

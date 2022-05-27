@@ -1,9 +1,13 @@
 package com.sidharth.reco.login.view;
 
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -12,6 +16,8 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 import com.sidharth.reco.R;
+
+import java.util.regex.Pattern;
 
 public class LoginFragment extends Fragment {
 
@@ -28,7 +34,21 @@ public class LoginFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
         MaterialButton signInBtn = view.findViewById(R.id.mb_signIn);
-        signInBtn.setOnClickListener(view1 -> Toast.makeText(getActivity(), "Login pressed", Toast.LENGTH_SHORT).show());
+        signInBtn.setOnClickListener(view1 -> {
+            Toast.makeText(getActivity(), "Login pressed", Toast.LENGTH_SHORT).show();
+
+            EditText emailET = view.findViewById(R.id.emailET);
+            EditText passwordET = view.findViewById(R.id.passwordET);
+
+            String email = String.valueOf(emailET.getText());
+            String password = String.valueOf(passwordET.getText());
+
+            if (loginUser(email, password)) {
+                Log.d("reco@recoLogin", "Successful");
+            } else {
+                Log.d("reco@recoLogin", "Failed");
+            }
+        });
 
         MaterialTextView signUpTxt = view.findViewById(R.id.mtvBtn_signUp);
         signUpTxt.setOnClickListener(view12 -> {
@@ -44,5 +64,7 @@ public class LoginFragment extends Fragment {
         return view;
     }
 
-
+    private boolean loginUser(String email, String password) {
+        return true;
+    }
 }
