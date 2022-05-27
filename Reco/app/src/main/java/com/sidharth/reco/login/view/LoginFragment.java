@@ -1,4 +1,4 @@
-package com.sidharth.reco.view.login;
+package com.sidharth.reco.login.view;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

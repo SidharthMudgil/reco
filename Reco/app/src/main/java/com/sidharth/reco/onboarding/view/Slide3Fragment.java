@@ -1,4 +1,4 @@
-package com.sidharth.reco.view.onboarding;
+package com.sidharth.reco.onboarding.view;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

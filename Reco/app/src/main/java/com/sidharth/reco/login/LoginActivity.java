@@ -1,4 +1,4 @@
-package com.sidharth.reco.view.login;
+package com.sidharth.reco.login;
 
 import android.content.Intent;
 import android.os.Bundle;

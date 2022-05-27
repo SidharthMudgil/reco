@@ -10,11 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Reco">
         <activity
-            android:name=".view.login.LoginActivity"
+            android:name=".login.LoginActivity"
             android:noHistory="true"
             android:exported="false" />
         <activity
-            android:name=".view.onboarding.OnBoardingActivity"
+            android:name=".onboarding.OnBoardingActivity"
             android:noHistory="true"
             android:exported="false" />
         <activity

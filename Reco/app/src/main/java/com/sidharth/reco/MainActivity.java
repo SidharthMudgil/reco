@@ -6,8 +6,8 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.sidharth.reco.view.login.LoginActivity;
-import com.sidharth.reco.view.onboarding.OnBoardingActivity;
+import com.sidharth.reco.login.LoginActivity;
+import com.sidharth.reco.onboarding.OnBoardingActivity;
 
 public class MainActivity extends AppCompatActivity {
 

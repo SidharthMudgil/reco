@@ -1,4 +1,4 @@
-package com.sidharth.reco.utils;
+package com.sidharth.reco.onboarding.utils;
 
 public class WobbleInterpolator implements android.view.animation.Interpolator {
     private final double mAmplitude;

@@ -1,4 +1,4 @@
-package com.sidharth.reco.view.onboarding;
+package com.sidharth.reco.onboarding;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,10 +14,10 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.sidharth.reco.MainActivity;
 import com.sidharth.reco.R;
-import com.sidharth.reco.controller.OnBoardingScreenAdapter;
-import com.sidharth.reco.utils.DepthPageTransformer;
-import com.sidharth.reco.utils.WobbleInterpolator;
-import com.sidharth.reco.view.login.LoginActivity;
+import com.sidharth.reco.onboarding.controller.OnBoardingScreenAdapter;
+import com.sidharth.reco.onboarding.utils.DepthPageTransformer;
+import com.sidharth.reco.onboarding.utils.WobbleInterpolator;
+import com.sidharth.reco.login.LoginActivity;
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
 
 import java.util.Timer;

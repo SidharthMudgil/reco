@@ -1,13 +1,13 @@
-package com.sidharth.reco.controller;
+package com.sidharth.reco.onboarding.controller;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.sidharth.reco.view.onboarding.Slide1Fragment;
-import com.sidharth.reco.view.onboarding.Slide2Fragment;
-import com.sidharth.reco.view.onboarding.Slide3Fragment;
+import com.sidharth.reco.onboarding.view.Slide1Fragment;
+import com.sidharth.reco.onboarding.view.Slide2Fragment;
+import com.sidharth.reco.onboarding.view.Slide3Fragment;
 
 public class OnBoardingScreenAdapter extends FragmentStateAdapter {
     public OnBoardingScreenAdapter(@NonNull FragmentActivity fragmentActivity) {
