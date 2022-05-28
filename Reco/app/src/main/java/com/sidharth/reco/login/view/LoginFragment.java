@@ -1,5 +1,6 @@
 package com.sidharth.reco.login.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -16,6 +17,8 @@ import androidx.fragment.app.FragmentTransaction;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 import com.sidharth.reco.R;
+import com.sidharth.reco.chat.ChatActivity;
+import com.sidharth.reco.login.LoginActivity;
 
 import java.util.regex.Pattern;
 
@@ -45,6 +48,7 @@ public class LoginFragment extends Fragment {
 
             if (loginUser(email, password)) {
                 Log.d("reco@recoLogin", "Successful");
+                startChatActivity();
             } else {
                 Log.d("reco@recoLogin", "Failed");
             }
@@ -52,7 +56,6 @@ public class LoginFragment extends Fragment {
 
         MaterialTextView signUpTxt = view.findViewById(R.id.mtvBtn_signUp);
         signUpTxt.setOnClickListener(view12 -> {
-
             assert getActivity() != null;
             FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.fragmentContainer, new SignUpFragment())
@@ -66,5 +69,11 @@ public class LoginFragment extends Fragment {
 
     private boolean loginUser(String email, String password) {
         return true;
+    }
+
+    private void startChatActivity() {
+        Intent intent = new Intent(getActivity(), ChatActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }

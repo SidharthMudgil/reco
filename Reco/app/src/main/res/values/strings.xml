@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Reco</string>
-    
-<!-- onBoarding screen -->
+
+    <!-- onBoarding screen -->
     <!-- titles -->
     <string name="tv_title1">Ask the Reco</string>
     <string name="tv_title2">Enjoy the music</string>
@@ -17,8 +17,8 @@
 
     <!--  Buttons text-->
     <string name="btn_next">Next</string>
-    
-<!--    login screen -->
+
+    <!--    login screen -->
     <string name="imgDesc_appLogo">app logo</string>
     <string name="imgBtnDesc_google">google</string>
     <string name="imgBtnDesc_facebook">facebook</string>

@@ -10,17 +10,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Reco">
         <activity
-            android:name=".login.LoginActivity"
-            android:noHistory="true"
+            android:name=".chat.ChatActivity"
             android:exported="false" />
+        <activity
+            android:name=".login.LoginActivity"
+            android:exported="false"
+            android:noHistory="true" />
         <activity
             android:name=".onboarding.OnBoardingActivity"
-            android:noHistory="true"
-            android:exported="false" />
+            android:exported="false"
+            android:noHistory="true" />
         <activity
             android:name=".MainActivity"
-            android:noHistory="true"
-            android:exported="true">
+            android:exported="true"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

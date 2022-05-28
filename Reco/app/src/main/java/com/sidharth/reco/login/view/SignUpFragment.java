@@ -1,5 +1,7 @@
 package com.sidharth.reco.login.view;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -14,10 +16,14 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.button.MaterialButton;
 import com.sidharth.reco.R;
+import com.sidharth.reco.chat.ChatActivity;
 
 import java.util.regex.Pattern;
 
 public class SignUpFragment extends Fragment {
+
+    private ProgressDialog progressDialog;
+
     public SignUpFragment() {
     }
 
@@ -30,18 +36,22 @@ public class SignUpFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_signup, container, false);
 
+        progressDialog = new ProgressDialog(getActivity());
+
         MaterialButton signUpBtn = view.findViewById(R.id.mb_signUp);
         signUpBtn.setOnClickListener(view1 -> {
             Toast.makeText(getActivity(), "SignUp pressed", Toast.LENGTH_SHORT).show();
 
             EditText emailET = view.findViewById(R.id.emailET);
             EditText passwordET = view.findViewById(R.id.passwordET);
+            EditText confirmPassET = view.findViewById(R.id.confirmPassET);
 
             boolean validEntry = false;
             String email = String.valueOf(emailET.getText());
             String password = String.valueOf(passwordET.getText());
+            String confirmPass = String.valueOf(confirmPassET.getText());
 
-            if (isValidEmail(email) && isPasswordValid(password)) {
+            if (isValidEmail(email) && isPasswordValid(password) && arePasswordsSame(password, confirmPass)) {
                 validEntry = true;
             } else {
                 if (!isValidEmail(email)) {
@@ -51,11 +61,20 @@ public class SignUpFragment extends Fragment {
                     String msg = "Password must contain at least 1 symbol, no white spaces and should be of minimum 4 characters";
                     passwordET.setError(msg);
                 }
+                if (!arePasswordsSame(password, confirmPass)) {
+                    String msg = "Passwords does not match";
+                    confirmPassET.setError(msg);
+                }
             }
 
             if (validEntry) {
                 if (signUpAndLoginUser(email, password)) {
                     Log.d("reco@recoSignUp", "Successful");
+                    progressDialog.setMessage("Please wait while signing up");
+                    progressDialog.setTitle("Signing Up");
+                    progressDialog.setCanceledOnTouchOutside(false);
+                    progressDialog.show();
+                    startChatActivity();
                 } else {
                     Log.d("reco@recoSignUp", "Failed");
                 }
@@ -63,10 +82,6 @@ public class SignUpFragment extends Fragment {
         });
 
         return view;
-    }
-
-    private boolean signUpAndLoginUser(String email, String password) {
-        return true;
     }
 
     private boolean isValidEmail(String email) {
@@ -90,5 +105,19 @@ public class SignUpFragment extends Fragment {
 
             return pattern.matcher(password).matches();
         }
+    }
+
+    private boolean arePasswordsSame(String password, String confirmPassword) {
+        return password.matches(confirmPassword);
+    }
+
+    private boolean signUpAndLoginUser(String email, String password) {
+        return true;
+    }
+
+    private void startChatActivity() {
+        Intent intent = new Intent(getActivity(), ChatActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }

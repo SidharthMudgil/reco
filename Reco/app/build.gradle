@@ -46,7 +46,4 @@ dependencies {
 
     // for dotIndication in onBoardingScreen
     implementation 'com.tbuonomo:dotsindicator:4.3'
-
-    implementation platform('com.google.firebase:firebase-bom:30.1.0')
-    implementation 'com.google.firebase:firebase-analytics'
 }

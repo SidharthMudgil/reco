@@ -14,10 +14,10 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.sidharth.reco.MainActivity;
 import com.sidharth.reco.R;
+import com.sidharth.reco.login.LoginActivity;
 import com.sidharth.reco.onboarding.controller.OnBoardingScreenAdapter;
 import com.sidharth.reco.onboarding.utils.DepthPageTransformer;
 import com.sidharth.reco.onboarding.utils.WobbleInterpolator;
-import com.sidharth.reco.login.LoginActivity;
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
 
 import java.util.Timer;
@@ -100,6 +100,7 @@ public class OnBoardingActivity extends AppCompatActivity {
             SharedPreferences sharedPreferences = getSharedPreferences(getPackageName(), MODE_PRIVATE);
             sharedPreferences.edit().putInt(MainActivity.STATE_KEY, 1).apply();
             Intent intent = new Intent(OnBoardingActivity.this, LoginActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         });
 

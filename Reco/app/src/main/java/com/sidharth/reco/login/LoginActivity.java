@@ -2,14 +2,10 @@ package com.sidharth.reco.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Patterns;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.sidharth.reco.R;
-
-import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity {
 
