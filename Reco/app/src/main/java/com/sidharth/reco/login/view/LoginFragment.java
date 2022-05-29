@@ -66,6 +66,8 @@ public class LoginFragment extends Fragment {
                     .addToBackStack(LoginFragment.class.getName())
                     .commit();
         });
+
+
         return view;
     }
 
