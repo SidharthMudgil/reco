@@ -6,14 +6,15 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.sidharth.reco.chat.ChatActivity;
 import com.sidharth.reco.login.LoginActivity;
 import com.sidharth.reco.onboarding.OnBoardingActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int STATE_ON_BOARDING = 0;
-    private static final int STATE_LOGIN_SIGNUP = 1;
-    private static final int STATE_SPLASH_APP = 2;
+    public static final int STATE_ON_BOARDING = 0;
+    public static final int STATE_LOGIN_SIGNUP = 1;
+    public static final int STATE_CHAT_SCREEN = 2;
 
     public static final String STATE_KEY = "sidharth.reco.state";
 
@@ -22,21 +23,23 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
         SharedPreferences sharedPreferences = getSharedPreferences(getPackageName(), MODE_PRIVATE);
-        int state = sharedPreferences.getInt(STATE_KEY, 0);
+        int state = sharedPreferences.getInt(STATE_KEY, STATE_ON_BOARDING);
 
         switch (state) {
             case STATE_ON_BOARDING:
                 intent = new Intent(this, OnBoardingActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 break;
             case STATE_LOGIN_SIGNUP:
                 intent = new Intent(this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 break;
-            case STATE_SPLASH_APP:
-//                intent = new Intent(this, .class);
+            case STATE_CHAT_SCREEN:
+                intent = new Intent(this, ChatActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 break;
             default:
                 finish();

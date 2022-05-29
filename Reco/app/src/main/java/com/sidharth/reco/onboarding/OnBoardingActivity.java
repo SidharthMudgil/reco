@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
@@ -16,8 +17,8 @@ import com.sidharth.reco.MainActivity;
 import com.sidharth.reco.R;
 import com.sidharth.reco.login.LoginActivity;
 import com.sidharth.reco.onboarding.controller.OnBoardingScreenAdapter;
-import com.sidharth.reco.onboarding.utils.DepthPageTransformer;
-import com.sidharth.reco.onboarding.utils.WobbleInterpolator;
+import com.sidharth.reco.utils.DepthPageTransformer;
+import com.sidharth.reco.utils.WobbleInterpolator;
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
 
 import java.util.Timer;
@@ -40,6 +41,10 @@ public class OnBoardingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+        );
         setContentView(R.layout.activity_onboarding);
 
         nextBtn = findViewById(R.id.tv_next);
@@ -98,12 +103,12 @@ public class OnBoardingActivity extends AppCompatActivity {
 //        run loginActivity on nextBtn pressed
         nextBtn.setOnClickListener(view -> {
             SharedPreferences sharedPreferences = getSharedPreferences(getPackageName(), MODE_PRIVATE);
-            sharedPreferences.edit().putInt(MainActivity.STATE_KEY, 1).apply();
+            sharedPreferences.edit().putInt(MainActivity.STATE_KEY, MainActivity.STATE_LOGIN_SIGNUP).apply();
             Intent intent = new Intent(OnBoardingActivity.this, LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
+            finishAndRemoveTask();
         });
-
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.sidharth.reco.onboarding.utils;
+package com.sidharth.reco.utils;
 
 import android.view.View;
 
