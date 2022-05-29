@@ -36,24 +36,22 @@ public class MainActivity extends AppCompatActivity {
         switch (state) {
             case STATE_ON_BOARDING:
                 intent = new Intent(this, OnBoardingActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 Log.d(TAG, "OnBoardingActivity intent assigned");
                 startActivity(intent);
                 break;
             case STATE_LOGIN_SIGNUP:
                 intent = new Intent(this, LoginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 Log.d(TAG, "LoginActivity intent assigned");
                 break;
             case STATE_CHAT_SCREEN:
                 intent = new Intent(this, ChatActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 Log.d(TAG, "ChatActivity intent assigned");
                 break;
-            default:
-                finish();
         }
-        startActivity(intent);
         Log.d(TAG, "starting intent");
+        startActivity(intent);
     }
 }

@@ -32,6 +32,7 @@
             tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name=".MainActivity"
+            android:theme="@style/SplashTheme"
             android:exported="true"
             android:noHistory="true"
             android:screenOrientation="portrait"
