@@ -12,10 +12,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.sidharth.reco.MainActivity;
 import com.sidharth.reco.R;
@@ -24,7 +26,6 @@ import com.sidharth.reco.chat.ChatActivity;
 import java.util.regex.Pattern;
 
 public class SignUpFragment extends Fragment {
-
     private ProgressDialog progressDialog;
     private FirebaseAuth auth;
 

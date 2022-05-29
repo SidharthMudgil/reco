@@ -29,4 +29,5 @@
     <dimen name="appLogo_width">0dp</dimen>
     <dimen name="appLogo_height">0dp</dimen>
     <dimen name="signUpTV_textSize">18sp</dimen>
+    <dimen name="textInputLayout_height">0dp</dimen>
 </resources>

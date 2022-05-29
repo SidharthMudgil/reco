@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".login.view.LoginFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,7 +21,7 @@
             app:layout_constraintHeight_percent=".16"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0" />
+            app:layout_constraintVertical_bias="0.03" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/mtv_loginPrompt"
@@ -34,13 +34,13 @@
             app:layout_constraintEnd_toEndOf="@+id/emailET"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="@+id/emailET"
-            app:layout_constraintTop_toBottomOf="@id/iv_appLogo"
-            app:layout_constraintVertical_bias="0.1" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.3" />
 
         <EditText
             android:id="@id/emailET"
             android:layout_width="@dimen/textInputLayout_width"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/textInputLayout_height"
             android:autofillHints=""
             android:background="@drawable/bg_input"
             android:elevation="@dimen/textInputLayout_elevation"
@@ -59,97 +59,38 @@
         <EditText
             android:id="@id/passwordET"
             android:layout_width="@dimen/textInputLayout_width"
-            android:layout_height="0dp"
-            android:elevation="@dimen/textInputLayout_elevation"
+            android:layout_height="@dimen/textInputLayout_height"
+            android:autofillHints=""
             android:background="@drawable/bg_input"
+            android:elevation="@dimen/textInputLayout_elevation"
             android:gravity="center_vertical"
-            android:paddingStart="20dp"
-            android:paddingEnd="0dp"
-            app:layout_constraintWidth_percent=".8"
-            app:layout_constraintHeight_percent=".07"
             android:hint="@string/password"
             android:inputType="textPassword"
+            android:paddingStart="20dp"
+            android:paddingEnd="0dp"
             app:layout_constraintBottom_toTopOf="@+id/mb_signIn"
             app:layout_constraintEnd_toEndOf="@+id/emailET"
+            app:layout_constraintHeight_percent=".07"
             app:layout_constraintStart_toStartOf="@id/emailET"
             app:layout_constraintTop_toBottomOf="@+id/emailET"
-            android:autofillHints="" />
+            app:layout_constraintWidth_percent=".8" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/mb_signIn"
             android:layout_width="@dimen/signIn_signUp_width"
             android:layout_height="@dimen/signIn_signUp_height"
-            app:cornerRadius="@dimen/signIn_signUp_cornerRadius"
             android:backgroundTint="@color/purple_100"
             android:fontFamily="@font/aileron_regular"
             android:text="@string/sign_in"
             android:textSize="@dimen/signIn_signUp_textSize"
-            app:layout_constraintVertical_bias=".64"
+            app:cornerRadius="@dimen/signIn_signUp_cornerRadius"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent=".08"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias=".77"
             app:layout_constraintWidth_percent=".6" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/mtv_alternate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/aileron_regular"
-            android:text="@string/or_sign_in_with"
-            android:textSize="@dimen/alternateTV_textSize"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/mb_signIn"
-            app:layout_constraintStart_toStartOf="@id/mb_signIn"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.77" />
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_google"
-            android:layout_width="@dimen/card_width"
-            android:layout_height="@dimen/card_height"
-            android:elevation="@dimen/card_elevation"
-            app:cardCornerRadius="@dimen/card_cornerRadius"
-            app:layout_constraintBottom_toBottomOf="@id/card_facebook"
-            app:layout_constraintEnd_toStartOf="@+id/card_facebook"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/card_facebook"
-            app:layout_constraintWidth_percent=".16">
-
-            <ImageView
-                android:id="@+id/ib_google"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/imgBtnDesc_google"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_google" />
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/card_facebook"
-            android:layout_width="@dimen/card_width"
-            android:layout_height="@dimen/card_height"
-            android:elevation="@dimen/card_elevation"
-            app:cardCornerRadius="@dimen/card_cornerRadius"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent=".04"
-            app:layout_constraintStart_toEndOf="@+id/card_google"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias=".86"
-            app:layout_constraintWidth_percent=".16">
-
-            <ImageView
-                android:id="@+id/ib_facebook"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/imgBtnDesc_facebook"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_facebook" />
-
-        </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/mtv_signUp"
@@ -158,9 +99,8 @@
             android:fontFamily="@font/aileron_regular"
             android:text="@string/don_t_have_an_account"
             android:textSize="@dimen/signUpTV_textSize"
-            app:layout_constraintHorizontal_bias="0.4"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/card_facebook"
+            app:layout_constraintEnd_toEndOf="@+id/mtvBtn_signUp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.97" />
@@ -173,9 +113,9 @@
             android:text="@string/sign_up"
             android:textColor="@color/purple_100"
             android:textSize="@dimen/signUpTV_textSize"
-            app:layout_constraintHorizontal_bias="0.1"
             app:layout_constraintBottom_toBottomOf="@id/mtv_signUp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.1"
             app:layout_constraintStart_toEndOf="@id/mtv_signUp"
             app:layout_constraintTop_toTopOf="@id/mtv_signUp" />
 
