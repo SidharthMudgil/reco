@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -106,6 +107,7 @@ public class OnBoardingActivity extends AppCompatActivity {
             sharedPreferences.edit().putInt(MainActivity.STATE_KEY, MainActivity.STATE_LOGIN_SIGNUP).apply();
             Intent intent = new Intent(OnBoardingActivity.this, LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            Log.d(MainActivity.TAG, "starting LoginActivity");
             startActivity(intent);
             finishAndRemoveTask();
         });

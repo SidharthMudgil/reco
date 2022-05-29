@@ -125,6 +125,7 @@ public class SignUpFragment extends Fragment {
 
     private void startChatActivity() {
         if (getActivity() != null) {
+            Log.d(MainActivity.TAG, "starting ChatActivity");
             SharedPreferences sharedPreferences = getActivity().getSharedPreferences(getActivity().getPackageName(), Context.MODE_PRIVATE);
             sharedPreferences.edit().putInt(MainActivity.STATE_KEY, MainActivity.STATE_CHAT_SCREEN + 1).apply();
             Intent intent = new Intent(getActivity(), ChatActivity.class);
