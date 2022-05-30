@@ -12,7 +12,7 @@ import com.sidharth.reco.login.LoginActivity;
 import com.sidharth.reco.onboarding.OnBoardingActivity;
 
 public class MainActivity extends AppCompatActivity {
-    
+
     public static final String TAG = "reco@reco";
 
     public static final int STATE_ON_BOARDING = 0;
@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "initializing state");
         SharedPreferences sharedPreferences = getSharedPreferences(getPackageName(), MODE_PRIVATE);
         int state = sharedPreferences.getInt(STATE_KEY, STATE_ON_BOARDING);
-        Log.d(TAG, "state: "+ state);
+        Log.d(TAG, "state: " + state);
 
         switch (state) {
             case STATE_ON_BOARDING:

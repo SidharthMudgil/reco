@@ -20,18 +20,20 @@
 
     <!--    login screen -->
     <string name="imgDesc_appLogo">app logo</string>
-    <string name="imgBtnDesc_google">google</string>
-    <string name="imgBtnDesc_facebook">facebook</string>
-    <string name="imgBtnDesc_twitter">twitter</string>
-    <string name="login_to_your_account">Login to your Account</string>
+
     <string name="sign_in">Sign in</string>
     <string name="or_sign_in_with">- Or sign in with -</string>
+    <string name="login_to_your_account">Login to your Account</string>
     <string name="don_t_have_an_account">Don\'t have an account?</string>
+
     <string name="sign_up">Sign Up</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
-    <string name="create_your_account">Create your Account</string>
-    <string name="or_sign_up_with">- Or sign up with -</string>
     <string name="confirm_password">Confirm Password</string>
 
+    <string name="create_your_account">Create your Account</string>
+    <string name="or_sign_up_with">- Or sign up with -</string>
+
+    <string name="message_hint">Type your message</string>
+    <string name="send_button">send button</string>
 </resources>
