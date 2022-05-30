@@ -41,4 +41,14 @@
     <dimen name="default_input_text_size">16sp</dimen>
     <dimen name="default_message_text_size">14sp</dimen>
     <dimen name="default_timestamp_text_size">10sp</dimen>
+
+    <dimen name="card_chatCornerRadius">12dp</dimen>
+    <dimen name="card_chatElevation">0dp</dimen>
+
+    <dimen name="message_lineSpacing">4dp</dimen>
+    <dimen name="message_marginBottom">8dp</dimen>
+    <dimen name="message_maxWidth">260dp</dimen>
+    <dimen name="message_sidePadding">12dp</dimen>
+    <dimen name="message_paddingTop">8dp</dimen>
+    <dimen name="message_textSize">18sp</dimen>
 </resources>

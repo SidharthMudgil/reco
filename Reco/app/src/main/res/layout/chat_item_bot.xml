@@ -11,9 +11,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/purple_100"
-        app:cardCornerRadius="12dp"
+        app:cardCornerRadius="@dimen/card_chatCornerRadius"
         app:layout_constraintHorizontal_bias="0"
-        app:cardElevation="0dp"
+        app:cardElevation="@dimen/card_chatElevation"
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -30,15 +30,16 @@
                 android:id="@+id/tv_Bot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:lineSpacingExtra="@dimen/message_lineSpacing"
                 android:fontFamily="@font/aileron_regular"
-                android:layout_marginBottom="8dp"
-                android:maxWidth="260dp"
-                android:paddingLeft="12dp"
-                android:paddingTop="8dp"
-                android:paddingRight="12dp"
-                tool:text="This is a Message"
+                android:layout_marginBottom="@dimen/message_marginBottom"
+                android:maxWidth="@dimen/message_maxWidth"
+                android:paddingStart="@dimen/message_sidePadding"
+                android:paddingTop="@dimen/message_paddingTop"
+                android:paddingEnd="@dimen/message_sidePadding"
+                tool:text="This is a\n Message"
                 android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:textSize="@dimen/message_textSize" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

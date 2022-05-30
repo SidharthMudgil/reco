@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tool="http://schemas.android.com/tools"
     android:paddingStart="72dp"
     android:paddingEnd="16dp">
 
@@ -13,11 +13,11 @@
         app:cardBackgroundColor="#eef1f6"
         app:cardCornerRadius="12dp"
         app:cardElevation="0dp"
-        app:layout_constraintHorizontal_bias="1"
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -28,17 +28,18 @@
 
             <TextView
                 android:id="@+id/tv_user"
-                tool:text="Message"
-                android:fontFamily="@font/aileron_regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:maxWidth="260dp"
-                android:paddingLeft="12dp"
-                android:paddingTop="8dp"
-                android:paddingRight="12dp"
-                android:textColor="#000000"
-                android:textSize="16sp" />
+                android:layout_marginBottom="@dimen/message_marginBottom"
+                android:fontFamily="@font/aileron_regular"
+                android:lineSpacingExtra="@dimen/message_lineSpacing"
+                android:maxWidth="@dimen/message_maxWidth"
+                android:paddingLeft="@dimen/message_sidePadding"
+                android:paddingTop="@dimen/message_paddingTop"
+                android:paddingRight="@dimen/message_sidePadding"
+                android:textColor="@color/black"
+                android:textSize="@dimen/alternateTV_textSize"
+                tool:text="Message" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

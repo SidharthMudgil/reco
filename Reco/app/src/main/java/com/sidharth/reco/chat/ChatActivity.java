@@ -1,6 +1,8 @@
 package com.sidharth.reco.chat;
 
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +15,7 @@ import com.sidharth.reco.chat.controller.ChatAdapter;
 import com.sidharth.reco.chat.model.ChatModel;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -25,19 +27,9 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
+        String recoIntro = "Hi,\nI'm Reco, your personal bot\nLet's listen to some songs";
         ArrayList<ChatModel> chats = new ArrayList<>(
-                Arrays.asList(new ChatModel(1, "hello dipankar", SENDER_BOT),
-                        new ChatModel(2, "ha bol", SENDER_USER),
-                        new ChatModel(3, "nora fatehi set krwani h kya", SENDER_BOT),
-                        new ChatModel(4, "ha krwade", SENDER_USER),
-                        new ChatModel(5, "jada tadap lgi h", SENDER_BOT),
-                        new ChatModel(6, "hmm kb tk haath hi chalaunga", SENDER_USER),
-                        new ChatModel(7, "shi bola", SENDER_BOT),
-                        new ChatModel(8, "muddu ki gand dilade", SENDER_USER),
-                        new ChatModel(9, "ya tu hi dede", SENDER_USER),
-                        new ChatModel(10, "bhak", SENDER_BOT),
-                        new ChatModel(11, "batata hu nidhi ko bhejta hu", SENDER_BOT),
-                        new ChatModel(12, "dabio phie uske tt", SENDER_BOT))
+                Collections.singletonList(new ChatModel(0, recoIntro, SENDER_BOT))
         );
 
         ChatAdapter chatAdapter = new ChatAdapter(this, chats);
@@ -49,9 +41,18 @@ public class ChatActivity extends AppCompatActivity {
         sendBtn.setOnClickListener(view -> {
             EditText inET = findViewById(R.id.in_message);
             String message = String.valueOf(inET.getText());
-            ChatModel chatModel = new ChatModel(chats.size(), message, SENDER_USER);
-            chats.add(chatModel);
-            chatAdapter.notifyItemInserted(chats.size());
+            inET.setText("");
+            if (!TextUtils.isEmpty(message)) {
+                ChatModel chatModel = new ChatModel(chats.size(), message, SENDER_USER);
+                chats.add(chatModel);
+                chatAdapter.notifyItemInserted(chats.size());
+            }
+            closeKeyboard();
         });
+    }
+
+    private void closeKeyboard() {
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
     }
 }
