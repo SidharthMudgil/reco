@@ -17,6 +17,7 @@ import com.sidharth.reco.chat.model.ChatModel;
 import java.util.ArrayList;
 import java.util.Collections;
 
+
 public class ChatActivity extends AppCompatActivity {
 
     public static final int SENDER_BOT = 1;
@@ -49,8 +50,8 @@ public class ChatActivity extends AppCompatActivity {
             }
             closeKeyboard();
         });
-    }
 
+    }
 
     private void closeKeyboard() {
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);

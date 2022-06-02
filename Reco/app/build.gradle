@@ -53,6 +53,4 @@ dependencies {
 
     // for music recommendation
     implementation 'com.squareup.okhttp3:okhttp:4.9.3'
-
-    implementation 'com.github.kaaes:spotify-web-api-android:0.4.1'
 }
