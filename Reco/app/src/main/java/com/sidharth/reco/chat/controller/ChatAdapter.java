@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sidharth.reco.R;
 import com.sidharth.reco.chat.ChatActivity;
+import com.sidharth.reco.chat.callback.OnActionPerformedListener;
 import com.sidharth.reco.chat.callback.OnChatOptionClickListener;
 import com.sidharth.reco.chat.model.ChatModel;
 import com.sidharth.reco.chat.view.BotChatHolder;
@@ -18,12 +19,15 @@ import com.sidharth.reco.chat.view.UserChatHolder;
 
 import java.util.ArrayList;
 
-public class ChatAdapter extends RecyclerView.Adapter {
+public class ChatAdapter extends RecyclerView.Adapter implements OnActionPerformedListener {
     private static final int VIEW_TYPE_MESSAGE_BOT = 1;
     private static final int VIEW_TYPE_MESSAGE_USER = 2;
 
     private final Context context;
     private final ArrayList<ChatModel> chats;
+
+    private ChatOptionAdapter adapter;
+    private RecyclerView recyclerView;
 
     public ChatAdapter(Context context, ArrayList<ChatModel> chats) {
         this.context = context;
@@ -61,8 +65,8 @@ public class ChatAdapter extends RecyclerView.Adapter {
         switch (holder.getItemViewType()) {
             case VIEW_TYPE_MESSAGE_BOT:
                 ((BotChatHolder) holder).bind(message);
-                RecyclerView recyclerView = ((BotChatHolder) holder).getRv();
-                ChatOptionAdapter adapter = new ChatOptionAdapter(context, chats.get(position).getOptionModel(), (OnChatOptionClickListener) context);
+                recyclerView = ((BotChatHolder) holder).getRv();
+                adapter = new ChatOptionAdapter(context, chats.get(position).getOptionModel(), (OnChatOptionClickListener) context, this);
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
                 recyclerView.setAdapter(adapter);
                 break;
@@ -74,5 +78,10 @@ public class ChatAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemCount() {
         return chats.size();
+    }
+
+    @Override
+    public void removeOptions() {
+        recyclerView.setAdapter(null);
     }
 }
