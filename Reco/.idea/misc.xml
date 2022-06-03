@@ -9,8 +9,10 @@
         <entry key="..\:/Project Reco/Reco/app/src/main/res/drawable/bg_chat_bot.xml" value="0.1945" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/drawable/bg_chat_user.xml" value="0.1945" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/drawable/bg_image_button.xml" value="0.1945" />
+        <entry key="..\:/Project Reco/Reco/app/src/main/res/drawable/bg_input.xml" value="0.1085" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/drawable/bg_login.xml" value="0.1945" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/drawable/bg_option_item.xml" value="0.231" />
+        <entry key="..\:/Project Reco/Reco/app/src/main/res/drawable/bg_song_item.xml" value="0.1085" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/drawable/bg_splash.xml" value="0.1945" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/drawable/ic_chat.xml" value="0.1045" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/drawable/ic_chat_light.xml" value="0.1945" />
@@ -27,6 +29,7 @@
         <entry key="..\:/Project Reco/Reco/app/src/main/res/layout/activity_on_boarding.xml" value="0.22447916666666667" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/layout/activity_onboarding.xml" value="0.22447916666666667" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/layout/chat_item_bot.xml" value="0.221025641025641" />
+        <entry key="..\:/Project Reco/Reco/app/src/main/res/layout/chat_item_song.xml" value="0.5349344978165939" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/layout/chat_item_user.xml" value="0.22447916666666667" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/layout/fragment_login.xml" value="0.221025641025641" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/layout/fragment_on_boarding1.xml" value="0.22447916666666667" />

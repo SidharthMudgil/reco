@@ -125,20 +125,16 @@ public class SignUpFragment extends Fragment {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 progressDialog.dismiss();
-                Log.d("reco@recoSignUp", "Successful");
                 startChatActivity();
             } else {
                 progressDialog.dismiss();
-                Log.d("reco@recoSignUp", "Failed");
                 assert task.getException() != null;
-                Log.d("reco@recoSignUp", task.getException().getMessage());
             }
         });
     }
 
     private void startChatActivity() {
         if (getActivity() != null) {
-            Log.d(MainActivity.TAG, "starting ChatActivity");
             SharedPreferences sharedPreferences = getActivity().getSharedPreferences(getActivity().getPackageName(), Context.MODE_PRIVATE);
             sharedPreferences.edit().putInt(MainActivity.STATE_KEY, MainActivity.STATE_CHAT_SCREEN).apply();
             Intent intent = new Intent(getActivity(), ChatActivity.class);

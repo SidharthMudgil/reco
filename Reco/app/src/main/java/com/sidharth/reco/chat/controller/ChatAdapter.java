@@ -15,6 +15,7 @@ import com.sidharth.reco.chat.callback.OnActionPerformedListener;
 import com.sidharth.reco.chat.callback.OnChatOptionClickListener;
 import com.sidharth.reco.chat.model.ChatModel;
 import com.sidharth.reco.chat.view.BotChatHolder;
+import com.sidharth.reco.chat.view.SongViewHolder;
 import com.sidharth.reco.chat.view.UserChatHolder;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 public class ChatAdapter extends RecyclerView.Adapter implements OnActionPerformedListener {
     private static final int VIEW_TYPE_MESSAGE_BOT = 1;
     private static final int VIEW_TYPE_MESSAGE_USER = 2;
+    private static final int VIEW_TYPE_SONG = 3;
 
     private final Context context;
     private final ArrayList<ChatModel> chats;
@@ -38,8 +40,10 @@ public class ChatAdapter extends RecyclerView.Adapter implements OnActionPerform
         ChatModel chat = chats.get(position);
         if (chat.getSender() == ChatActivity.SENDER_BOT) {
             return VIEW_TYPE_MESSAGE_BOT;
-        } else {
+        } else if (chat.getSender() == ChatActivity.SENDER_USER) {
             return VIEW_TYPE_MESSAGE_USER;
+        } else {
+            return VIEW_TYPE_SONG;
         }
     }
 
@@ -51,9 +55,12 @@ public class ChatAdapter extends RecyclerView.Adapter implements OnActionPerform
         if (viewType == VIEW_TYPE_MESSAGE_BOT) {
             view = LayoutInflater.from(context).inflate(R.layout.chat_item_bot, parent, false);
             return new BotChatHolder(view);
-        } else {
+        } else if (viewType == VIEW_TYPE_MESSAGE_USER) {
             view = LayoutInflater.from(context).inflate(R.layout.chat_item_user, parent, false);
             return new UserChatHolder(view);
+        } else {
+            view = LayoutInflater.from(context).inflate(R.layout.chat_item_song, parent, false);
+            return new SongViewHolder(view);
         }
     }
 
@@ -71,6 +78,9 @@ public class ChatAdapter extends RecyclerView.Adapter implements OnActionPerform
                 break;
             case VIEW_TYPE_MESSAGE_USER:
                 ((UserChatHolder) holder).bind(message);
+                break;
+            case VIEW_TYPE_SONG:
+                ((SongViewHolder) holder).bind(chats.get(position).getSongModel());
         }
     }
 

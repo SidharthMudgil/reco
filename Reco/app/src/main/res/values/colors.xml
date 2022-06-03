@@ -16,4 +16,6 @@
     <color name="purple_100">#905CE4</color>
     <color name="gray_800">#060607</color>
     <color name="mycolor">#13a797</color>
+    <color name="song_gray">#B3B3B3</color>
+    <color name="song_black">#2A2A2A</color>
 </resources>

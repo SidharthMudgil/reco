@@ -50,4 +50,10 @@ dependencies {
 
     // for authentication
     implementation 'com.google.firebase:firebase-auth:21.0.5'
+
+    // get song data
+    implementation 'com.android.volley:volley:1.2.1'
+
+    // get image from url
+    implementation 'com.squareup.picasso:picasso:2.8'
 }

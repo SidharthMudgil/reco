@@ -107,7 +107,6 @@ public class OnBoardingActivity extends AppCompatActivity {
             sharedPreferences.edit().putInt(MainActivity.STATE_KEY, MainActivity.STATE_LOGIN_SIGNUP).apply();
             Intent intent = new Intent(OnBoardingActivity.this, LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            Log.d(MainActivity.TAG, "starting LoginActivity");
             startActivity(intent);
         });
     }

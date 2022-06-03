@@ -12,6 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.sidharth.reco.MainActivity;
 import com.sidharth.reco.R;
@@ -19,9 +23,16 @@ import com.sidharth.reco.chat.callback.OnChatOptionClickListener;
 import com.sidharth.reco.chat.controller.ChatAdapter;
 import com.sidharth.reco.chat.model.ChatModel;
 import com.sidharth.reco.chat.model.ChatOptionModel;
+import com.sidharth.reco.chat.model.SongModel;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class ChatActivity extends AppCompatActivity implements OnChatOptionClickListener {
@@ -31,6 +42,7 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
 
     public static final int SENDER_BOT = 1;
     public static final int SENDER_USER = 2;
+    public static final int SONG_VIEW = 3;
     private static final int TYPE_MOOD = 101;
     private static final int TYPE_TRY_NEW = 102;
     private static final int TYPE_FEEDBACK = 103;
@@ -43,6 +55,8 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
     private ChatAdapter chatAdapter;
     private RecyclerView recyclerView;
 
+    private static final String BASE_URL = "https://spotify23.p.rapidapi.com/tracks/?ids=";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,8 +68,8 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
         ChatOptionModel moodOptionModel = new ChatOptionModel(TYPE_MOOD, MOODS);
         chats = new ArrayList<>(
                 Arrays.asList(
-                        new ChatModel(recoIntro, SENDER_BOT, null),
-                        new ChatModel(moodMessage, SENDER_BOT, moodOptionModel)
+                        new ChatModel(SENDER_BOT, recoIntro),
+                        new ChatModel(SENDER_BOT, moodMessage, moodOptionModel)
                 ));
 
         // chat adapter
@@ -72,9 +86,10 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
             inET.setText("");
             if (!TextUtils.isEmpty(message)) {
                 stopHandler();
-                ChatModel chatModel = new ChatModel(message, SENDER_USER, null);
+                ChatModel chatModel = new ChatModel(SENDER_USER, message, null);
                 addConversationToChats(chatModel);
                 analyzeChat(message);
+                stopHandler();
             }
             closeKeyboard();
         });
@@ -82,7 +97,7 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
         handler = new Handler();
         runnable = () -> {
             removeOptions();
-            ChatModel chatModel = new ChatModel(getString(R.string.msg_no_response), SENDER_BOT, null);
+            ChatModel chatModel = new ChatModel(SENDER_BOT, getString(R.string.msg_no_response), null);
             addConversationToChats(chatModel);
             stopHandler();
         };
@@ -91,7 +106,7 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
 
     public void removeOptions() {
         ChatModel chatModel = chats.get(chats.size() - 1);
-        ChatModel newChatModel = new ChatModel(chatModel.getMessage(), chatModel.getSender(), null);
+        ChatModel newChatModel = new ChatModel(chatModel.getSender(), chatModel.getMessage());
         chats.remove(chats.size() - 1);
         chats.add(newChatModel);
         chatAdapter.notifyItemChanged(chats.size() - 1);
@@ -100,9 +115,8 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
     @Override
     public void onOptionClicked(ChatOptionModel optionModel, int position) {
         String message = optionModel.getOptions().get(position);
-        ChatModel chatModel = new ChatModel(message, SENDER_USER, null);
+        ChatModel chatModel = new ChatModel(SENDER_USER, message);
         addConversationToChats(chatModel);
-        Handler handler = new Handler();
         Runnable delayedTask = () -> recommendSong(optionModel.getType(), position);
         handler.postDelayed(delayedTask, 1000);
     }
@@ -126,7 +140,7 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
             chats.add(chatModel);
             playMessagingSound(chatModel.getSender());
         } else {
-            ChatModel chat = new ChatModel(getString(R.string.msg_try_new), SENDER_BOT, null);
+            ChatModel chat = new ChatModel(SENDER_BOT, getString(R.string.msg_try_new));
             addConversationToChats(chat);
             playMessagingSound(SENDER_BOT);
         }
@@ -138,7 +152,6 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
         switch (type) {
             case TYPE_MOOD:
                 recommendMoodSong(position);
-                likedTheSong();
                 break;
             case TYPE_SHOW_SIMILAR:
                 if (position == 0) {
@@ -158,7 +171,7 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
                 if (position == 0) {
                     recommendNewSong();
                 } else {
-                    ChatModel chatModel = new ChatModel(getString(R.string.msg_thanks), SENDER_BOT, null);
+                    ChatModel chatModel = new ChatModel(SENDER_BOT, getString(R.string.msg_thanks));
                     addConversationToChats(chatModel);
                 }
                 break;
@@ -169,42 +182,41 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
 
     private void likedTheSong() {
         ChatOptionModel optionModel = new ChatOptionModel(TYPE_FEEDBACK, FEEDBACK);
-        ChatModel chatModel = new ChatModel(getString(R.string.msg_liked_the_song), SENDER_BOT, optionModel);
+        ChatModel chatModel = new ChatModel(SENDER_BOT, getString(R.string.msg_liked_the_song), optionModel);
         addConversationToChats(chatModel);
         startHandler();
     }
 
     private void wantSimilarSong() {
         ChatOptionModel optionModel = new ChatOptionModel(TYPE_SHOW_SIMILAR, FEEDBACK);
-        ChatModel chatModel = new ChatModel(getString(R.string.msg_want_similar), SENDER_BOT, optionModel);
+        ChatModel chatModel = new ChatModel(SENDER_BOT, getString(R.string.msg_want_similar), optionModel);
         addConversationToChats(chatModel);
         startHandler();
     }
 
     private void tryNewSong() {
         ChatOptionModel optionModel = new ChatOptionModel(TYPE_TRY_NEW, FEEDBACK);
-        ChatModel chatModel = new ChatModel(getString(R.string.msg_try_new1), SENDER_BOT, optionModel);
+        ChatModel chatModel = new ChatModel(SENDER_BOT, getString(R.string.msg_try_new1), optionModel);
         addConversationToChats(chatModel);
         startHandler();
     }
 
     private void recommendSimilarSong() {
-        ChatModel chatModel = new ChatModel("similar song recommended", SENDER_BOT, null);
+        ChatModel chatModel = new ChatModel(SENDER_BOT, "similar song recommended");
         addConversationToChats(chatModel);
     }
 
     private void recommendNewSong() {
-        ChatModel chatModel = new ChatModel("new song recommended", SENDER_BOT, null);
+        ChatModel chatModel = new ChatModel(SENDER_BOT, "new song recommended");
         addConversationToChats(chatModel);
     }
 
     private void recommendMoodSong(int position) {
-        ChatModel chatModel = new ChatModel(MOODS.get(position) + " song recommended", SENDER_BOT, null);
-        addConversationToChats(chatModel);
+        parseJSON("4WNcduiCmDNfmTEz7JvmLv");
     }
 
     private void replyToUser(int replyWhat) {
-        ChatModel chatModel = new ChatModel("Sorry can't understand", SENDER_BOT, null);
+        ChatModel chatModel = new ChatModel(SENDER_BOT, "Sorry can't understand");
         addConversationToChats(chatModel);
     }
 
@@ -216,6 +228,63 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
         handler.postDelayed(delayedTask, 1000);
     }
 
+    private void parseJSON(String id) {
+        final String URL = BASE_URL + id;
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, URL, null,
+                response -> {
+                    try {
+                        JSONArray jsonArray = response.getJSONArray("tracks");
+                        JSONObject jsonObject = jsonArray.getJSONObject(0);
+
+                        // for spotify url
+                        JSONObject urls = jsonObject.getJSONObject("external_urls");
+                        String spotify_url = urls.getString("spotify");
+
+                        // for artists
+                        JSONArray artists = jsonObject.getJSONArray("artists");
+                        StringBuilder artist = new StringBuilder();
+                        for (int i = 0; i < artists.length(); i++) {
+                            JSONObject object = artists.getJSONObject(i);
+                            String name = object.getString("name");
+                            artist.append(name);
+                            if (i != artists.length() - 1) {
+                                artist.append(", ");
+                            }
+                        }
+
+                        // for image url
+                        JSONObject album = jsonObject.getJSONObject("album");
+                        JSONArray images = album.getJSONArray("images");
+                        JSONObject image = images.getJSONObject(2);
+                        String imgURL = image.getString("url");
+
+                        int duration = jsonObject.getInt("duration_ms");
+                        String songName = jsonObject.getString("name");
+
+                        SongModel songModel = new SongModel(imgURL, songName, String.valueOf(artist));
+
+                        ChatModel chatModel = new ChatModel(SONG_VIEW, songModel);
+                        addConversationToChats(chatModel);
+                        Runnable delayedTask = this::likedTheSong;
+                        handler.postDelayed(delayedTask, duration);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                error -> Log.d(MainActivity.TAG, error.getMessage())) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<>();
+                params.put("X-RapidAPI-Host", getString(R.string.api_host));
+                params.put("X-RapidAPI-Key", getString(R.string.api_key));
+                return params;
+            }
+        };
+        requestQueue.add(objectRequest);
+    }
+
     @Override
     public void onUserInteraction() {
         super.onUserInteraction();
@@ -223,7 +292,7 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
     }
 
     public void stopHandler() {
-        handler.removeCallbacks(runnable);
+        handler.removeCallbacksAndMessages(null);
     }
 
     public void startHandler() {

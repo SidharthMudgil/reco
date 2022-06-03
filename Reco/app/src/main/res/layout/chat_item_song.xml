@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/chatRight_marginStart"
+    android:layout_marginEnd="@dimen/chatRight_marginEnd"
+    app:cardBackgroundColor="@color/song_black"
+    app:cardCornerRadius="@dimen/songItem_cornerRadius">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/songItem_padding">
+
+        <ImageView
+            android:id="@+id/song_banner"
+            android:layout_gravity="center_vertical"
+            android:layout_width="@dimen/imageView_size"
+            android:layout_height="@dimen/imageView_size"
+            android:contentDescription="@string/track_banner"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_logo" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_gravity="center_vertical"
+            android:paddingStart="@dimen/song_layoutPaddingStart"
+            android:paddingEnd="@dimen/song_layoutPaddingEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/song_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/aileron_regular"
+                android:maxWidth="@dimen/song_maxWidth"
+                android:padding="@dimen/songItem_padding"
+                app:layout_constraintVertical_bias="0"
+                android:textColor="@color/white"
+                android:textSize="@dimen/songName_textSize"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="A Man Without Love" />
+
+            <TextView
+                android:id="@+id/song_artist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/aileron_regular"
+                android:maxWidth="@dimen/song_maxWidth"
+                android:padding="@dimen/songItem_padding"
+                app:layout_constraintHorizontal_bias="0"
+                android:textColor="@color/song_gray"
+                android:textSize="@dimen/songArtist_textSize"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/song_name"
+                app:layout_constraintTop_toBottomOf="@+id/song_name"
+                tools:text="Engelbert Humperdinck" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

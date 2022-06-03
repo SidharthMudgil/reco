@@ -86,14 +86,11 @@ public class LoginFragment extends Fragment {
     private void loginUser(String email, String password) {
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                Log.d("reco@recoSignIn", "Successful");
                 progressDialog.dismiss();
                 startChatActivity();
             } else {
                 progressDialog.dismiss();
-                Log.d("reco@recoSignIn", "Failed");
                 assert task.getException() != null;
-                Log.d("reco@recoSignIn", task.getException().getMessage());
                 Toast.makeText(getActivity(), "Signing failed", Toast.LENGTH_SHORT).show();
             }
         });
@@ -101,7 +98,6 @@ public class LoginFragment extends Fragment {
 
     private void startChatActivity() {
         if (getActivity() != null) {
-            Log.d(MainActivity.TAG, "starting ChatActivity");
             SharedPreferences sharedPreferences = getActivity().getSharedPreferences(getActivity().getPackageName(), Context.MODE_PRIVATE);
             sharedPreferences.edit().putInt(MainActivity.STATE_KEY, MainActivity.STATE_CHAT_SCREEN).apply();
             Intent intent = new Intent(getActivity(), ChatActivity.class);

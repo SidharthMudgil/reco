@@ -57,4 +57,15 @@
     <dimen name="chatOption_layoutHeight">40dp</dimen>
     <dimen name="chatOption_marginBottom">2dp</dimen>
     <dimen name="chatOption_padding">8dp</dimen>
+
+    <dimen name="songItem_cornerRadius">12dp</dimen>
+    <dimen name="songItem_padding">4dp</dimen>
+    <dimen name="songArtist_textSize">14sp</dimen>
+    <dimen name="songName_textSize">18sp</dimen>
+    <dimen name="imageView_size">64dp</dimen>
+    <dimen name="song_maxWidth">260dp</dimen>
+    <dimen name="chatRight_marginStart">16dp</dimen>
+    <dimen name="chatRight_marginEnd">72dp</dimen>
+    <dimen name="song_layoutPaddingStart">4dp</dimen>
+    <dimen name="song_layoutPaddingEnd">14dp</dimen>
 </resources>
