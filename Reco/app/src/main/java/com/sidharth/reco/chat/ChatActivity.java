@@ -1,5 +1,6 @@
 package com.sidharth.reco.chat;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -40,6 +41,7 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
 
     private ArrayList<ChatModel> chats;
     private ChatAdapter chatAdapter;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +60,7 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
 
         // chat adapter
         chatAdapter = new ChatAdapter(this, chats);
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setAdapter(chatAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -91,16 +93,35 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
         String message = optionModel.getOptions().get(position);
         ChatModel chatModel = new ChatModel(message, SENDER_USER, null);
         addConversationToChats(chatModel);
-        recommendSong(optionModel.getType(), position);
+        Handler handler = new Handler();
+        Runnable delayedTask = () -> recommendSong(optionModel.getType(), position);
+        handler.postDelayed(delayedTask, 1000);
+    }
+
+    private void playMessagingSound(int sender) {
+        MediaPlayer player;
+        if (sender == SENDER_USER) {
+            player = MediaPlayer.create(this, R.raw.sent);
+        } else {
+            player = MediaPlayer.create(this, R.raw.recieved);
+        }
+        if (player.isPlaying()) {
+            player.stop();
+        }
+        player.start();
+        player.setOnCompletionListener(mediaPlayer -> player.release());
     }
 
     private void addConversationToChats(ChatModel chatModel) {
         if (chatModel != null) {
             chats.add(chatModel);
+            playMessagingSound(chatModel.getSender());
         } else {
             ChatModel chat = new ChatModel(getString(R.string.msg_try_new), SENDER_BOT, null);
             addConversationToChats(chat);
+            playMessagingSound(SENDER_BOT);
         }
+        recyclerView.smoothScrollToPosition(chats.size() - 1);
         chatAdapter.notifyItemInserted(chats.size());
     }
 
@@ -178,7 +199,9 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
     private void analyzeChat(String message) {
         String[] words = message.split(" ");
         Log.d(MainActivity.TAG, Arrays.toString(words) + "");
-        replyToUser(2);
+        Handler handler = new Handler();
+        Runnable delayedTask = () -> replyToUser(2);
+        handler.postDelayed(delayedTask, 1000);
     }
 
     @Override

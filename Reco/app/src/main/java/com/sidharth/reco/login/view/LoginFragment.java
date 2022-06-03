@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -53,6 +54,9 @@ public class LoginFragment extends Fragment {
         progressDialog.setMessage("Please wait while signing in");
         progressDialog.setTitle("Signing In");
         progressDialog.setCanceledOnTouchOutside(false);
+
+        TextView skipBtn = view.findViewById(R.id.skipBtn);
+        skipBtn.setOnClickListener(view12 -> startChatActivity());
 
         MaterialButton signInBtn = view.findViewById(R.id.mb_signIn);
         signInBtn.setOnClickListener(view1 -> {

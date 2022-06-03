@@ -33,6 +33,7 @@
 
     <string name="create_your_account">Create your Account</string>
     <string name="or_sign_up_with">- Or sign up with -</string>
+    <string name="skip">Skip</string>
 
     <string name="message_hint">Type your message</string>
     <string name="send_button">send button</string>

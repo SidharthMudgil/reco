@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -54,6 +55,9 @@ public class SignUpFragment extends Fragment {
         progressDialog.setMessage("Please wait while signing up");
         progressDialog.setTitle("Signing Up");
         progressDialog.setCanceledOnTouchOutside(false);
+
+        TextView skipBtn = view.findViewById(R.id.skipBtn);
+        skipBtn.setOnClickListener(view12 -> startChatActivity());
 
         MaterialButton signUpBtn = view.findViewById(R.id.mb_signUp);
         signUpBtn.setOnClickListener(view1 -> {
