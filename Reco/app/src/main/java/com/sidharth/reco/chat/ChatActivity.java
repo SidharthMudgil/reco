@@ -81,11 +81,20 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
 
         handler = new Handler();
         runnable = () -> {
+            removeOptions();
             ChatModel chatModel = new ChatModel(getString(R.string.msg_no_response), SENDER_BOT, null);
             addConversationToChats(chatModel);
             stopHandler();
         };
         startHandler();
+    }
+
+    public void removeOptions() {
+        ChatModel chatModel = chats.get(chats.size() - 1);
+        ChatModel newChatModel = new ChatModel(chatModel.getMessage(), chatModel.getSender(), null);
+        chats.remove(chats.size() - 1);
+        chats.add(newChatModel);
+        chatAdapter.notifyItemChanged(chats.size() - 1);
     }
 
     @Override
@@ -162,18 +171,21 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
         ChatOptionModel optionModel = new ChatOptionModel(TYPE_FEEDBACK, FEEDBACK);
         ChatModel chatModel = new ChatModel(getString(R.string.msg_liked_the_song), SENDER_BOT, optionModel);
         addConversationToChats(chatModel);
+        startHandler();
     }
 
     private void wantSimilarSong() {
         ChatOptionModel optionModel = new ChatOptionModel(TYPE_SHOW_SIMILAR, FEEDBACK);
         ChatModel chatModel = new ChatModel(getString(R.string.msg_want_similar), SENDER_BOT, optionModel);
         addConversationToChats(chatModel);
+        startHandler();
     }
 
     private void tryNewSong() {
         ChatOptionModel optionModel = new ChatOptionModel(TYPE_TRY_NEW, FEEDBACK);
         ChatModel chatModel = new ChatModel(getString(R.string.msg_try_new1), SENDER_BOT, optionModel);
         addConversationToChats(chatModel);
+        startHandler();
     }
 
     private void recommendSimilarSong() {

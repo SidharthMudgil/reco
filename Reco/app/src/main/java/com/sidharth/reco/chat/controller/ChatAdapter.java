@@ -26,7 +26,6 @@ public class ChatAdapter extends RecyclerView.Adapter implements OnActionPerform
     private final Context context;
     private final ArrayList<ChatModel> chats;
 
-    private ChatOptionAdapter adapter;
     private RecyclerView recyclerView;
 
     public ChatAdapter(Context context, ArrayList<ChatModel> chats) {
@@ -66,7 +65,7 @@ public class ChatAdapter extends RecyclerView.Adapter implements OnActionPerform
             case VIEW_TYPE_MESSAGE_BOT:
                 ((BotChatHolder) holder).bind(message);
                 recyclerView = ((BotChatHolder) holder).getRv();
-                adapter = new ChatOptionAdapter(context, chats.get(position).getOptionModel(), (OnChatOptionClickListener) context, this);
+                ChatOptionAdapter adapter = new ChatOptionAdapter(context, chats.get(position).getOptionModel(), (OnChatOptionClickListener) context, this);
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
                 recyclerView.setAdapter(adapter);
                 break;
