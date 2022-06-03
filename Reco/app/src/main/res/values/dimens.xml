@@ -51,4 +51,10 @@
     <dimen name="message_sidePadding">12dp</dimen>
     <dimen name="message_paddingTop">8dp</dimen>
     <dimen name="message_textSize">18sp</dimen>
+
+    <dimen name="chatOption_marginStart">4dp</dimen>
+    <dimen name="chatOption_layoutWidth">200dp</dimen>
+    <dimen name="chatOption_layoutHeight">40dp</dimen>
+    <dimen name="chatOption_marginBottom">2dp</dimen>
+    <dimen name="chatOption_padding">8dp</dimen>
 </resources>
