@@ -1,6 +1,8 @@
 package com.sidharth.reco.chat.controller;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,6 +83,11 @@ public class ChatAdapter extends RecyclerView.Adapter implements OnActionPerform
                 break;
             case VIEW_TYPE_SONG:
                 ((SongViewHolder) holder).bind(chats.get(position).getSongModel());
+                holder.itemView.setOnLongClickListener(view -> {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(chats.get(position).getSongModel().getSongURL()));
+                    context.startActivity(browserIntent);
+                    return true;
+                });
         }
     }
 

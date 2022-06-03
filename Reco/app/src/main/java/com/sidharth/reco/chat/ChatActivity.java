@@ -263,7 +263,7 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
                         int duration = jsonObject.getInt("duration_ms");
                         String songName = jsonObject.getString("name");
 
-                        SongModel songModel = new SongModel(imgURL, songName, String.valueOf(artist));
+                        SongModel songModel = new SongModel(imgURL, songName, String.valueOf(artist), spotify_url);
 
                         ChatModel chatModel = new ChatModel(SONG_VIEW, songModel);
                         addConversationToChats(chatModel);
