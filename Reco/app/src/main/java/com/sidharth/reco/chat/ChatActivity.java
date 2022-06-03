@@ -1,7 +1,9 @@
 package com.sidharth.reco.chat;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
@@ -10,47 +12,187 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.sidharth.reco.MainActivity;
 import com.sidharth.reco.R;
+import com.sidharth.reco.chat.callback.OnChatOptionClickListener;
 import com.sidharth.reco.chat.controller.ChatAdapter;
 import com.sidharth.reco.chat.model.ChatModel;
+import com.sidharth.reco.chat.model.ChatOptionModel;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 
 
-public class ChatActivity extends AppCompatActivity {
+public class ChatActivity extends AppCompatActivity implements OnChatOptionClickListener {
+
+    private Handler handler;
+    private Runnable runnable;
 
     public static final int SENDER_BOT = 1;
     public static final int SENDER_USER = 2;
+    private static final int TYPE_MOOD = 101;
+    private static final int TYPE_TRY_NEW = 102;
+    private static final int TYPE_FEEDBACK = 103;
+    private static final int TYPE_SHOW_SIMILAR = 104;
+
+    private static final ArrayList<String> MOODS = new ArrayList<>(Arrays.asList("happy", "sad", "angry", "joy"));
+    private static final ArrayList<String> FEEDBACK = new ArrayList<>(Arrays.asList("Yes", "No"));
+
+    private ArrayList<ChatModel> chats;
+    private ChatAdapter chatAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
+        // intro chats
         String recoIntro = "Hi,\nI'm Reco, your personal bot\nLet's listen to some songs";
-        ArrayList<ChatModel> chats = new ArrayList<>(
-                Collections.singletonList(new ChatModel(0, recoIntro, SENDER_BOT))
-        );
+        String moodMessage = "How are your feeling today?";
+        ChatOptionModel moodOptionModel = new ChatOptionModel(TYPE_MOOD, MOODS);
+        chats = new ArrayList<>(
+                Arrays.asList(
+                        new ChatModel(recoIntro, SENDER_BOT, null),
+                        new ChatModel(moodMessage, SENDER_BOT, moodOptionModel)
+                ));
 
-        ChatAdapter chatAdapter = new ChatAdapter(this, chats);
+        // chat adapter
+        chatAdapter = new ChatAdapter(this, chats);
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setAdapter(chatAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        // send button
         FloatingActionButton sendBtn = findViewById(R.id.sendButton);
         sendBtn.setOnClickListener(view -> {
             EditText inET = findViewById(R.id.in_message);
             String message = String.valueOf(inET.getText());
             inET.setText("");
             if (!TextUtils.isEmpty(message)) {
-                ChatModel chatModel = new ChatModel(chats.size(), message, SENDER_USER);
-                chats.add(chatModel);
-                chatAdapter.notifyItemInserted(chats.size());
+                stopHandler();
+                ChatModel chatModel = new ChatModel(message, SENDER_USER, null);
+                addConversationToChats(chatModel);
+                analyzeChat(message);
             }
             closeKeyboard();
         });
 
+        handler = new Handler();
+        runnable = () -> {
+            ChatModel chatModel = new ChatModel(getString(R.string.msg_no_response), SENDER_BOT, null);
+            addConversationToChats(chatModel);
+            stopHandler();
+        };
+        startHandler();
+    }
+
+    @Override
+    public void onOptionClicked(ChatOptionModel optionModel, int position) {
+        String message = optionModel.getOptions().get(position);
+        ChatModel chatModel = new ChatModel(message, SENDER_USER, null);
+        addConversationToChats(chatModel);
+        recommendSong(optionModel.getType(), position);
+    }
+
+    private void addConversationToChats(ChatModel chatModel) {
+        if (chatModel != null) {
+            chats.add(chatModel);
+        } else {
+            ChatModel chat = new ChatModel(getString(R.string.msg_try_new), SENDER_BOT, null);
+            addConversationToChats(chat);
+        }
+        chatAdapter.notifyItemInserted(chats.size());
+    }
+
+    private void recommendSong(int type, int position) {
+        switch (type) {
+            case TYPE_MOOD:
+                recommendMoodSong(position);
+                likedTheSong();
+                break;
+            case TYPE_SHOW_SIMILAR:
+                if (position == 0) {
+                    recommendSimilarSong();
+                } else {
+                    tryNewSong();
+                }
+                break;
+            case TYPE_FEEDBACK:
+                if (position == 0) {
+                    wantSimilarSong();
+                } else {
+                    tryNewSong();
+                }
+                break;
+            case TYPE_TRY_NEW:
+                if (position == 0) {
+                    recommendNewSong();
+                } else {
+                    ChatModel chatModel = new ChatModel(getString(R.string.msg_thanks), SENDER_BOT, null);
+                    addConversationToChats(chatModel);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void likedTheSong() {
+        ChatOptionModel optionModel = new ChatOptionModel(TYPE_FEEDBACK, FEEDBACK);
+        ChatModel chatModel = new ChatModel(getString(R.string.msg_liked_the_song), SENDER_BOT, optionModel);
+        addConversationToChats(chatModel);
+    }
+
+    private void wantSimilarSong() {
+        ChatOptionModel optionModel = new ChatOptionModel(TYPE_SHOW_SIMILAR, FEEDBACK);
+        ChatModel chatModel = new ChatModel(getString(R.string.msg_want_similar), SENDER_BOT, optionModel);
+        addConversationToChats(chatModel);
+    }
+
+    private void tryNewSong() {
+        ChatOptionModel optionModel = new ChatOptionModel(TYPE_TRY_NEW, FEEDBACK);
+        ChatModel chatModel = new ChatModel(getString(R.string.msg_try_new1), SENDER_BOT, optionModel);
+        addConversationToChats(chatModel);
+    }
+
+    private void recommendSimilarSong() {
+        ChatModel chatModel = new ChatModel("similar song recommended", SENDER_BOT, null);
+        addConversationToChats(chatModel);
+    }
+
+    private void recommendNewSong() {
+        ChatModel chatModel = new ChatModel("new song recommended", SENDER_BOT, null);
+        addConversationToChats(chatModel);
+    }
+
+    private void recommendMoodSong(int position) {
+        ChatModel chatModel = new ChatModel(MOODS.get(position) + " song recommended", SENDER_BOT, null);
+        addConversationToChats(chatModel);
+    }
+
+    private void replyToUser(int replyWhat) {
+        ChatModel chatModel = new ChatModel("Sorry can't understand", SENDER_BOT, null);
+        addConversationToChats(chatModel);
+    }
+
+    private void analyzeChat(String message) {
+        String[] words = message.split(" ");
+        Log.d(MainActivity.TAG, Arrays.toString(words) + "");
+        replyToUser(2);
+    }
+
+    @Override
+    public void onUserInteraction() {
+        super.onUserInteraction();
+        stopHandler();
+    }
+
+    public void stopHandler() {
+        handler.removeCallbacks(runnable);
+    }
+
+    public void startHandler() {
+        handler.postDelayed(runnable, 10 * 1000);
     }
 
     private void closeKeyboard() {

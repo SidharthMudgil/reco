@@ -3,16 +3,22 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Project Reco/Reco/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1945" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/drawable/af.xml" value="0.1945" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/drawable/background_splash.xml" value="0.1945" />
+        <entry key="..\:/Project Reco/Reco/app/src/main/res/drawable/bg_chat_bot.xml" value="0.1945" />
+        <entry key="..\:/Project Reco/Reco/app/src/main/res/drawable/bg_chat_user.xml" value="0.1945" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/drawable/bg_image_button.xml" value="0.1945" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/drawable/bg_login.xml" value="0.1945" />
+        <entry key="..\:/Project Reco/Reco/app/src/main/res/drawable/bg_option_item.xml" value="0.231" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/drawable/bg_splash.xml" value="0.1945" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/drawable/ic_chat.xml" value="0.1045" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/drawable/ic_chat_light.xml" value="0.1945" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/drawable/ic_enjoy_dark.xml" value="0.1945" />
+        <entry key="..\:/Project Reco/Reco/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1945" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/drawable/ic_next.xml" value="0.1945" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/drawable/ic_send.xml" value="0.1945" />
+        <entry key="..\:/Project Reco/Reco/app/src/main/res/drawable/option_item.xml" value="0.1945" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.147265625" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/layout-w936dp/activity_login.xml" value="0.168359375" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/layout/activity_chat.xml" value="0.221025641025641" />
@@ -20,7 +26,7 @@
         <entry key="..\:/Project Reco/Reco/app/src/main/res/layout/activity_main.xml" value="0.21041666666666667" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/layout/activity_on_boarding.xml" value="0.22447916666666667" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/layout/activity_onboarding.xml" value="0.22447916666666667" />
-        <entry key="..\:/Project Reco/Reco/app/src/main/res/layout/chat_item_bot.xml" value="0.67" />
+        <entry key="..\:/Project Reco/Reco/app/src/main/res/layout/chat_item_bot.xml" value="0.221025641025641" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/layout/chat_item_user.xml" value="0.22447916666666667" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/layout/fragment_login.xml" value="0.221025641025641" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/layout/fragment_on_boarding1.xml" value="0.22447916666666667" />
@@ -32,6 +38,7 @@
         <entry key="..\:/Project Reco/Reco/app/src/main/res/layout/fragment_slide3.xml" value="0.22447916666666667" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/layout/msg_reco.xml" value="0.22447916666666667" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/layout/msg_user.xml" value="0.22447916666666667" />
+        <entry key="..\:/Project Reco/Reco/app/src/main/res/layout/option_item.xml" value="0.2234375" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/layout/slide_layout.xml" value="0.22447916666666667" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/layout/slides_layout.xml" value="0.22447916666666667" />
         <entry key="..\:/Project Reco/Reco/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1045" />

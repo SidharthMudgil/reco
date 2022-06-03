@@ -6,10 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sidharth.reco.R;
 import com.sidharth.reco.chat.ChatActivity;
+import com.sidharth.reco.chat.callback.OnChatOptionClickListener;
 import com.sidharth.reco.chat.model.ChatModel;
 import com.sidharth.reco.chat.view.BotChatHolder;
 import com.sidharth.reco.chat.view.UserChatHolder;
@@ -59,6 +61,10 @@ public class ChatAdapter extends RecyclerView.Adapter {
         switch (holder.getItemViewType()) {
             case VIEW_TYPE_MESSAGE_BOT:
                 ((BotChatHolder) holder).bind(message);
+                RecyclerView recyclerView = ((BotChatHolder) holder).getRv();
+                ChatOptionAdapter adapter = new ChatOptionAdapter(context, chats.get(position).getOptionModel(), (OnChatOptionClickListener) context);
+                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+                recyclerView.setAdapter(adapter);
                 break;
             case VIEW_TYPE_MESSAGE_USER:
                 ((UserChatHolder) holder).bind(message);

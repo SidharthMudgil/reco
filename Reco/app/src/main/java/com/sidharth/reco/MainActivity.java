@@ -8,8 +8,6 @@ import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.sidharth.reco.chat.ChatActivity;
-import com.sidharth.reco.login.LoginActivity;
-import com.sidharth.reco.onboarding.OnBoardingActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,24 +31,26 @@ public class MainActivity extends AppCompatActivity {
         int state = sharedPreferences.getInt(STATE_KEY, STATE_ON_BOARDING);
         Log.d(TAG, "state: " + state);
 
-        switch (state) {
-            case STATE_ON_BOARDING:
-                intent = new Intent(this, OnBoardingActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                Log.d(TAG, "OnBoardingActivity intent assigned");
-                startActivity(intent);
-                break;
-            case STATE_LOGIN_SIGNUP:
-                intent = new Intent(this, LoginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                Log.d(TAG, "LoginActivity intent assigned");
-                break;
-            case STATE_CHAT_SCREEN:
-                intent = new Intent(this, ChatActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                Log.d(TAG, "ChatActivity intent assigned");
-                break;
-        }
+//        switch (state) {
+//            case STATE_ON_BOARDING:
+//                intent = new Intent(this, OnBoardingActivity.class);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                Log.d(TAG, "OnBoardingActivity intent assigned");
+//                startActivity(intent);
+//                break;
+//            case STATE_LOGIN_SIGNUP:
+//                intent = new Intent(this, LoginActivity.class);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                Log.d(TAG, "LoginActivity intent assigned");
+//                break;
+//            case STATE_CHAT_SCREEN:
+//                intent = new Intent(this, ChatActivity.class);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                Log.d(TAG, "ChatActivity intent assigned");
+//                break;
+//        }
+        intent = new Intent(this, ChatActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         Log.d(TAG, "starting intent");
         startActivity(intent);
     }

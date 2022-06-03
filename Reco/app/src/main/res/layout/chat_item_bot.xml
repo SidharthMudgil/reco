@@ -8,16 +8,18 @@
     android:paddingEnd="72dp">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/purple_100"
         app:cardCornerRadius="@dimen/card_chatCornerRadius"
-        app:layout_constraintHorizontal_bias="0"
         app:cardElevation="@dimen/card_chatElevation"
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintVertical_bias="0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -30,18 +32,29 @@
                 android:id="@+id/tv_Bot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:lineSpacingExtra="@dimen/message_lineSpacing"
-                android:fontFamily="@font/aileron_regular"
                 android:layout_marginBottom="@dimen/message_marginBottom"
+                android:fontFamily="@font/aileron_regular"
+                android:lineSpacingExtra="@dimen/message_lineSpacing"
                 android:maxWidth="@dimen/message_maxWidth"
                 android:paddingStart="@dimen/message_sidePadding"
                 android:paddingTop="@dimen/message_paddingTop"
                 android:paddingEnd="@dimen/message_sidePadding"
-                tool:text="This is a\n Message"
                 android:textColor="@color/white"
-                android:textSize="@dimen/message_textSize" />
+                android:textSize="@dimen/message_textSize"
+                tool:text="This is a\n Message" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/optionRV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintVertical_bias="0"
+        app:flow_firstVerticalBias="0"
+        app:layout_constraintStart_toStartOf="@+id/cardView2"
+        app:layout_constraintTop_toBottomOf="@+id/cardView2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tool:listitem="@layout/option_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

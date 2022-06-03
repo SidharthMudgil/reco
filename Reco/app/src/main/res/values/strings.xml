@@ -36,4 +36,10 @@
 
     <string name="message_hint">Type your message</string>
     <string name="send_button">send button</string>
+    <string name="msg_no_response">Sorry, No response from your side</string>
+    <string name="msg_try_new">Lets try something new</string>
+    <string name="msg_liked_the_song">Did you liked the song?</string>
+    <string name="msg_want_similar">want  more similar songs?</string>
+    <string name="msg_try_new1">Want something new?</string>
+    <string name="msg_thanks">Thanks, Nice to talk to you, Wish things went on a little longer</string>
 </resources>

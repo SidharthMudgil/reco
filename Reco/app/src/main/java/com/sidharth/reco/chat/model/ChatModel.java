@@ -1,18 +1,14 @@
 package com.sidharth.reco.chat.model;
 
 public class ChatModel {
-    private final int id;
     private final int sender;
     private final String message;
+    private final ChatOptionModel optionModel;
 
-    public ChatModel(int id, String message, int sender) {
-        this.id = id;
+    public ChatModel(String message, int sender, ChatOptionModel optionModel) {
         this.message = message;
         this.sender = sender;
-    }
-
-    public int getId() {
-        return id;
+        this.optionModel = optionModel;
     }
 
     public String getMessage() {
@@ -21,5 +17,9 @@ public class ChatModel {
 
     public int getSender() {
         return sender;
+    }
+
+    public ChatOptionModel getOptionModel() {
+        return optionModel;
     }
 }
