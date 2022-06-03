@@ -268,7 +268,7 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
                         ChatModel chatModel = new ChatModel(SONG_VIEW, songModel);
                         addConversationToChats(chatModel);
                         Runnable delayedTask = this::likedTheSong;
-                        handler.postDelayed(delayedTask, duration);
+                        handler.postDelayed(delayedTask, 2000);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
