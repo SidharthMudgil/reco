@@ -25,6 +25,7 @@ import com.sidharth.reco.chat.controller.ChatAdapter;
 import com.sidharth.reco.chat.model.ChatModel;
 import com.sidharth.reco.chat.model.ChatOptionModel;
 import com.sidharth.reco.chat.model.SongModel;
+import com.sidharth.reco.recommender.RecoBrain;
 import com.sidharth.reco.recommender.SongFeatureModel;
 import com.sidharth.reco.recommender.SongRecommender;
 
@@ -32,10 +33,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 
 public class ChatActivity extends AppCompatActivity implements OnChatOptionClickListener, OnSongLongClickedListener {
@@ -46,10 +49,12 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
     public static final int SENDER_BOT = 1;
     public static final int SENDER_USER = 2;
     public static final int SONG_VIEW = 3;
-    private static final int TYPE_MOOD = 101;
-    private static final int TYPE_TRY_NEW = 102;
-    private static final int TYPE_FEEDBACK = 103;
-    private static final int TYPE_SHOW_SIMILAR = 104;
+
+    public static final int TYPE_MOOD = 101;
+    public static final int TYPE_TRY_NEW = 102;
+    public static final int TYPE_FEEDBACK = 103;
+    public static final int TYPE_SHOW_SIMILAR = 104;
+    public static final int TYPE_OPTION_MENU = 105;
 
     private static final ArrayList<String> MOODS = new ArrayList<>(Arrays.asList("happy", "calm", "anxious", "energetic"));
     private static final ArrayList<String> FEEDBACK = new ArrayList<>(Arrays.asList("Yes", "No"));
@@ -96,7 +101,8 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
                 removeOptions();
                 ChatModel chatModel = new ChatModel(SENDER_USER, message);
                 addConversationToChats(chatModel);
-                analyzeChat(message);
+                ChatModel answer = RecoBrain.analyzeChat(message);
+                handler.postDelayed(() -> replyToUser(answer), 1000);
             }
             closeKeyboard();
         });
@@ -121,14 +127,7 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
         }
     }
 
-    private void analyzeChat(String message) {
-        String[] words = message.split(" ");
-        Log.d(MainActivity.TAG, Arrays.toString(words) + "");
-        handler.postDelayed(() -> replyToUser(2), 1000);
-    }
-
-    private void replyToUser(int replyWhat) {
-        ChatModel chatModel = new ChatModel(SENDER_BOT, "Sorry can't understand");
+    private void replyToUser(ChatModel chatModel) {
         addConversationToChats(chatModel);
     }
 
@@ -193,6 +192,49 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
                 } else {
                     ChatModel chatModel = new ChatModel(SENDER_BOT, getString(R.string.msg_thanks));
                     addConversationToChats(chatModel);
+                }
+                break;
+            }
+            case TYPE_OPTION_MENU: {
+                switch (position) {
+                    case 0: {
+                        String message = "Hi I am Reco\n" +
+                                "My father name is Mr. Sidharth Mudgil\n" +
+                                "He is my inspiration\n" +
+                                "He is human and I am bot\n" +
+                                "But he loves me so much";
+                        ChatModel chatModel = new ChatModel(SENDER_BOT, message);
+                        addConversationToChats(chatModel);
+                        break;
+                    }
+                    case 1: {
+                        String day = null;
+                        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                            day = LocalDate.now().getDayOfWeek().name();
+                        }
+                        ChatModel chatModel = new ChatModel(SENDER_BOT, day);
+                        addConversationToChats(chatModel);
+                        break;
+                    }
+                    case 2: {
+                        final String[] jokes = {
+                                "Two bytes meet.  The first byte asks, “Are you ill?”\n" +
+                                        "The second byte replies, “No, just feeling a bit off.”",
+                                "Eight bytes walk into a bar.  The bartender asks, “Can I get you anything?”\n" +
+                                        "“Yeah,” reply the bytes.  “Make us a double.”",
+                                "Q. How did the programmer die in the shower?\n" +
+                                        "A. He read the shampoo bottle instructions: Lather. Rinse. Repeat."
+                        };
+                        ChatModel chatModel = new ChatModel(SENDER_BOT, jokes[new Random().nextInt(jokes.length)]);
+                        addConversationToChats(chatModel);
+                        break;
+                    }
+                    case 3: {
+                        ChatOptionModel optionModel = new ChatOptionModel(TYPE_MOOD, MOODS);
+                        ChatModel chatModel = new ChatModel(SENDER_BOT, getString(R.string.msg_thanks), optionModel);
+                        addConversationToChats(chatModel);
+                        break;
+                    }
                 }
                 break;
             }
