@@ -25,6 +25,7 @@ import com.sidharth.reco.chat.controller.ChatAdapter;
 import com.sidharth.reco.chat.model.ChatModel;
 import com.sidharth.reco.chat.model.ChatOptionModel;
 import com.sidharth.reco.chat.model.SongModel;
+import com.sidharth.reco.recommender.SongRecommender;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -63,6 +64,8 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+
+        SongRecommender.initializeSongData(this);
 
         // intro chats
         String recoIntro = "Hi,\nI'm Reco, your personal bot\nLet's listen to some songs";
@@ -105,7 +108,7 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
         startHandler();
     }
 
-    public void removeOptions() {
+    private void removeOptions() {
         ChatModel chatModel = chats.get(chats.size() - 1);
         ChatModel newChatModel = new ChatModel(chatModel.getSender(), chatModel.getMessage());
         chats.remove(chats.size() - 1);
@@ -113,12 +116,28 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
         chatAdapter.notifyItemChanged(chats.size() - 1);
     }
 
-    @Override
-    public void onOptionClicked(ChatOptionModel optionModel, int position) {
-        String message = optionModel.getOptions().get(position);
-        ChatModel chatModel = new ChatModel(SENDER_USER, message);
+    private void analyzeChat(String message) {
+        String[] words = message.split(" ");
+        Log.d(MainActivity.TAG, Arrays.toString(words) + "");
+        handler.postDelayed(() -> replyToUser(2), 1000);
+    }
+
+    private void replyToUser(int replyWhat) {
+        ChatModel chatModel = new ChatModel(SENDER_BOT, "Sorry can't understand");
         addConversationToChats(chatModel);
-        handler.postDelayed(() -> recommendSong(optionModel.getType(), position), 1000);
+    }
+
+    private void addConversationToChats(ChatModel chatModel) {
+        if (chatModel != null) {
+            chats.add(chatModel);
+            playMessagingSound(chatModel.getSender());
+        } else {
+            ChatModel chat = new ChatModel(SENDER_BOT, getString(R.string.msg_try_new));
+            addConversationToChats(chat);
+            playMessagingSound(SENDER_BOT);
+        }
+        recyclerView.smoothScrollToPosition(chats.size() - 1);
+        chatAdapter.notifyItemInserted(chats.size());
     }
 
     private void playMessagingSound(int sender) {
@@ -135,46 +154,43 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
         player.setOnCompletionListener(mediaPlayer -> player.release());
     }
 
-    private void addConversationToChats(ChatModel chatModel) {
-        if (chatModel != null) {
-            chats.add(chatModel);
-            playMessagingSound(chatModel.getSender());
-        } else {
-            ChatModel chat = new ChatModel(SENDER_BOT, getString(R.string.msg_try_new));
-            addConversationToChats(chat);
-            playMessagingSound(SENDER_BOT);
-        }
-        recyclerView.smoothScrollToPosition(chats.size() - 1);
-        chatAdapter.notifyItemInserted(chats.size());
-    }
-
     private void recommendSong(int type, int position) {
         switch (type) {
-            case TYPE_MOOD:
-                recommendMoodSong(position);
+            case TYPE_MOOD: {
+                String songID = SongRecommender.getMoodSong(position);
+                parseJSON("0kmOFBPszGiU5UiERMN9ph");
                 break;
-            case TYPE_SHOW_SIMILAR:
+            }
+            case TYPE_SHOW_SIMILAR: {
                 if (position == 0) {
-                    recommendSimilarSong();
+                    ArrayList<String> ids = SongRecommender.getSimilarSongs();
+                    assert ids != null;
+                    for (String songId : ids) {
+                        parseJSON(songId);
+                    }
                 } else {
                     tryNewSong();
                 }
                 break;
-            case TYPE_FEEDBACK:
+            }
+            case TYPE_FEEDBACK: {
                 if (position == 0) {
                     wantSimilarSong();
                 } else {
                     tryNewSong();
                 }
                 break;
-            case TYPE_TRY_NEW:
+            }
+            case TYPE_TRY_NEW: {
                 if (position == 0) {
-                    recommendNewSong();
+                    String songID = SongRecommender.getNewSong();
+                    parseJSON(songID);
                 } else {
                     ChatModel chatModel = new ChatModel(SENDER_BOT, getString(R.string.msg_thanks));
                     addConversationToChats(chatModel);
                 }
                 break;
+            }
             default:
                 break;
         }
@@ -199,31 +215,6 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
         ChatModel chatModel = new ChatModel(SENDER_BOT, getString(R.string.msg_try_new1), optionModel);
         addConversationToChats(chatModel);
         startHandler();
-    }
-
-    private void recommendSimilarSong() {
-        ChatModel chatModel = new ChatModel(SENDER_BOT, "similar song recommended");
-        addConversationToChats(chatModel);
-    }
-
-    private void recommendNewSong() {
-        ChatModel chatModel = new ChatModel(SENDER_BOT, "new song recommended");
-        addConversationToChats(chatModel);
-    }
-
-    private void recommendMoodSong(int position) {
-        parseJSON("4WNcduiCmDNfmTEz7JvmLv");
-    }
-
-    private void replyToUser(int replyWhat) {
-        ChatModel chatModel = new ChatModel(SENDER_BOT, "Sorry can't understand");
-        addConversationToChats(chatModel);
-    }
-
-    private void analyzeChat(String message) {
-        String[] words = message.split(" ");
-        Log.d(MainActivity.TAG, Arrays.toString(words) + "");
-        handler.postDelayed(() -> replyToUser(2), 1000);
     }
 
     private void parseJSON(String id) {
@@ -280,6 +271,27 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
         requestQueue.add(objectRequest);
     }
 
+    public void stopHandler() {
+        handler.removeCallbacksAndMessages(null);
+    }
+
+    public void startHandler() {
+        handler.postDelayed(runnable, 25 * 1000);
+    }
+
+    private void closeKeyboard() {
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+    }
+
+    @Override
+    public void onOptionClicked(ChatOptionModel optionModel, int position) {
+        String message = optionModel.getOptions().get(position);
+        ChatModel chatModel = new ChatModel(SENDER_USER, message);
+        addConversationToChats(chatModel);
+        handler.postDelayed(() -> recommendSong(optionModel.getType(), position), 1000);
+    }
+
     @Override
     public void askUserFeedback() {
         songClicked = true;
@@ -298,18 +310,5 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
     public void onUserInteraction() {
         super.onUserInteraction();
         stopHandler();
-    }
-
-    public void stopHandler() {
-        handler.removeCallbacksAndMessages(null);
-    }
-
-    public void startHandler() {
-        handler.postDelayed(runnable, 10 * 1000);
-    }
-
-    private void closeKeyboard() {
-        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-        inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
     }
 }
