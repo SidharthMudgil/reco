@@ -28,6 +28,13 @@ public class SongRecommender {
     private static final int MOOD_ANXIOUS = 2;
     private static final int MOOD_ENERGETIC = 3;
 
+    private static final int GRAPH_LOW = 0;
+    private static final int GRAPH_HIGH = 1;
+
+    private static final String ATTR_ENERGY = "energy";
+    private static final String ATTR_VALANCE = "valance";
+    private static final String ATTR_TEMPO = "tempo";
+
     public static void initializeSongData(Context context) {
         ProgressDialog dialog = new ProgressDialog(context);
         dialog.setTitle("Initializing Reco");
@@ -83,16 +90,69 @@ public class SongRecommender {
         return Math.sqrt(acousticness + danceability + energy + instrumentalness + liveness + loudness + speechiness + tempo + valence);
     }
 
+    private static SongFeatureModel getSongForMood(String attribute, int graph) {
+        PriorityQueue<SongAttrPair> queue = new PriorityQueue<>(totalSongs, new SongAttrComparator());
+
+        for (int i = 0; i < songsData.length(); i++) {
+            SongFeatureModel featureModel;
+            try {
+                featureModel = new SongFeatureModel(songsData.getJSONObject(i));
+                switch (attribute) {
+                    case ATTR_ENERGY: {
+                        queue.add(new SongAttrPair(featureModel.getEnergy(), featureModel));
+                        break;
+                    }
+                    case ATTR_VALANCE: {
+                        if (graph == GRAPH_HIGH)
+                            queue.add(new SongAttrPair(featureModel.getAcousticness(), featureModel));
+                        else
+                            queue.add(new SongAttrPair(-1 * featureModel.getAcousticness(), featureModel));
+                        break;
+                    }
+                    case ATTR_TEMPO: {
+                        queue.add(new SongAttrPair(-1 * featureModel.getTempo(), featureModel));
+                        break;
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        ArrayList<SongFeatureModel> top2000 = new ArrayList<>();
+        for (int i = 0; i < 2000; i++) {
+            SongAttrPair songAttrPair = queue.poll();
+            SongFeatureModel featureModel = Objects.requireNonNull(songAttrPair).getFeatureModel();
+            top2000.add(featureModel);
+        }
+
+        Log.d(MainActivity.TAG, attribute + " " + graph);
+
+        SongFeatureModel songFeatureModel = top2000.get(new Random().nextInt(2000));
+        switch (attribute) {
+            case ATTR_ENERGY:
+                Log.d(MainActivity.TAG, songFeatureModel.getEnergy() + "");
+                break;
+            case ATTR_VALANCE:
+                Log.d(MainActivity.TAG, songFeatureModel.getValence() + "");
+                break;
+            case ATTR_TEMPO:
+                Log.d(MainActivity.TAG, songFeatureModel.getTempo() + "");
+                break;
+        }
+        return songFeatureModel;
+    }
+
     public static SongFeatureModel getMoodSong(int mood) {
         switch (mood) {
             case MOOD_HAPPY:
-
+                return getSongForMood(ATTR_VALANCE, GRAPH_HIGH);
             case MOOD_CALM:
-
+                return getSongForMood(ATTR_TEMPO, GRAPH_LOW);
             case MOOD_ANXIOUS:
-
+                return getSongForMood(ATTR_VALANCE, GRAPH_LOW);
             case MOOD_ENERGETIC:
-
+                return getSongForMood(ATTR_ENERGY, GRAPH_HIGH);
             default:
                 return getNewSong();
         }
@@ -109,14 +169,14 @@ public class SongRecommender {
     }
 
     public static ArrayList<SongFeatureModel> getSimilarSongs(SongModel songModel) {
-        PriorityQueue<DistanceSongPair> queue = new PriorityQueue<>(totalSongs, new StudentComparator());
+        PriorityQueue<SongAttrPair> queue = new PriorityQueue<>(totalSongs, new SongAttrComparator());
 
         for (int i = 0; i < songsData.length(); i++) {
             SongFeatureModel featureModel;
             try {
                 featureModel = new SongFeatureModel(songsData.getJSONObject(i));
                 double distance = -1 * getDistance(songModel.getFeatureModel(), featureModel);
-                queue.add(new DistanceSongPair(distance, featureModel));
+                queue.add(new SongAttrPair(distance, featureModel));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -124,9 +184,9 @@ public class SongRecommender {
 
         ArrayList<SongFeatureModel> top1000 = new ArrayList<>();
         for (int i = 0; i < 1000; i++) {
-            DistanceSongPair distanceSongPair = queue.poll();
+            SongAttrPair distanceSongPair = queue.poll();
             SongFeatureModel featureModel = Objects.requireNonNull(distanceSongPair).getFeatureModel();
-            Log.d(MainActivity.TAG, distanceSongPair.getDistance() + "");
+            Log.d(MainActivity.TAG, distanceSongPair.getAttribute() + "");
             top1000.add(featureModel);
         }
 
