@@ -20,6 +20,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.sidharth.reco.MainActivity;
 import com.sidharth.reco.R;
 import com.sidharth.reco.chat.callback.OnChatOptionClickListener;
+import com.sidharth.reco.chat.callback.OnSongLongClickedListener;
 import com.sidharth.reco.chat.controller.ChatAdapter;
 import com.sidharth.reco.chat.model.ChatModel;
 import com.sidharth.reco.chat.model.ChatOptionModel;
@@ -35,7 +36,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class ChatActivity extends AppCompatActivity implements OnChatOptionClickListener {
+public class ChatActivity extends AppCompatActivity implements OnChatOptionClickListener, OnSongLongClickedListener {
 
     private Handler handler;
     private Runnable runnable;
@@ -56,6 +57,7 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
     private RecyclerView recyclerView;
 
     private static final String BASE_URL = "https://spotify23.p.rapidapi.com/tracks/?ids=";
+    private boolean songClicked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +75,7 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
                 ));
 
         // chat adapter
-        chatAdapter = new ChatAdapter(this, chats);
+        chatAdapter = new ChatAdapter(this, chats, this);
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setAdapter(chatAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -89,7 +91,6 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
                 ChatModel chatModel = new ChatModel(SENDER_USER, message, null);
                 addConversationToChats(chatModel);
                 analyzeChat(message);
-                stopHandler();
             }
             closeKeyboard();
         });
@@ -117,8 +118,7 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
         String message = optionModel.getOptions().get(position);
         ChatModel chatModel = new ChatModel(SENDER_USER, message);
         addConversationToChats(chatModel);
-        Runnable delayedTask = () -> recommendSong(optionModel.getType(), position);
-        handler.postDelayed(delayedTask, 1000);
+        handler.postDelayed(() -> recommendSong(optionModel.getType(), position), 1000);
     }
 
     private void playMessagingSound(int sender) {
@@ -223,9 +223,7 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
     private void analyzeChat(String message) {
         String[] words = message.split(" ");
         Log.d(MainActivity.TAG, Arrays.toString(words) + "");
-        Handler handler = new Handler();
-        Runnable delayedTask = () -> replyToUser(2);
-        handler.postDelayed(delayedTask, 1000);
+        handler.postDelayed(() -> replyToUser(2), 1000);
     }
 
     private void parseJSON(String id) {
@@ -260,15 +258,12 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
                         JSONObject image = images.getJSONObject(2);
                         String imgURL = image.getString("url");
 
-                        int duration = jsonObject.getInt("duration_ms");
                         String songName = jsonObject.getString("name");
 
                         SongModel songModel = new SongModel(imgURL, songName, String.valueOf(artist), spotify_url);
 
                         ChatModel chatModel = new ChatModel(SONG_VIEW, songModel);
                         addConversationToChats(chatModel);
-                        Runnable delayedTask = this::likedTheSong;
-                        handler.postDelayed(delayedTask, 2000);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -283,6 +278,20 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
             }
         };
         requestQueue.add(objectRequest);
+    }
+
+    @Override
+    public void askUserFeedback() {
+        songClicked = true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (songClicked) {
+            handler.postDelayed(this::likedTheSong, 1000);
+            songClicked = false;
+        }
     }
 
     @Override

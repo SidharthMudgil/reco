@@ -15,6 +15,7 @@ import com.sidharth.reco.R;
 import com.sidharth.reco.chat.ChatActivity;
 import com.sidharth.reco.chat.callback.OnActionPerformedListener;
 import com.sidharth.reco.chat.callback.OnChatOptionClickListener;
+import com.sidharth.reco.chat.callback.OnSongLongClickedListener;
 import com.sidharth.reco.chat.model.ChatModel;
 import com.sidharth.reco.chat.view.BotChatHolder;
 import com.sidharth.reco.chat.view.SongViewHolder;
@@ -29,12 +30,15 @@ public class ChatAdapter extends RecyclerView.Adapter implements OnActionPerform
 
     private final Context context;
     private final ArrayList<ChatModel> chats;
+    private final OnSongLongClickedListener songLongClickedListener;
 
     private RecyclerView recyclerView;
 
-    public ChatAdapter(Context context, ArrayList<ChatModel> chats) {
+
+    public ChatAdapter(Context context, ArrayList<ChatModel> chats, OnSongLongClickedListener songLongClickedListener) {
         this.context = context;
         this.chats = chats;
+        this.songLongClickedListener = songLongClickedListener;
     }
 
     @Override
@@ -86,6 +90,7 @@ public class ChatAdapter extends RecyclerView.Adapter implements OnActionPerform
                 holder.itemView.setOnLongClickListener(view -> {
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(chats.get(position).getSongModel().getSongURL()));
                     context.startActivity(browserIntent);
+                    songLongClickedListener.askUserFeedback();
                     return true;
                 });
         }
