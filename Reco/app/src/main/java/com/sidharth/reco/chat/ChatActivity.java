@@ -4,7 +4,6 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
@@ -17,7 +16,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.sidharth.reco.MainActivity;
 import com.sidharth.reco.R;
 import com.sidharth.reco.chat.callback.OnChatOptionClickListener;
 import com.sidharth.reco.chat.callback.OnSongLongClickedListener;
@@ -305,7 +303,7 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
                         e.printStackTrace();
                     }
                 },
-                error -> Log.d(MainActivity.TAG, error.getMessage())) {
+                Throwable::printStackTrace) {
             @Override
             public Map<String, String> getHeaders() {
                 Map<String, String> params = new HashMap<>();

@@ -3,7 +3,6 @@ package com.sidharth.reco;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,8 +11,6 @@ import com.sidharth.reco.login.LoginActivity;
 import com.sidharth.reco.onboarding.OnBoardingActivity;
 
 public class MainActivity extends AppCompatActivity {
-
-    public static final String TAG = "reco@reco";
 
     public static final int STATE_ON_BOARDING = 0;
     public static final int STATE_LOGIN_SIGNUP = 1;

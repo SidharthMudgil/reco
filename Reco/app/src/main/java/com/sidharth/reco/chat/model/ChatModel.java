@@ -1,7 +1,7 @@
 package com.sidharth.reco.chat.model;
 
 public class ChatModel {
-    private int sender;
+    private final int sender;
     private String message;
     private ChatOptionModel optionModel;
     private SongModel songModel;
