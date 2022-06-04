@@ -17,6 +17,10 @@ import java.util.Random;
 
 public class SongRecommender {
     private static JSONArray songsData;
+    private static final int MOOD_HAPPY = 0;
+    private static final int MOOD_CALM = 1;
+    private static final int MOOD_ANXIOUS = 2;
+    private static final int MOOD_ENERGETIC = 3;
 
     public static void initializeSongData(Context context) {
         ProgressDialog dialog = new ProgressDialog(context);
@@ -60,13 +64,19 @@ public class SongRecommender {
         }
     }
 
-    private static void getResult() {
-
-    }
-
     public static String getMoodSong(int mood) {
-        getResult();
-        return null;
+        switch (mood) {
+            case MOOD_HAPPY:
+                return "785P76EJxDydMu7a2IZRHR";
+            case MOOD_CALM:
+                return "1FOEQiszPh2XuMuaY4ZIUq";
+            case MOOD_ANXIOUS:
+                return "3DgviHZKJ8Xf385NqwwwK8";
+            case MOOD_ENERGETIC:
+                return "2lda3NIlkKYkZsU5eai2Ve";
+            default:
+                return getNewSong();
+        }
     }
 
     public static String getNewSong() {

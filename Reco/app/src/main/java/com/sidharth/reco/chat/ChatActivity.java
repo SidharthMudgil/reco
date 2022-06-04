@@ -50,7 +50,7 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
     private static final int TYPE_FEEDBACK = 103;
     private static final int TYPE_SHOW_SIMILAR = 104;
 
-    private static final ArrayList<String> MOODS = new ArrayList<>(Arrays.asList("happy", "sad", "angry", "joy"));
+    private static final ArrayList<String> MOODS = new ArrayList<>(Arrays.asList("happy", "calm", "anxious", "energetic"));
     private static final ArrayList<String> FEEDBACK = new ArrayList<>(Arrays.asList("Yes", "No"));
 
     private ArrayList<ChatModel> chats;
@@ -92,6 +92,7 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
             inET.setText("");
             if (!TextUtils.isEmpty(message)) {
                 stopHandler();
+                removeOptions();
                 ChatModel chatModel = new ChatModel(SENDER_USER, message, null);
                 addConversationToChats(chatModel);
                 analyzeChat(message);
@@ -159,7 +160,7 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
         switch (type) {
             case TYPE_MOOD: {
                 String songID = SongRecommender.getMoodSong(position);
-                parseJSON("0kmOFBPszGiU5UiERMN9ph");
+                parseJSON(songID);
                 break;
             }
             case TYPE_SHOW_SIMILAR: {
@@ -276,7 +277,7 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
     }
 
     public void startHandler() {
-        handler.postDelayed(runnable, 25 * 1000);
+        handler.postDelayed(runnable, 15 * 1000);
     }
 
     private void closeKeyboard() {
@@ -286,6 +287,7 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
 
     @Override
     public void onOptionClicked(ChatOptionModel optionModel, int position) {
+        removeOptions();
         String message = optionModel.getOptions().get(position);
         ChatModel chatModel = new ChatModel(SENDER_USER, message);
         addConversationToChats(chatModel);
