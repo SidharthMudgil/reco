@@ -59,6 +59,7 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
 
     private static final String BASE_URL = "https://spotify23.p.rapidapi.com/tracks/?ids=";
     private boolean songClicked = false;
+    private SongModel songModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,10 +164,9 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
             }
             case TYPE_SHOW_SIMILAR: {
                 if (position == 0) {
-                    ArrayList<String> ids = SongRecommender.getSimilarSongs();
-                    assert ids != null;
+                    ArrayList<String> ids = SongRecommender.getSimilarSongs(songModel);
                     for (String songId : ids) {
-                        parseJSON(songId);
+                        handler.postDelayed((Runnable) () -> parseJSON(songId), 500);
                     }
                 } else {
                     tryNewSong();
@@ -251,7 +251,7 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
 
                         String songName = jsonObject.getString("name");
 
-                        SongModel songModel = new SongModel(imgURL, songName, String.valueOf(artist), spotify_url);
+                        SongModel songModel = new SongModel(id, imgURL, songName, String.valueOf(artist), spotify_url);
 
                         ChatModel chatModel = new ChatModel(SONG_VIEW, songModel);
                         addConversationToChats(chatModel);
@@ -293,8 +293,9 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
     }
 
     @Override
-    public void askUserFeedback() {
+    public void askUserFeedback(SongModel songModel) {
         songClicked = true;
+        this.songModel = songModel;
     }
 
     @Override

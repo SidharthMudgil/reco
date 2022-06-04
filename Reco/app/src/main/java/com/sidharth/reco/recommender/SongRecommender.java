@@ -2,20 +2,21 @@ package com.sidharth.reco.recommender;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.util.Log;
 
 import com.arasthel.asyncjob.AsyncJob;
-import com.sidharth.reco.MainActivity;
+import com.sidharth.reco.chat.model.SongModel;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class SongRecommender {
-    private static JSONArray data;
+    private static JSONArray songsData;
 
     public static void initializeSongData(Context context) {
         ProgressDialog dialog = new ProgressDialog(context);
@@ -27,14 +28,14 @@ public class SongRecommender {
         new AsyncJob.AsyncJobBuilder<Boolean>()
                 .doInBackground(() -> {
                     try {
-                        data = loadJSONFromAssets(context);
+                        songsData = loadJSONFromAssets(context);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                     return true;
                 })
                 .doWhenFinished(o -> {
-                    if (data == null) {
+                    if (songsData == null) {
                         throw new RuntimeException("Array List Empty");
                     } else {
                         dialog.dismiss();
@@ -69,12 +70,23 @@ public class SongRecommender {
     }
 
     public static String getNewSong() {
-        getResult();
-        return null;
+        int totalSongs = 50014;
+        try {
+            JSONObject song = songsData.getJSONObject(new Random().nextInt(totalSongs));
+            return song.getString("id");
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
-    public static ArrayList<String> getSimilarSongs() {
-        getResult();
-        return null;
+    public static ArrayList<String> getSimilarSongs(SongModel songModel) {
+        ArrayList<String> ids = new ArrayList<>();
+        ids.add(songModel.getImgID());
+        ids.add("0kmOFBPszGiU5UiERMN9ph");
+        ids.add("749FLa24QNwTmCF7MRsZ4m");
+        ids.add("75AMWT7xTcueDzIuX6p0Nt");
+        ids.add("4dPVmeisPfQrLcjx0Wz1KW");
+        return ids;
     }
 }

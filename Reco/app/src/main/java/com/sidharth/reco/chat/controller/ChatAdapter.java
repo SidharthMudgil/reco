@@ -90,7 +90,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
                 holder.itemView.setOnLongClickListener(view -> {
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(chats.get(position).getSongModel().getSongURL()));
                     context.startActivity(browserIntent);
-                    songLongClickedListener.askUserFeedback();
+                    songLongClickedListener.askUserFeedback(chats.get(position).getSongModel());
                     return true;
                 });
         }

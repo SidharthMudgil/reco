@@ -1,17 +1,22 @@
 package com.sidharth.reco.chat.model;
 
 public class SongModel {
-    final String imgURL;
-    final String songName;
-    final String songArtist;
-    final String songURL;
+    private final String imgID;
+    private final String imgURL;
+    private final String songName;
+    private final String songArtist;
+    private final String songURL;
 
-
-    public SongModel(String imgURL, String songName, String songArtist, String songURL) {
+    public SongModel(String imgID, String imgURL, String songName, String songArtist, String songURL) {
+        this.imgID = imgID;
         this.imgURL = imgURL;
         this.songName = songName;
         this.songArtist = songArtist;
         this.songURL = songURL;
+    }
+
+    public String getImgID() {
+        return imgID;
     }
 
     public String getImgURL() {
