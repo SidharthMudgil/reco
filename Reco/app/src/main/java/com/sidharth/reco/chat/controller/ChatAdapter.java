@@ -23,7 +23,7 @@ import com.sidharth.reco.chat.view.UserChatHolder;
 
 import java.util.ArrayList;
 
-public class ChatAdapter extends RecyclerView.Adapter implements OnActionPerformedListener {
+public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements OnActionPerformedListener {
     private static final int VIEW_TYPE_MESSAGE_BOT = 1;
     private static final int VIEW_TYPE_MESSAGE_USER = 2;
     private static final int VIEW_TYPE_SONG = 3;
