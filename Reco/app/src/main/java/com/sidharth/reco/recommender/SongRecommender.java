@@ -2,8 +2,10 @@ package com.sidharth.reco.recommender;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.util.Log;
 
 import com.arasthel.asyncjob.AsyncJob;
+import com.sidharth.reco.MainActivity;
 import com.sidharth.reco.chat.model.SongModel;
 
 import org.json.JSONArray;
@@ -13,9 +15,13 @@ import org.json.JSONObject;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Objects;
+import java.util.PriorityQueue;
 import java.util.Random;
 
 public class SongRecommender {
+    private static final int totalSongs = 50014;
+
     private static JSONArray songsData;
     private static final int MOOD_HAPPY = 0;
     private static final int MOOD_CALM = 1;
@@ -64,39 +70,71 @@ public class SongRecommender {
         }
     }
 
-    public static String getMoodSong(int mood) {
+    private static double getDistance(SongFeatureModel playedSong, SongFeatureModel currSong) {
+        double acousticness = Math.pow(playedSong.getAcousticness() - currSong.getAcousticness(), 2);
+        double danceability = Math.pow(playedSong.getDanceability() - currSong.getDanceability(), 2);
+        double energy = Math.pow(playedSong.getEnergy() - currSong.getEnergy(), 2);
+        double instrumentalness = Math.pow(playedSong.getInstrumentalness() - currSong.getInstrumentalness(), 2);
+        double liveness = Math.pow(playedSong.getLiveness() - currSong.getLiveness(), 2);
+        double loudness = Math.pow(playedSong.getLoudness() - currSong.getLoudness(), 2);
+        double speechiness = Math.pow(playedSong.getSpeechiness() - currSong.getSpeechiness(), 2);
+        double tempo = Math.pow(playedSong.getTempo() - currSong.getTempo(), 2);
+        double valence = Math.pow(playedSong.getValence() - currSong.getValence(), 2);
+        return Math.sqrt(acousticness + danceability + energy + instrumentalness + liveness + loudness + speechiness + tempo + valence);
+    }
+
+    public static SongFeatureModel getMoodSong(int mood) {
         switch (mood) {
             case MOOD_HAPPY:
-                return "785P76EJxDydMu7a2IZRHR";
+
             case MOOD_CALM:
-                return "1FOEQiszPh2XuMuaY4ZIUq";
+
             case MOOD_ANXIOUS:
-                return "3DgviHZKJ8Xf385NqwwwK8";
+
             case MOOD_ENERGETIC:
-                return "2lda3NIlkKYkZsU5eai2Ve";
+
             default:
                 return getNewSong();
         }
     }
 
-    public static String getNewSong() {
-        int totalSongs = 50014;
+    public static SongFeatureModel getNewSong() {
         try {
             JSONObject song = songsData.getJSONObject(new Random().nextInt(totalSongs));
-            return song.getString("id");
+            return new SongFeatureModel(song);
         } catch (JSONException e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public static ArrayList<String> getSimilarSongs(SongModel songModel) {
-        ArrayList<String> ids = new ArrayList<>();
-        ids.add(songModel.getImgID());
-        ids.add("0kmOFBPszGiU5UiERMN9ph");
-        ids.add("749FLa24QNwTmCF7MRsZ4m");
-        ids.add("75AMWT7xTcueDzIuX6p0Nt");
-        ids.add("4dPVmeisPfQrLcjx0Wz1KW");
-        return ids;
+    public static ArrayList<SongFeatureModel> getSimilarSongs(SongModel songModel) {
+        PriorityQueue<DistanceSongPair> queue = new PriorityQueue<>(totalSongs, new StudentComparator());
+
+        for (int i = 0; i < songsData.length(); i++) {
+            SongFeatureModel featureModel;
+            try {
+                featureModel = new SongFeatureModel(songsData.getJSONObject(i));
+                double distance = -1 * getDistance(songModel.getFeatureModel(), featureModel);
+                queue.add(new DistanceSongPair(distance, featureModel));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        ArrayList<SongFeatureModel> top1000 = new ArrayList<>();
+        for (int i = 0; i < 1000; i++) {
+            DistanceSongPair distanceSongPair = queue.poll();
+            SongFeatureModel featureModel = Objects.requireNonNull(distanceSongPair).getFeatureModel();
+            Log.d(MainActivity.TAG, distanceSongPair.getDistance() + "");
+            top1000.add(featureModel);
+        }
+
+        ArrayList<SongFeatureModel> songs = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            songs.add(top1000.get(new Random().nextInt(1000)));
+        }
+
+        return songs;
     }
 }

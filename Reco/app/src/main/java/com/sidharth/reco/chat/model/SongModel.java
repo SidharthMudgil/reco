@@ -1,22 +1,20 @@
 package com.sidharth.reco.chat.model;
 
+import com.sidharth.reco.recommender.SongFeatureModel;
+
 public class SongModel {
-    private final String imgID;
     private final String imgURL;
     private final String songName;
     private final String songArtist;
     private final String songURL;
+    private final SongFeatureModel featureModel;
 
-    public SongModel(String imgID, String imgURL, String songName, String songArtist, String songURL) {
-        this.imgID = imgID;
+    public SongModel(String imgURL, String songName, String songArtist, String songURL, SongFeatureModel featureModel) {
         this.imgURL = imgURL;
         this.songName = songName;
         this.songArtist = songArtist;
         this.songURL = songURL;
-    }
-
-    public String getImgID() {
-        return imgID;
+        this.featureModel = featureModel;
     }
 
     public String getImgURL() {
@@ -33,5 +31,9 @@ public class SongModel {
 
     public String getSongURL() {
         return songURL;
+    }
+
+    public SongFeatureModel getFeatureModel() {
+        return featureModel;
     }
 }

@@ -3,6 +3,7 @@ package com.sidharth.reco.chat.controller;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.sidharth.reco.MainActivity;
 import com.sidharth.reco.R;
 import com.sidharth.reco.chat.ChatActivity;
 import com.sidharth.reco.chat.callback.OnActionPerformedListener;
@@ -73,7 +75,6 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ChatModel message = chats.get(position);
-
         switch (holder.getItemViewType()) {
             case VIEW_TYPE_MESSAGE_BOT:
                 ((BotChatHolder) holder).bind(message);
@@ -91,7 +92,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(chats.get(position).getSongModel().getSongURL()));
                     context.startActivity(browserIntent);
                     songLongClickedListener.askUserFeedback(chats.get(position).getSongModel());
-                    return true;
+                    return false;
                 });
         }
     }
