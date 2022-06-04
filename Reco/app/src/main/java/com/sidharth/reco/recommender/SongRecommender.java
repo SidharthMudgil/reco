@@ -2,10 +2,8 @@ package com.sidharth.reco.recommender;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.util.Log;
 
 import com.arasthel.asyncjob.AsyncJob;
-import com.sidharth.reco.MainActivity;
 import com.sidharth.reco.chat.model.SongModel;
 
 import org.json.JSONArray;
@@ -126,21 +124,7 @@ public class SongRecommender {
             top2000.add(featureModel);
         }
 
-        Log.d(MainActivity.TAG, attribute + " " + graph);
-
-        SongFeatureModel songFeatureModel = top2000.get(new Random().nextInt(2000));
-        switch (attribute) {
-            case ATTR_ENERGY:
-                Log.d(MainActivity.TAG, songFeatureModel.getEnergy() + "");
-                break;
-            case ATTR_VALANCE:
-                Log.d(MainActivity.TAG, songFeatureModel.getValence() + "");
-                break;
-            case ATTR_TEMPO:
-                Log.d(MainActivity.TAG, songFeatureModel.getTempo() + "");
-                break;
-        }
-        return songFeatureModel;
+        return top2000.get(new Random().nextInt(2000));
     }
 
     public static SongFeatureModel getMoodSong(int mood) {
@@ -186,7 +170,6 @@ public class SongRecommender {
         for (int i = 0; i < 1000; i++) {
             SongAttrPair distanceSongPair = queue.poll();
             SongFeatureModel featureModel = Objects.requireNonNull(distanceSongPair).getFeatureModel();
-            Log.d(MainActivity.TAG, distanceSongPair.getAttribute() + "");
             top1000.add(featureModel);
         }
 
