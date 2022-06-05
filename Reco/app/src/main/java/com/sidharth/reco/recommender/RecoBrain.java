@@ -1,6 +1,7 @@
 package com.sidharth.reco.recommender;
 
 import android.content.Context;
+import android.os.Handler;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -21,19 +22,23 @@ import java.util.List;
 import java.util.Map;
 
 public class RecoBrain {
-    private static final List<String> GREETING = Arrays.asList("hi", "hello", "hlo", "helo");
+    private static final List<String> GREETING = Arrays.asList(
+            "hi", "hello", "hlo", "helo", "hii", "helloo",
+            "hola", "nmste", "namaste",
+            "nmshkaram", "namaskar");
+
+    private static final ArrayList<String> OPTIONS = new ArrayList<>(Arrays.asList(
+            "introduce yourself",
+            "tell me the day today",
+            "tell me a joke",
+            "play a mood song"
+    ));
 
     public static ChatModel analyzeChat(String message) {
         String[] words = message.split(" ");
         for (String word : words) {
-            if (GREETING.contains(word)) {
-                ArrayList<String> options = new ArrayList<>(Arrays.asList(
-                        "introduce yourself",
-                        "tell me the day today",
-                        "tell me a joke",
-                        "play a mood song"
-                ));
-                ChatOptionModel optionModel = new ChatOptionModel(ChatActivity.TYPE_OPTION_MENU, options);
+            if (GREETING.contains(word.toLowerCase())) {
+                ChatOptionModel optionModel = new ChatOptionModel(ChatActivity.TYPE_OPTION_MENU, OPTIONS);
                 return new ChatModel(ChatActivity.SENDER_BOT, "What can I do for you?", optionModel);
             }
         }
@@ -54,9 +59,11 @@ public class RecoBrain {
                             String setup = response.getString("setup");
                             String delivery = response.getString("delivery");
                             ChatModel jokeSetup = new ChatModel(ChatActivity.SENDER_BOT, setup);
-                            ChatModel jokeDelivery = new ChatModel(ChatActivity.SENDER_BOT, delivery);
                             responseCallback.onResponse(jokeSetup);
-                            responseCallback.onResponse(jokeDelivery);
+                            new Handler().postDelayed(() -> {
+                                ChatModel jokeDelivery = new ChatModel(ChatActivity.SENDER_BOT, delivery);
+                                responseCallback.onResponse(jokeDelivery);
+                            }, 500);
                         } else {
                             String joke = response.getString("joke");
                             ChatModel chatModel = new ChatModel(ChatActivity.SENDER_BOT, joke);

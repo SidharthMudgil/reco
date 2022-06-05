@@ -124,6 +124,9 @@ public class ChatActivity extends AppCompatActivity {
 
     private void addConversationToChats(ChatModel chatModel) {
         chats.add(chatModel);
+        if (chatModel.getOptionModel() != null) {
+            startHandler();
+        }
         playMessagingSound(chatModel.getSender());
         recyclerView.smoothScrollToPosition(chats.size() - 1);
         chatAdapter.notifyItemInserted(chats.size());
@@ -241,7 +244,7 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     public void startHandler() {
-        handler.postDelayed(runnable, 15 * 1000);
+        handler.postDelayed(runnable, 10 * 1000);
     }
 
     private void closeKeyboard() {
