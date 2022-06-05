@@ -7,4 +7,4 @@
 </p>
 
 # Downloads
-[reco apk](https://github.com/SidharthMudgil/Reco/releases/download/v0.2.0/reco.v0.2.0.apk)
+[reco apk](https://github.com/SidharthMudgil/Reco/releases/latest/download/reco.apk)
