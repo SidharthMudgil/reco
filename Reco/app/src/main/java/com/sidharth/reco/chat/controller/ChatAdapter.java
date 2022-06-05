@@ -15,7 +15,7 @@ import com.sidharth.reco.R;
 import com.sidharth.reco.chat.ChatActivity;
 import com.sidharth.reco.chat.callback.OnActionPerformedListener;
 import com.sidharth.reco.chat.callback.OnChatOptionClickListener;
-import com.sidharth.reco.chat.callback.OnSongLongClickedListener;
+import com.sidharth.reco.chat.callback.OnSongClickListener;
 import com.sidharth.reco.chat.model.ChatModel;
 import com.sidharth.reco.chat.view.BotChatHolder;
 import com.sidharth.reco.chat.view.SongViewHolder;
@@ -30,15 +30,15 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
     private final Context context;
     private final ArrayList<ChatModel> chats;
-    private final OnSongLongClickedListener songLongClickedListener;
+    private final OnSongClickListener songClickListener;
 
     private RecyclerView recyclerView;
 
 
-    public ChatAdapter(Context context, ArrayList<ChatModel> chats, OnSongLongClickedListener songLongClickedListener) {
+    public ChatAdapter(Context context, ArrayList<ChatModel> chats, OnSongClickListener songClickListener) {
         this.context = context;
         this.chats = chats;
-        this.songLongClickedListener = songLongClickedListener;
+        this.songClickListener = songClickListener;
     }
 
     @Override
@@ -86,11 +86,10 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
                 break;
             case VIEW_TYPE_SONG:
                 ((SongViewHolder) holder).bind(chats.get(position).getSongModel());
-                holder.itemView.setOnLongClickListener(view -> {
+                holder.itemView.setOnClickListener(view -> {
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(chats.get(position).getSongModel().getSongURL()));
                     context.startActivity(browserIntent);
-                    songLongClickedListener.askUserFeedback(chats.get(position).getSongModel());
-                    return false;
+                    songClickListener.askUserFeedback(chats.get(position).getSongModel());
                 });
         }
     }

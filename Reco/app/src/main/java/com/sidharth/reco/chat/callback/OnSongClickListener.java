@@ -2,6 +2,6 @@ package com.sidharth.reco.chat.callback;
 
 import com.sidharth.reco.chat.model.SongModel;
 
-public interface OnSongLongClickedListener {
+public interface OnSongClickListener {
     void askUserFeedback(SongModel songModel);
 }

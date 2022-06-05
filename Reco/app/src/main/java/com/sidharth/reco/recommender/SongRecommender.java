@@ -3,7 +3,14 @@ package com.sidharth.reco.recommender;
 import android.app.ProgressDialog;
 import android.content.Context;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.arasthel.asyncjob.AsyncJob;
+import com.sidharth.reco.R;
+import com.sidharth.reco.chat.ChatActivity;
+import com.sidharth.reco.chat.model.ChatModel;
 import com.sidharth.reco.chat.model.SongModel;
 
 import org.json.JSONArray;
@@ -13,6 +20,8 @@ import org.json.JSONObject;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.PriorityQueue;
 import java.util.Random;
@@ -32,6 +41,8 @@ public class SongRecommender {
     private static final String ATTR_ENERGY = "energy";
     private static final String ATTR_VALANCE = "valance";
     private static final String ATTR_TEMPO = "tempo";
+
+    private static final String SPOTIFY_BASE_URL = "https://spotify23.p.rapidapi.com/tracks/?ids=";
 
     public static void initializeSongData(Context context) {
         ProgressDialog dialog = new ProgressDialog(context);
@@ -73,6 +84,59 @@ public class SongRecommender {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static void getSongFromFeature(Context context, SongFeatureModel featureModel, APIResponseCallback responseCallback) {
+        final String URL = SPOTIFY_BASE_URL + featureModel.getId();
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+
+        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, URL, null,
+                response -> {
+                    try {
+                        JSONArray jsonArray = response.getJSONArray("tracks");
+                        JSONObject jsonObject = jsonArray.getJSONObject(0);
+
+                        // for spotify url
+                        JSONObject urls = jsonObject.getJSONObject("external_urls");
+                        String spotify_url = urls.getString("spotify");
+
+                        // for artists
+                        JSONArray artists = jsonObject.getJSONArray("artists");
+                        StringBuilder artist = new StringBuilder();
+                        for (int i = 0; i < artists.length(); i++) {
+                            JSONObject object = artists.getJSONObject(i);
+                            String name = object.getString("name");
+                            artist.append(name);
+                            if (i != artists.length() - 1) {
+                                artist.append(", ");
+                            }
+                        }
+
+                        // for image url
+                        JSONObject album = jsonObject.getJSONObject("album");
+                        JSONArray images = album.getJSONArray("images");
+                        JSONObject image = images.getJSONObject(2);
+                        String imgURL = image.getString("url");
+
+                        String songName = jsonObject.getString("name");
+
+                        SongModel songModel = new SongModel(imgURL, songName, String.valueOf(artist), spotify_url, featureModel);
+                        ChatModel chatModel = new ChatModel(ChatActivity.SONG_VIEW, songModel);
+                        responseCallback.onSongResponse(chatModel);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                Throwable::printStackTrace) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> params = new HashMap<>();
+                params.put("X-RapidAPI-Host", context.getString(R.string.SPOTIFY_API_HOST));
+                params.put("X-RapidAPI-Key", context.getString(R.string.SPOTIFY_API_KEY));
+                return params;
+            }
+        };
+        requestQueue.add(objectRequest);
     }
 
     private static double getDistance(SongFeatureModel playedSong, SongFeatureModel currSong) {

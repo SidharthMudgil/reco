@@ -43,7 +43,10 @@
     <string name="msg_want_similar">want  more similar songs?</string>
     <string name="msg_try_new1">Want something new?</string>
     <string name="msg_thanks">Thanks, Nice to talk to you, Wish things went on a little longer</string>
-    <string name="api_host">spotify23.p.rapidapi.com</string>
-    <string name="api_key">568ce5fb4amsh22f37fe760d2699p102d6ejsnbb531fab6a56</string>
+    <string name="SPOTIFY_API_HOST">spotify23.p.rapidapi.com</string>
+    <string name="SPOTIFY_API_KEY">568ce5fb4amsh22f37fe760d2699p102d6ejsnbb531fab6a56</string>
     <string name="track_banner">track banner</string>
+    <string name="msg_mood">How are your feeling today?</string>
+    <string name="msg_intro">Hi,\nI\'m Reco, your personal bot\nLet\'s listen to some songs</string>
+    <string name="msg_recoIntro">Hi, I am Reco an AI based music recommendation chatbot</string>
 </resources>

@@ -11,35 +11,25 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.sidharth.reco.R;
 import com.sidharth.reco.chat.callback.OnChatOptionClickListener;
-import com.sidharth.reco.chat.callback.OnSongLongClickedListener;
 import com.sidharth.reco.chat.controller.ChatAdapter;
 import com.sidharth.reco.chat.model.ChatModel;
 import com.sidharth.reco.chat.model.ChatOptionModel;
 import com.sidharth.reco.chat.model.SongModel;
+import com.sidharth.reco.recommender.APIResponseCallback;
 import com.sidharth.reco.recommender.RecoBrain;
 import com.sidharth.reco.recommender.SongFeatureModel;
 import com.sidharth.reco.recommender.SongRecommender;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 
-public class ChatActivity extends AppCompatActivity implements OnChatOptionClickListener, OnSongLongClickedListener {
+public class ChatActivity extends AppCompatActivity implements OnChatOptionClickListener {
 
     private Handler handler;
     private Runnable runnable;
@@ -61,7 +51,6 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
     private ChatAdapter chatAdapter;
     private RecyclerView recyclerView;
 
-    private static final String BASE_URL = "https://spotify23.p.rapidapi.com/tracks/?ids=";
     private boolean songClicked = false;
     private SongModel songModel;
 
@@ -73,17 +62,18 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
         SongRecommender.initializeSongData(this);
 
         // intro chats
-        String recoIntro = "Hi,\nI'm Reco, your personal bot\nLet's listen to some songs";
-        String moodMessage = "How are your feeling today?";
         ChatOptionModel moodOptionModel = new ChatOptionModel(TYPE_MOOD, MOODS);
         chats = new ArrayList<>(
                 Arrays.asList(
-                        new ChatModel(SENDER_BOT, recoIntro),
-                        new ChatModel(SENDER_BOT, moodMessage, moodOptionModel)
+                        new ChatModel(SENDER_BOT, getString(R.string.msg_intro)),
+                        new ChatModel(SENDER_BOT, getString(R.string.msg_mood), moodOptionModel)
                 ));
 
         // chat adapter
-        chatAdapter = new ChatAdapter(this, chats, this);
+        chatAdapter = new ChatAdapter(this, chats, model -> {
+            songClicked = true;
+            songModel = model;
+        });
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setAdapter(chatAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -160,14 +150,14 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
         switch (type) {
             case TYPE_MOOD: {
                 SongFeatureModel song = SongRecommender.getMoodSong(position);
-                parseJSON(song);
+                getShowSongView(song);
                 break;
             }
             case TYPE_SHOW_SIMILAR: {
                 if (position == 0) {
                     ArrayList<SongFeatureModel> songs = SongRecommender.getSimilarSongs(songModel);
                     for (SongFeatureModel song : songs) {
-                        handler.postDelayed((Runnable) () -> parseJSON(song), 500);
+                        handler.postDelayed((Runnable) () -> getShowSongView(song), 500);
                     }
                 } else {
                     tryNewSong();
@@ -186,22 +176,14 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
                 if (position == 0) {
                     SongFeatureModel song = SongRecommender.getNewSong();
                     assert song != null;
-                    parseJSON(song);
-                } else {
-                    ChatModel chatModel = new ChatModel(SENDER_BOT, getString(R.string.msg_thanks));
-                    addConversationToChats(chatModel);
+                    getShowSongView(song);
                 }
                 break;
             }
             case TYPE_OPTION_MENU: {
                 switch (position) {
                     case 0: {
-                        String message = "Hi I am Reco\n" +
-                                "My father name is Mr. Sidharth Mudgil\n" +
-                                "He is my inspiration\n" +
-                                "He is human and I am bot\n" +
-                                "But he loves me so much";
-                        ChatModel chatModel = new ChatModel(SENDER_BOT, message);
+                        ChatModel chatModel = new ChatModel(SENDER_BOT, getString(R.string.msg_recoIntro));
                         addConversationToChats(chatModel);
                         break;
                     }
@@ -229,7 +211,7 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
                     }
                     case 3: {
                         ChatOptionModel optionModel = new ChatOptionModel(TYPE_MOOD, MOODS);
-                        ChatModel chatModel = new ChatModel(SENDER_BOT, getString(R.string.msg_thanks), optionModel);
+                        ChatModel chatModel = new ChatModel(SENDER_BOT, getString(R.string.msg_mood), optionModel);
                         addConversationToChats(chatModel);
                         break;
                     }
@@ -262,57 +244,18 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
         startHandler();
     }
 
-    private void parseJSON(SongFeatureModel featureModel) {
-        final String URL = BASE_URL + featureModel.getId();
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-
-        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, URL, null,
-                response -> {
-                    try {
-                        JSONArray jsonArray = response.getJSONArray("tracks");
-                        JSONObject jsonObject = jsonArray.getJSONObject(0);
-
-                        // for spotify url
-                        JSONObject urls = jsonObject.getJSONObject("external_urls");
-                        String spotify_url = urls.getString("spotify");
-
-                        // for artists
-                        JSONArray artists = jsonObject.getJSONArray("artists");
-                        StringBuilder artist = new StringBuilder();
-                        for (int i = 0; i < artists.length(); i++) {
-                            JSONObject object = artists.getJSONObject(i);
-                            String name = object.getString("name");
-                            artist.append(name);
-                            if (i != artists.length() - 1) {
-                                artist.append(", ");
-                            }
-                        }
-
-                        // for image url
-                        JSONObject album = jsonObject.getJSONObject("album");
-                        JSONArray images = album.getJSONArray("images");
-                        JSONObject image = images.getJSONObject(2);
-                        String imgURL = image.getString("url");
-
-                        String songName = jsonObject.getString("name");
-
-                        SongModel songModel = new SongModel(imgURL, songName, String.valueOf(artist), spotify_url, featureModel);
-                        ChatModel chatModel = new ChatModel(SONG_VIEW, songModel);
-                        addConversationToChats(chatModel);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                },
-                Throwable::printStackTrace) {
+    private void getShowSongView(SongFeatureModel featureModel) {
+        SongRecommender.getSongFromFeature(this, featureModel, new APIResponseCallback() {
             @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> params = new HashMap<>();
-                params.put("X-RapidAPI-Host", getString(R.string.api_host));
-                params.put("X-RapidAPI-Key", getString(R.string.api_key));
-                return params;
+            public void onSongResponse(ChatModel chatModel) {
+                addConversationToChats(chatModel);
             }
-        };
-        requestQueue.add(objectRequest);
+
+            @Override
+            public void onJokeResponse(String joke) {
+
+            }
+        });
     }
 
     public void stopHandler() {
@@ -335,12 +278,6 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
         ChatModel chatModel = new ChatModel(SENDER_USER, message);
         addConversationToChats(chatModel);
         handler.postDelayed(() -> recommendSong(optionModel.getType(), position), 1000);
-    }
-
-    @Override
-    public void askUserFeedback(SongModel songModel) {
-        songClicked = true;
-        this.songModel = songModel;
     }
 
     @Override
