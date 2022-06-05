@@ -31,13 +31,19 @@ import java.util.PriorityQueue;
 import java.util.Random;
 
 public class SongRecommender {
-    private static final int totalSongs = 50014;
+    private static final int TOTAL_SONGS = 50014;
+    private static final int TOTAL_HINDI_SONGS = 1891;
 
-    private static JSONArray songsData;
+    private static JSONArray allSongs;
+    private static JSONArray hindiSongs;
     private static final int MOOD_HAPPY = 0;
     private static final int MOOD_CALM = 1;
     private static final int MOOD_ANXIOUS = 2;
     private static final int MOOD_ENERGETIC = 3;
+    private static final int MOOD_INDIAN = 4;
+
+    private static final int TYPE_NON_INDIAN = 1;
+    private static final int TYPE_INDIAN = 0;
 
     private static final int GRAPH_LOW = 0;
     private static final int GRAPH_HIGH = 1;
@@ -58,14 +64,15 @@ public class SongRecommender {
         new AsyncJob.AsyncJobBuilder<Boolean>()
                 .doInBackground(() -> {
                     try {
-                        songsData = loadJSONFromAssets(context);
+                        allSongs = loadJSONFromAssets(context, "data.json");
+                        hindiSongs = loadJSONFromAssets(context, "hindi.json");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                     return true;
                 })
                 .doWhenFinished(o -> {
-                    if (songsData == null) {
+                    if (allSongs == null || hindiSongs == null) {
                         throw new RuntimeException("Array List Empty");
                     } else {
                         dialog.dismiss();
@@ -73,9 +80,9 @@ public class SongRecommender {
                 }).create().start();
     }
 
-    private static JSONArray loadJSONFromAssets(Context context) {
+    private static JSONArray loadJSONFromAssets(Context context, String file) {
         try {
-            InputStream is = context.getAssets().open("data.json");
+            InputStream is = context.getAssets().open(file);
             int size = is.available();
             byte[] buffer = new byte[size];
             //noinspection ResultOfMethodCallIgnored
@@ -156,13 +163,13 @@ public class SongRecommender {
         return Math.sqrt(acousticness + danceability + energy + instrumentalness + liveness + loudness + speechiness + tempo + valence);
     }
 
-    private static SongFeatureModel getSongForMood(String attribute, int graph) {
-        PriorityQueue<SongAttrPair> queue = new PriorityQueue<>(totalSongs, new SongAttrComparator());
+    private static SongFeatureModel getNonIndianSongs(String attribute, int graph) {
+        PriorityQueue<SongAttrPair> queue = new PriorityQueue<>(TOTAL_SONGS, new SongAttrComparator());
 
-        for (int i = 0; i < songsData.length(); i++) {
+        for (int i = 0; i < allSongs.length(); i++) {
             SongFeatureModel featureModel;
             try {
-                featureModel = new SongFeatureModel(songsData.getJSONObject(i));
+                featureModel = new SongFeatureModel(allSongs.getJSONObject(i), TYPE_NON_INDIAN);
                 switch (attribute) {
                     case ATTR_ENERGY: {
                         queue.add(new SongAttrPair(featureModel.getEnergy(), featureModel));
@@ -195,25 +202,44 @@ public class SongRecommender {
         return top2000.get(new Random().nextInt(2000));
     }
 
-    public static SongFeatureModel getMoodSong(int mood) {
+    public static SongFeatureModel getMoodBasedSong(int mood) {
         switch (mood) {
             case MOOD_HAPPY:
-                return getSongForMood(ATTR_VALANCE, GRAPH_HIGH);
+                return getNonIndianSongs(ATTR_VALANCE, GRAPH_HIGH);
             case MOOD_CALM:
-                return getSongForMood(ATTR_TEMPO, GRAPH_LOW);
+                return getNonIndianSongs(ATTR_TEMPO, GRAPH_LOW);
             case MOOD_ANXIOUS:
-                return getSongForMood(ATTR_VALANCE, GRAPH_LOW);
+                return getNonIndianSongs(ATTR_VALANCE, GRAPH_LOW);
             case MOOD_ENERGETIC:
-                return getSongForMood(ATTR_ENERGY, GRAPH_HIGH);
+                return getNonIndianSongs(ATTR_ENERGY, GRAPH_HIGH);
+            case MOOD_INDIAN:
+                return getIndianSong();
             default:
                 return getNewSong();
         }
     }
 
+    public static SongFeatureModel getIndianSong() {
+        try {
+            JSONObject song = hindiSongs.getJSONObject(new Random().nextInt(TOTAL_HINDI_SONGS));
+            return new SongFeatureModel(song, TYPE_INDIAN);
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public static SongFeatureModel getNewSong() {
         try {
-            JSONObject song = songsData.getJSONObject(new Random().nextInt(totalSongs));
-            return new SongFeatureModel(song);
+            int choice = new Random().nextInt(2);
+            JSONObject song;
+            if (choice == TYPE_NON_INDIAN) {
+                song = allSongs.getJSONObject(new Random().nextInt(TOTAL_SONGS));
+                return new SongFeatureModel(song, TYPE_NON_INDIAN);
+            } else {
+                song = hindiSongs.getJSONObject(new Random().nextInt(TOTAL_HINDI_SONGS));
+                return new SongFeatureModel(song, TYPE_INDIAN);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
             return null;
@@ -221,12 +247,24 @@ public class SongRecommender {
     }
 
     public static ArrayList<SongFeatureModel> getSimilarSongs(SongModel songModel) {
-        PriorityQueue<SongAttrPair> queue = new PriorityQueue<>(totalSongs, new SongAttrComparator());
+        int type = songModel.getFeatureModel().getType();
+        int total;
+        PriorityQueue<SongAttrPair> queue;
+        if (type == 0) {
+            total = TOTAL_SONGS;
+        } else {
+            total = TOTAL_HINDI_SONGS;
+        }
+        queue = new PriorityQueue<>(total, new SongAttrComparator());
 
-        for (int i = 0; i < songsData.length(); i++) {
+        for (int i = 0; i < total; i++) {
             SongFeatureModel featureModel;
             try {
-                featureModel = new SongFeatureModel(songsData.getJSONObject(i));
+                if (type == 0) {
+                    featureModel = new SongFeatureModel(allSongs.getJSONObject(i), 0);
+                } else {
+                    featureModel = new SongFeatureModel(hindiSongs.getJSONObject(i), 1);
+                }
                 double distance = -1 * getDistance(songModel.getFeatureModel(), featureModel);
                 queue.add(new SongAttrPair(distance, featureModel));
             } catch (JSONException e) {
@@ -234,16 +272,17 @@ public class SongRecommender {
             }
         }
 
-        ArrayList<SongFeatureModel> top1000 = new ArrayList<>();
-        for (int i = 0; i < 1000; i++) {
+        int bound = (int) (0.5 * TOTAL_SONGS);
+        ArrayList<SongFeatureModel> similarSongs = new ArrayList<>();
+        for (int i = 0; i < bound; i++) {
             SongAttrPair distanceSongPair = queue.poll();
             SongFeatureModel featureModel = Objects.requireNonNull(distanceSongPair).getFeatureModel();
-            top1000.add(featureModel);
+            similarSongs.add(featureModel);
         }
 
         ArrayList<SongFeatureModel> songs = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
-            songs.add(top1000.get(new Random().nextInt(1000)));
+            songs.add(similarSongs.get(new Random().nextInt(bound)));
         }
 
         return songs;

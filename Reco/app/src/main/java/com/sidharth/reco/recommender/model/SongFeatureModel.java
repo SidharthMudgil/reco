@@ -4,6 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class SongFeatureModel {
+    private final int type;
     private final String id;
     private final String name;
     private final double acousticness;
@@ -16,7 +17,8 @@ public class SongFeatureModel {
     private final double tempo;
     private final double valence;
 
-    public SongFeatureModel(JSONObject jsonObject) {
+    public SongFeatureModel(JSONObject jsonObject, int type) {
+        this.type = type;
         String id1;
         String name1;
         double acousticness1;
@@ -65,6 +67,10 @@ public class SongFeatureModel {
         speechiness = speechiness1;
         tempo = tempo1;
         valence = valence1;
+    }
+
+    public int getType() {
+        return type;
     }
 
     public String getId() {

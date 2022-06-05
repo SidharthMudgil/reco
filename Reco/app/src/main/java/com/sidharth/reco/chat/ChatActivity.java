@@ -41,7 +41,7 @@ public class ChatActivity extends AppCompatActivity {
     public static final int TYPE_SHOW_SIMILAR = 104;
     public static final int TYPE_OPTION_MENU = 105;
 
-    private static final ArrayList<String> MOODS = new ArrayList<>(Arrays.asList("happy", "calm", "anxious", "energetic"));
+    private static final ArrayList<String> MOODS = new ArrayList<>(Arrays.asList("happy", "calm", "anxious", "energetic", "indian"));
     private static final ArrayList<String> FEEDBACK = new ArrayList<>(Arrays.asList("Yes", "No"));
 
     private ArrayList<ChatModel> chats;
@@ -149,7 +149,7 @@ public class ChatActivity extends AppCompatActivity {
     private void recommendSong(int type, int position) {
         switch (type) {
             case TYPE_MOOD: {
-                SongFeatureModel song = SongRecommender.getMoodSong(position);
+                SongFeatureModel song = SongRecommender.getMoodBasedSong(position);
                 getShowSongView(song);
                 break;
             }
