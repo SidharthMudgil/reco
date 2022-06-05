@@ -5,5 +5,5 @@
 <img src="https://github.com/SidharthMudgil/Reco/blob/main/image/img3.jpg" width="250">
 </p>
 
-# Download
-[reco](https://github.com/SidharthMudgil/Reco/releases/download/v0.1.0/reco.v0.1.0.apk)
+# Downloads
+[reco apk](https://github.com/SidharthMudgil/Reco/releases/download/v0.1.0/reco.v0.1.0.apk)
