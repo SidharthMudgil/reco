@@ -1,4 +1,4 @@
-package com.sidharth.reco.recommender;
+package com.sidharth.reco.recommender.model;
 
 import org.json.JSONException;
 import org.json.JSONObject;

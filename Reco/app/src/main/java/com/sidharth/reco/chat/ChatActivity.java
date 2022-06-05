@@ -19,7 +19,7 @@ import com.sidharth.reco.chat.model.ChatModel;
 import com.sidharth.reco.chat.model.ChatOptionModel;
 import com.sidharth.reco.chat.model.SongModel;
 import com.sidharth.reco.recommender.RecoBrain;
-import com.sidharth.reco.recommender.SongFeatureModel;
+import com.sidharth.reco.recommender.model.SongFeatureModel;
 import com.sidharth.reco.recommender.SongRecommender;
 
 import java.time.LocalDate;

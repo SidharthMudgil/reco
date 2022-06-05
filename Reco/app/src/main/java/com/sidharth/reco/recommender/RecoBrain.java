@@ -10,6 +10,7 @@ import com.sidharth.reco.R;
 import com.sidharth.reco.chat.ChatActivity;
 import com.sidharth.reco.chat.model.ChatModel;
 import com.sidharth.reco.chat.model.ChatOptionModel;
+import com.sidharth.reco.recommender.callback.APIResponseCallback;
 
 import org.json.JSONException;
 

@@ -12,6 +12,10 @@ import com.sidharth.reco.R;
 import com.sidharth.reco.chat.ChatActivity;
 import com.sidharth.reco.chat.model.ChatModel;
 import com.sidharth.reco.chat.model.SongModel;
+import com.sidharth.reco.recommender.callback.APIResponseCallback;
+import com.sidharth.reco.recommender.model.SongFeatureModel;
+import com.sidharth.reco.recommender.utils.SongAttrComparator;
+import com.sidharth.reco.recommender.utils.SongAttrPair;
 
 import org.json.JSONArray;
 import org.json.JSONException;

@@ -1,4 +1,4 @@
-package com.sidharth.reco.recommender;
+package com.sidharth.reco.recommender.callback;
 
 import com.sidharth.reco.chat.model.ChatModel;
 

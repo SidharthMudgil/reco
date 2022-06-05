@@ -1,6 +1,6 @@
 package com.sidharth.reco.chat.model;
 
-import com.sidharth.reco.recommender.SongFeatureModel;
+import com.sidharth.reco.recommender.model.SongFeatureModel;
 
 public class SongModel {
     private final String imgURL;

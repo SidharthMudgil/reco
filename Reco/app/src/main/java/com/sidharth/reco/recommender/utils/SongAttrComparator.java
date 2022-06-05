@@ -1,4 +1,4 @@
-package com.sidharth.reco.recommender;
+package com.sidharth.reco.recommender.utils;
 
 import java.util.Comparator;
 

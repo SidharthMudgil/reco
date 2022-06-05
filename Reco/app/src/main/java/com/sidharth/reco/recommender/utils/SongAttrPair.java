@@ -1,4 +1,6 @@
-package com.sidharth.reco.recommender;
+package com.sidharth.reco.recommender.utils;
+
+import com.sidharth.reco.recommender.model.SongFeatureModel;
 
 public class SongAttrPair {
     private final double attribute;
