@@ -31,8 +31,8 @@ import java.util.PriorityQueue;
 import java.util.Random;
 
 public class SongRecommender {
-    private static final int TOTAL_SONGS = 50014;
-    private static final int TOTAL_HINDI_SONGS = 1891;
+    private static final int TOTAL_NON_INDIAN_SONGS = 50014;
+    private static final int TOTAL_INDIAN_SONGS = 1891;
 
     private static JSONArray allSongs;
     private static JSONArray hindiSongs;
@@ -164,7 +164,7 @@ public class SongRecommender {
     }
 
     private static SongFeatureModel getNonIndianSongs(String attribute, int graph) {
-        PriorityQueue<SongAttrPair> queue = new PriorityQueue<>(TOTAL_SONGS, new SongAttrComparator());
+        PriorityQueue<SongAttrPair> queue = new PriorityQueue<>(TOTAL_NON_INDIAN_SONGS, new SongAttrComparator());
 
         for (int i = 0; i < allSongs.length(); i++) {
             SongFeatureModel featureModel;
@@ -221,7 +221,7 @@ public class SongRecommender {
 
     public static SongFeatureModel getIndianSong() {
         try {
-            JSONObject song = hindiSongs.getJSONObject(new Random().nextInt(TOTAL_HINDI_SONGS));
+            JSONObject song = hindiSongs.getJSONObject(new Random().nextInt(TOTAL_INDIAN_SONGS));
             return new SongFeatureModel(song, TYPE_INDIAN);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -234,10 +234,10 @@ public class SongRecommender {
             int choice = new Random().nextInt(2);
             JSONObject song;
             if (choice == TYPE_NON_INDIAN) {
-                song = allSongs.getJSONObject(new Random().nextInt(TOTAL_SONGS));
+                song = allSongs.getJSONObject(new Random().nextInt(TOTAL_NON_INDIAN_SONGS));
                 return new SongFeatureModel(song, TYPE_NON_INDIAN);
             } else {
-                song = hindiSongs.getJSONObject(new Random().nextInt(TOTAL_HINDI_SONGS));
+                song = hindiSongs.getJSONObject(new Random().nextInt(TOTAL_INDIAN_SONGS));
                 return new SongFeatureModel(song, TYPE_INDIAN);
             }
         } catch (JSONException e) {
@@ -250,10 +250,10 @@ public class SongRecommender {
         int type = songModel.getFeatureModel().getType();
         int total;
         PriorityQueue<SongAttrPair> queue;
-        if (type == 0) {
-            total = TOTAL_HINDI_SONGS;
+        if (type == TYPE_INDIAN) {
+            total = TOTAL_INDIAN_SONGS;
         } else {
-            total = TOTAL_SONGS;
+            total = TOTAL_NON_INDIAN_SONGS;
         }
         queue = new PriorityQueue<>(total, new SongAttrComparator());
 
@@ -272,7 +272,7 @@ public class SongRecommender {
             }
         }
 
-        int bound = (int) (0.5 * TOTAL_SONGS);
+        int bound = (int) (0.05 * total);
         ArrayList<SongFeatureModel> similarSongs = new ArrayList<>();
         for (int i = 0; i < bound; i++) {
             SongAttrPair distanceSongPair = queue.poll();
