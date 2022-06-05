@@ -89,7 +89,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
                 holder.itemView.setOnClickListener(view -> {
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(chats.get(position).getSongModel().getSongURL()));
                     context.startActivity(browserIntent);
-                    songClickListener.askUserFeedback(chats.get(position).getSongModel());
+                    songClickListener.onSongClick(chats.get(position).getSongModel());
                 });
         }
     }

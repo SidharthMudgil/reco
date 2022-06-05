@@ -122,7 +122,7 @@ public class SongRecommender {
 
                         SongModel songModel = new SongModel(imgURL, songName, String.valueOf(artist), spotify_url, featureModel);
                         ChatModel chatModel = new ChatModel(ChatActivity.SONG_VIEW, songModel);
-                        responseCallback.onSongResponse(chatModel);
+                        responseCallback.onResponse(chatModel);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

@@ -18,7 +18,6 @@ import com.sidharth.reco.chat.controller.ChatAdapter;
 import com.sidharth.reco.chat.model.ChatModel;
 import com.sidharth.reco.chat.model.ChatOptionModel;
 import com.sidharth.reco.chat.model.SongModel;
-import com.sidharth.reco.recommender.APIResponseCallback;
 import com.sidharth.reco.recommender.RecoBrain;
 import com.sidharth.reco.recommender.SongFeatureModel;
 import com.sidharth.reco.recommender.SongRecommender;
@@ -26,7 +25,6 @@ import com.sidharth.reco.recommender.SongRecommender;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Random;
 
 
 public class ChatActivity extends AppCompatActivity implements OnChatOptionClickListener {
@@ -197,16 +195,7 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
                         break;
                     }
                     case 2: {
-                        final String[] jokes = {
-                                "Two bytes meet.  The first byte asks, “Are you ill?”\n" +
-                                        "The second byte replies, “No, just feeling a bit off.”",
-                                "Eight bytes walk into a bar.  The bartender asks, “Can I get you anything?”\n" +
-                                        "“Yeah,” reply the bytes.  “Make us a double.”",
-                                "Q. How did the programmer die in the shower?\n" +
-                                        "A. He read the shampoo bottle instructions: Lather. Rinse. Repeat."
-                        };
-                        ChatModel chatModel = new ChatModel(SENDER_BOT, jokes[new Random().nextInt(jokes.length)]);
-                        addConversationToChats(chatModel);
+                        RecoBrain.getJoke(this, this::addConversationToChats);
                         break;
                     }
                     case 3: {
@@ -245,17 +234,7 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
     }
 
     private void getShowSongView(SongFeatureModel featureModel) {
-        SongRecommender.getSongFromFeature(this, featureModel, new APIResponseCallback() {
-            @Override
-            public void onSongResponse(ChatModel chatModel) {
-                addConversationToChats(chatModel);
-            }
-
-            @Override
-            public void onJokeResponse(String joke) {
-
-            }
-        });
+        SongRecommender.getSongFromFeature(this, featureModel, this::addConversationToChats);
     }
 
     public void stopHandler() {
