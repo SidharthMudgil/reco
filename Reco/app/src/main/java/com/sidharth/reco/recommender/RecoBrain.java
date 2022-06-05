@@ -29,12 +29,12 @@ public class RecoBrain {
             if (GREETING.contains(word)) {
                 ArrayList<String> options = new ArrayList<>(Arrays.asList(
                         "introduce yourself",
-                        "whats the day today",
+                        "tell me the day today",
                         "tell me a joke",
-                        "mood based song"
+                        "play a mood song"
                 ));
                 ChatOptionModel optionModel = new ChatOptionModel(ChatActivity.TYPE_OPTION_MENU, options);
-                return new ChatModel(ChatActivity.SENDER_BOT, "Tap on one of the options", optionModel);
+                return new ChatModel(ChatActivity.SENDER_BOT, "What can I do for you?", optionModel);
             }
         }
         String reply = "Sorry I can't understand you. I am learning, Say 'hi' to get options";

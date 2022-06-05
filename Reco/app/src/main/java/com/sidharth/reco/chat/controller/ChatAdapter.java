@@ -13,8 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sidharth.reco.R;
 import com.sidharth.reco.chat.ChatActivity;
-import com.sidharth.reco.chat.callback.OnActionPerformedListener;
-import com.sidharth.reco.chat.callback.OnChatOptionClickListener;
+import com.sidharth.reco.chat.callback.OnOptionClickListener;
 import com.sidharth.reco.chat.callback.OnSongClickListener;
 import com.sidharth.reco.chat.model.ChatModel;
 import com.sidharth.reco.chat.view.BotChatHolder;
@@ -23,7 +22,7 @@ import com.sidharth.reco.chat.view.UserChatHolder;
 
 import java.util.ArrayList;
 
-public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements OnActionPerformedListener {
+public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static final int VIEW_TYPE_MESSAGE_BOT = 1;
     private static final int VIEW_TYPE_MESSAGE_USER = 2;
     private static final int VIEW_TYPE_SONG = 3;
@@ -32,13 +31,14 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     private final ArrayList<ChatModel> chats;
     private final OnSongClickListener songClickListener;
 
-    private RecyclerView recyclerView;
+    private final OnOptionClickListener optionClickListener;
 
 
-    public ChatAdapter(Context context, ArrayList<ChatModel> chats, OnSongClickListener songClickListener) {
+    public ChatAdapter(Context context, ArrayList<ChatModel> chats, OnSongClickListener songClickListener, OnOptionClickListener optionClickListener) {
         this.context = context;
         this.chats = chats;
         this.songClickListener = songClickListener;
+        this.optionClickListener = optionClickListener;
     }
 
     @Override
@@ -76,8 +76,11 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         switch (holder.getItemViewType()) {
             case VIEW_TYPE_MESSAGE_BOT:
                 ((BotChatHolder) holder).bind(message);
-                recyclerView = ((BotChatHolder) holder).getRv();
-                ChatOptionAdapter adapter = new ChatOptionAdapter(context, chats.get(position).getOptionModel(), (OnChatOptionClickListener) context, this);
+                RecyclerView recyclerView = ((BotChatHolder) holder).getRv();
+                ChatOptionAdapter adapter = new ChatOptionAdapter(context, chats.get(position).getOptionModel(), (optionModel, position1) -> {
+                    recyclerView.setAdapter(null);
+                    optionClickListener.onClick(optionModel, position1);
+                });
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
                 recyclerView.setAdapter(adapter);
                 break;
@@ -89,7 +92,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
                 holder.itemView.setOnClickListener(view -> {
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(chats.get(position).getSongModel().getSongURL()));
                     context.startActivity(browserIntent);
-                    songClickListener.onSongClick(chats.get(position).getSongModel());
+                    songClickListener.onClick(chats.get(position).getSongModel());
                 });
         }
     }
@@ -97,10 +100,5 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     @Override
     public int getItemCount() {
         return chats.size();
-    }
-
-    @Override
-    public void removeOptions() {
-        recyclerView.setAdapter(null);
     }
 }

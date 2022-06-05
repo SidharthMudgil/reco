@@ -13,21 +13,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.sidharth.reco.R;
-import com.sidharth.reco.chat.callback.OnChatOptionClickListener;
+import com.sidharth.reco.chat.callback.OnOptionClickListener;
 import com.sidharth.reco.chat.controller.ChatAdapter;
 import com.sidharth.reco.chat.model.ChatModel;
 import com.sidharth.reco.chat.model.ChatOptionModel;
 import com.sidharth.reco.chat.model.SongModel;
 import com.sidharth.reco.recommender.RecoBrain;
-import com.sidharth.reco.recommender.model.SongFeatureModel;
 import com.sidharth.reco.recommender.SongRecommender;
+import com.sidharth.reco.recommender.model.SongFeatureModel;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 
-public class ChatActivity extends AppCompatActivity implements OnChatOptionClickListener {
+public class ChatActivity extends AppCompatActivity {
 
     private Handler handler;
     private Runnable runnable;
@@ -71,6 +71,12 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
         chatAdapter = new ChatAdapter(this, chats, model -> {
             songClicked = true;
             songModel = model;
+        }, (optionModel, position) -> {
+            removeOptions();
+            String message = optionModel.getOptions().get(position);
+            ChatModel chatModel = new ChatModel(SENDER_USER, message);
+            addConversationToChats(chatModel);
+            handler.postDelayed(() -> recommendSong(optionModel.getType(), position), 1000);
         });
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setAdapter(chatAdapter);
@@ -248,15 +254,6 @@ public class ChatActivity extends AppCompatActivity implements OnChatOptionClick
     private void closeKeyboard() {
         InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         inputMethodManager.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
-    }
-
-    @Override
-    public void onOptionClicked(ChatOptionModel optionModel, int position) {
-        removeOptions();
-        String message = optionModel.getOptions().get(position);
-        ChatModel chatModel = new ChatModel(SENDER_USER, message);
-        addConversationToChats(chatModel);
-        handler.postDelayed(() -> recommendSong(optionModel.getType(), position), 1000);
     }
 
     @Override

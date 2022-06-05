@@ -9,22 +9,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sidharth.reco.R;
-import com.sidharth.reco.chat.callback.OnChatOptionClickListener;
-import com.sidharth.reco.chat.callback.OnActionPerformedListener;
+import com.sidharth.reco.chat.callback.OnOptionClickListener;
 import com.sidharth.reco.chat.model.ChatOptionModel;
 import com.sidharth.reco.chat.view.ChatOptionHolder;
 
 public class ChatOptionAdapter extends RecyclerView.Adapter<ChatOptionHolder> {
     private final Context context;
     private final ChatOptionModel optionModel;
-    private final OnChatOptionClickListener onChatOptionClickListener;
-    private final OnActionPerformedListener onActionPerformedListener;
+    private final OnOptionClickListener onChatOptionClickListener;
 
-    public ChatOptionAdapter(Context context, ChatOptionModel optionModel, OnChatOptionClickListener onChatOptionClickListener, OnActionPerformedListener onActionPerformedListener) {
+    public ChatOptionAdapter(Context context, ChatOptionModel optionModel, OnOptionClickListener onChatOptionClickListener) {
         this.context = context;
         this.optionModel = optionModel;
         this.onChatOptionClickListener = onChatOptionClickListener;
-        this.onActionPerformedListener = onActionPerformedListener;
     }
 
     @NonNull
@@ -37,10 +34,7 @@ public class ChatOptionAdapter extends RecyclerView.Adapter<ChatOptionHolder> {
     @Override
     public void onBindViewHolder(@NonNull ChatOptionHolder holder, int position) {
         holder.bind(optionModel.getOptions().get(position));
-        holder.itemView.setOnClickListener(view -> {
-            onChatOptionClickListener.onOptionClicked(optionModel, position);
-            onActionPerformedListener.removeOptions();
-        });
+        holder.itemView.setOnClickListener(view -> onChatOptionClickListener.onClick(optionModel, position));
     }
 
     @Override
