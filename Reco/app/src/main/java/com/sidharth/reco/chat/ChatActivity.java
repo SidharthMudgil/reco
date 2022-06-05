@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -44,7 +45,7 @@ public class ChatActivity extends AppCompatActivity {
     private static final ArrayList<String> MOODS = new ArrayList<>(Arrays.asList("happy", "calm", "anxious", "energetic", "indian"));
     private static final ArrayList<String> FEEDBACK = new ArrayList<>(Arrays.asList("Yes", "No"));
 
-    private ArrayList<ChatModel> chats;
+    private static ArrayList<ChatModel> chats;
     private ChatAdapter chatAdapter;
     private RecyclerView recyclerView;
 
@@ -56,7 +57,9 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        SongRecommender.initializeSongData(this);
+        if (savedInstanceState == null) {
+            SongRecommender.initializeSongData(this);
+        }
 
         // intro chats
         ChatOptionModel moodOptionModel = new ChatOptionModel(TYPE_MOOD, MOODS);
