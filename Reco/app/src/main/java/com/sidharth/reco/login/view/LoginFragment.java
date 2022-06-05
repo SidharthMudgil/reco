@@ -17,33 +17,13 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.parse.ParseUser;
 import com.sidharth.reco.MainActivity;
 import com.sidharth.reco.R;
 import com.sidharth.reco.chat.ChatActivity;
 
 public class LoginFragment extends Fragment {
     private ProgressDialog progressDialog;
-    private FirebaseAuth auth;
-
-    public LoginFragment() {
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        auth = FirebaseAuth.getInstance();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = auth.getCurrentUser();
-        if (currentUser != null) {
-            currentUser.reload();
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -83,14 +63,13 @@ public class LoginFragment extends Fragment {
     }
 
     private void loginUser(String email, String password) {
-        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
+        ParseUser.logInInBackground(email, password, (user, e) -> {
+            if (user == null) {
+                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
-                startChatActivity();
             } else {
                 progressDialog.dismiss();
-                assert task.getException() != null;
-                Toast.makeText(getActivity(), "Signing failed", Toast.LENGTH_SHORT).show();
+                startChatActivity();
             }
         });
     }

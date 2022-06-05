@@ -12,12 +12,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.button.MaterialButton;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.parse.ParseObject;
+import com.parse.ParseUser;
 import com.sidharth.reco.MainActivity;
 import com.sidharth.reco.R;
 import com.sidharth.reco.chat.ChatActivity;
@@ -26,25 +27,6 @@ import java.util.regex.Pattern;
 
 public class SignUpFragment extends Fragment {
     private ProgressDialog progressDialog;
-    private FirebaseAuth auth;
-
-    public SignUpFragment() {
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        auth = FirebaseAuth.getInstance();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = auth.getCurrentUser();
-        if (currentUser != null) {
-            currentUser.reload();
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -121,13 +103,22 @@ public class SignUpFragment extends Fragment {
     }
 
     private void signUpAndLoginUser(String email, String password) {
-        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
+        ParseObject person = new ParseObject("Person");
+        person.put("email", email);
+        person.put("password", password);
+        person.saveInBackground();
+
+        ParseUser user = new ParseUser();
+        user.setUsername(email);
+        user.setEmail(email);
+        user.setPassword(password);
+        user.signUpInBackground(e -> {
+            if (e != null) {
+                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
-                startChatActivity();
             } else {
                 progressDialog.dismiss();
-                assert task.getException() != null;
+                startChatActivity();
             }
         });
     }

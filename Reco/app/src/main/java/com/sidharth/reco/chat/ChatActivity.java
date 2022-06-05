@@ -7,12 +7,12 @@ import android.text.TextUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.parse.ParseObject;
 import com.sidharth.reco.R;
 import com.sidharth.reco.chat.controller.ChatAdapter;
 import com.sidharth.reco.chat.model.ChatModel;
@@ -170,6 +170,7 @@ public class ChatActivity extends AppCompatActivity {
             case TYPE_FEEDBACK: {
                 if (position == 0) {
                     wantSimilarSong();
+                    addSongToDatabase();
                 } else {
                     tryNewSong();
                 }
@@ -215,6 +216,17 @@ public class ChatActivity extends AppCompatActivity {
             default:
                 break;
         }
+    }
+
+    private void addSongToDatabase() {
+        ParseObject song = new ParseObject("Favourites");
+        SongFeatureModel model = songModel.getFeatureModel();
+        song.put("id", model.getId());
+        song.put("name", model.getName());
+        song.put("valence", model.getValence());
+        song.put("energy", model.getEnergy());
+        song.put("tempo", model.getTempo());
+        song.saveInBackground();
     }
 
     private void likedTheSong() {

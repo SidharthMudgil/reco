@@ -1,24 +1,22 @@
 <resources>
     <string name="app_name">Reco</string>
 
-    <!-- onBoarding screen -->
-    <!-- titles -->
+    <string name="back4app_server_url">https://parseapi.back4app.com/</string>
+    <string name="back4app_app_id">QGmTRZMYhRvC4AxXly0EzjRr5soJSVkAYOd76BXQ</string>
+    <string name="back4app_client_key">3opM0HdmVhWJzDgy4v0dEFIA2p52m73x0koNHiJG</string>
+
     <string name="tv_title1">Ask the Reco</string>
     <string name="tv_title2">Enjoy the music</string>
     <string name="tv_title3">Save the time</string>
 
-    <!--  description  -->
     <string name="tv_description1">Start a chat and get free song recommendations</string>
     <string name="tv_description2">enjoy the songs depending on your mood</string>
     <string name="tv_description3">get freedom from daily song hunting</string>
 
-    <!--  image description -->
     <string name="imgDesc_slideImage">onBoarding image</string>
 
-    <!--  Buttons text-->
     <string name="btn_next">Next</string>
 
-    <!--    login screen -->
     <string name="imgDesc_appLogo">app logo</string>
 
     <string name="sign_in">Sign in</string>
