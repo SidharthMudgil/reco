@@ -251,19 +251,19 @@ public class SongRecommender {
         int total;
         PriorityQueue<SongAttrPair> queue;
         if (type == 0) {
-            total = TOTAL_SONGS;
-        } else {
             total = TOTAL_HINDI_SONGS;
+        } else {
+            total = TOTAL_SONGS;
         }
         queue = new PriorityQueue<>(total, new SongAttrComparator());
 
         for (int i = 0; i < total; i++) {
             SongFeatureModel featureModel;
             try {
-                if (type == 0) {
-                    featureModel = new SongFeatureModel(allSongs.getJSONObject(i), 0);
+                if (type == TYPE_NON_INDIAN) {
+                    featureModel = new SongFeatureModel(allSongs.getJSONObject(i), TYPE_NON_INDIAN);
                 } else {
-                    featureModel = new SongFeatureModel(hindiSongs.getJSONObject(i), 1);
+                    featureModel = new SongFeatureModel(hindiSongs.getJSONObject(i), TYPE_INDIAN);
                 }
                 double distance = -1 * getDistance(songModel.getFeatureModel(), featureModel);
                 queue.add(new SongAttrPair(distance, featureModel));
