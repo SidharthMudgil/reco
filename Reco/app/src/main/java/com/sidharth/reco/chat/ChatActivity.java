@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.sidharth.reco.R;
-import com.sidharth.reco.chat.callback.OnOptionClickListener;
 import com.sidharth.reco.chat.controller.ChatAdapter;
 import com.sidharth.reco.chat.model.ChatModel;
 import com.sidharth.reco.chat.model.ChatOptionModel;
@@ -124,14 +123,8 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void addConversationToChats(ChatModel chatModel) {
-        if (chatModel != null) {
-            chats.add(chatModel);
-            playMessagingSound(chatModel.getSender());
-        } else {
-            ChatModel chat = new ChatModel(SENDER_BOT, getString(R.string.msg_try_new));
-            addConversationToChats(chat);
-            playMessagingSound(SENDER_BOT);
-        }
+        chats.add(chatModel);
+        playMessagingSound(chatModel.getSender());
         recyclerView.smoothScrollToPosition(chats.size() - 1);
         chatAdapter.notifyItemInserted(chats.size());
     }

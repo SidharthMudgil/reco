@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:padding="8dp"
-        tools:listitem="@layout/chat_item_song"
+        tools:listitem="@layout/chat_item_bot"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent=".9"
