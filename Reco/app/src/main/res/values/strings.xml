@@ -46,5 +46,5 @@
     <string name="track_banner">track banner</string>
     <string name="msg_mood">What kind of song do you want to hear?</string>
     <string name="msg_intro">Hi,\nI\'m Reco, your personal bot\nLet\'s listen to some songs</string>
-    <string name="msg_recoIntro">Hi, I am Reco an AI based music recommendation chatbot</string>
+    <string name="msg_recoIntro">Hi, I am Reco an AI based music recommendation chatbot developed by Sidharth Mudgil</string>
 </resources>

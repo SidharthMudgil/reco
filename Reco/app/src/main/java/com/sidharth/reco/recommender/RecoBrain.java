@@ -47,7 +47,7 @@ public class RecoBrain {
     }
 
     public static void getJoke(Context context, APIResponseCallback responseCallback) {
-        final String URL = "https://v2.jokeapi.dev/joke/Programming";
+        final String URL = "https://v2.jokeapi.dev/joke/Any";
         RequestQueue requestQueue = Volley.newRequestQueue(context);
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, URL, null,

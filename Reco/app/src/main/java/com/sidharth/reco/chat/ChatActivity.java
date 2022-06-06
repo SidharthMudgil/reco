@@ -160,7 +160,7 @@ public class ChatActivity extends AppCompatActivity {
                 if (position == 0) {
                     ArrayList<SongFeatureModel> songs = SongRecommender.getSimilarSongs(songModel);
                     for (SongFeatureModel song : songs) {
-                        handler.postDelayed((Runnable) () -> getShowSongView(song), 500);
+                        handler.postDelayed(() -> getShowSongView(song), 500);
                     }
                 } else {
                     tryNewSong();

@@ -103,11 +103,6 @@ public class SignUpFragment extends Fragment {
     }
 
     private void signUpAndLoginUser(String email, String password) {
-        ParseObject person = new ParseObject("Person");
-        person.put("email", email);
-        person.put("password", password);
-        person.saveInBackground();
-
         ParseUser user = new ParseUser();
         user.setUsername(email);
         user.setEmail(email);
@@ -117,6 +112,10 @@ public class SignUpFragment extends Fragment {
                 Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
             } else {
+                ParseObject person = new ParseObject("Person");
+                person.put("email", email);
+                person.put("password", password);
+                person.saveInBackground();
                 progressDialog.dismiss();
                 startChatActivity();
             }
