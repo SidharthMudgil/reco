@@ -8,3 +8,6 @@
 
 # Downloads
 [reco apk](https://github.com/SidharthMudgil/Reco/releases/latest/download/reco.apk)
+
+
+TODO: implement [spotify-webAPI](https://towardsdatascience.com/using-the-spotify-api-with-your-android-application-the-essentials-1a3c1bc36b9e)
