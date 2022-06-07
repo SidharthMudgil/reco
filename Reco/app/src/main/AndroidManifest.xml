@@ -31,28 +31,29 @@
             android:noHistory="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:noHistory="true"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme"
-            tools:ignore="LockedOrientationActivity">
+            tools:ignore="LockedOrientationActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-            <meta-data
-                android:name="com.parse.SERVER_URL"
-                android:value="@string/back4app_server_url" />
-            <meta-data
-                android:name="com.parse.APPLICATION_ID"
-                android:value="@string/back4app_app_id" />
-            <meta-data
-                android:name="com.parse.CLIENT_KEY"
-                android:value="@string/back4app_client_key" />
-
         </activity>
+
+        <meta-data
+            android:name="com.parse.SERVER_URL"
+            android:value="@string/back4app_server_url" />
+        <meta-data
+            android:name="com.parse.APPLICATION_ID"
+            android:value="@string/back4app_app_id" />
+        <meta-data
+            android:name="com.parse.CLIENT_KEY"
+            android:value="@string/back4app_client_key" />
     </application>
+
 </manifest>

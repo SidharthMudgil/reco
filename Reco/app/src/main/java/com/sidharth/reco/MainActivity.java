@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
         SharedPreferences sharedPreferences = getSharedPreferences(getPackageName(), MODE_PRIVATE);
         int state = sharedPreferences.getInt(STATE_KEY, STATE_ON_BOARDING);
@@ -31,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
             case STATE_ON_BOARDING:
                 intent = new Intent(this, OnBoardingActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
                 break;
             case STATE_LOGIN_SIGNUP:
                 intent = new Intent(this, LoginActivity.class);
