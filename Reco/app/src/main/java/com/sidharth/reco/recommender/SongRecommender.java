@@ -2,6 +2,7 @@ package com.sidharth.reco.recommender;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -104,6 +105,8 @@ public class SongRecommender {
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, URL, null,
                 response -> {
                     try {
+                        Log.d("responseurl", response.toString());
+
                         JSONArray jsonArray = response.getJSONArray("tracks");
                         JSONObject jsonObject = jsonArray.getJSONObject(0);
 

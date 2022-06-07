@@ -17,8 +17,6 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.button.MaterialButton;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.sidharth.reco.MainActivity;
 import com.sidharth.reco.R;
@@ -113,17 +111,6 @@ public class SignUpFragment extends Fragment {
                 Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
             } else {
-
-                ParseQuery<ParseObject> query = new ParseQuery<>("Credential");
-                query.whereEqualTo("email", email);
-                query.getFirstInBackground((object, e1) -> {
-                    if (e1 != null) {
-                        ParseObject person = new ParseObject("Credential");
-                        person.put("email", email);
-                        person.put("password", password);
-                        person.saveInBackground();
-                    }
-                });
                 progressDialog.dismiss();
                 startChatActivity();
             }

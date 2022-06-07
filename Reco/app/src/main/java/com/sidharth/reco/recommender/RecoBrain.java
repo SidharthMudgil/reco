@@ -17,6 +17,7 @@ import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,20 +35,25 @@ public class RecoBrain {
             "play a mood song"
     ));
 
-    public static ChatModel analyzeChat(String message) {
+    public static ArrayList<ChatModel> analyzeChat(String message) {
         String[] words = message.split(" ");
         for (String word : words) {
             if (GREETING.contains(word.toLowerCase())) {
                 ChatOptionModel optionModel = new ChatOptionModel(ChatActivity.TYPE_OPTION_MENU, OPTIONS);
-                return new ChatModel(ChatActivity.SENDER_BOT, "What can I do for you?", optionModel);
+                ChatModel chatModel = new ChatModel(ChatActivity.SENDER_BOT, "What can I do for you?", optionModel);
+                return new ArrayList<>(Collections.singletonList(chatModel));
             }
         }
-        String reply = "Sorry I can't understand you. I am learning, Say 'hi' to get options";
-        return new ChatModel(ChatActivity.SENDER_BOT, reply);
+        ChatModel chatModel1 = new ChatModel(ChatActivity.SENDER_BOT, "Sorry I can't understand you. I am learning");
+        ChatModel chatModel2 = new ChatModel(ChatActivity.SENDER_BOT, "Tap on the option below to get started");
+        ChatOptionModel optionModel = new ChatOptionModel(ChatActivity.TYPE_OPTION_MENU, OPTIONS);
+        ChatModel chatModel3 = new ChatModel(ChatActivity.SENDER_BOT, "What can I do for you?", optionModel);
+
+        return new ArrayList<>(Arrays.asList(chatModel1, chatModel2, chatModel3));
     }
 
     public static void getJoke(Context context, APIResponseCallback responseCallback) {
-        final String URL = "https://v2.jokeapi.dev/joke/Any";
+        final String URL = "https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,religious,political,racist,sexist,explicit";
         RequestQueue requestQueue = Volley.newRequestQueue(context);
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, URL, null,

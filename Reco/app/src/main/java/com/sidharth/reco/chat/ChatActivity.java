@@ -95,8 +95,12 @@ public class ChatActivity extends AppCompatActivity {
                 removeOptions();
                 ChatModel chatModel = new ChatModel(SENDER_USER, message);
                 addConversationToChats(chatModel);
-                ChatModel answer = RecoBrain.analyzeChat(message);
-                handler.postDelayed(() -> replyToUser(answer), 1000);
+                ArrayList<ChatModel> replies = RecoBrain.analyzeChat(message);
+                for (int i = 0; i < replies.size(); i++) {
+                    int finalI = i;
+                    int delay = (i + 1) * 1000;
+                    handler.postDelayed(() -> replyToUser(replies.get(finalI)), delay);
+                }
             }
             closeKeyboard();
         });

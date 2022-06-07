@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Reco</string>
 
+    <string name="SPOTIFY_API_HOST">spotify23.p.rapidapi.com</string>
+    <string name="SPOTIFY_API_KEY">24d57aa673mshf75979a16a7463ep1c5be8jsn924af7b48c97</string>
+
     <string name="back4app_server_url">https://parseapi.back4app.com/</string>
     <string name="back4app_app_id">QGmTRZMYhRvC4AxXly0EzjRr5soJSVkAYOd76BXQ</string>
     <string name="back4app_client_key">3opM0HdmVhWJzDgy4v0dEFIA2p52m73x0koNHiJG</string>
@@ -41,8 +44,6 @@
     <string name="msg_want_similar">want  more similar songs?</string>
     <string name="msg_try_new1">Want something new?</string>
     <string name="msg_thanks">Thanks, Nice to talk to you, Wish things went on a little longer</string>
-    <string name="SPOTIFY_API_HOST">spotify23.p.rapidapi.com</string>
-    <string name="SPOTIFY_API_KEY">568ce5fb4amsh22f37fe760d2699p102d6ejsnbb531fab6a56</string>
     <string name="track_banner">track banner</string>
     <string name="msg_mood">What kind of song do you want to hear?</string>
     <string name="msg_intro">Hi,\nI\'m Reco, your personal bot\nLet\'s listen to some songs</string>
