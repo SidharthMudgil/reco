@@ -41,6 +41,7 @@ public class ChatActivity extends AppCompatActivity {
     public static final int TYPE_FEEDBACK = 103;
     public static final int TYPE_SHOW_SIMILAR = 104;
     public static final int TYPE_OPTION_MENU = 105;
+    public static final int Joke_FEEDBACK = 106;
 
     private static final ArrayList<String> MOODS = new ArrayList<>(Arrays.asList("happy", "calm", "anxious", "energetic", "indian"));
     private static final ArrayList<String> FEEDBACK = new ArrayList<>(Arrays.asList("Yes", "No"));
@@ -188,6 +189,15 @@ public class ChatActivity extends AppCompatActivity {
                 }
                 break;
             }
+            case Joke_FEEDBACK:{
+                if(position == 0){
+                    RecoBrain.getJoke(this, this::addConversationToChats);
+                    handler.postDelayed(()->jokeFeedback(),5000);
+                }
+                else break;
+
+                break;
+            }
             case TYPE_OPTION_MENU: {
                 switch (position) {
                     case 0: {
@@ -206,6 +216,7 @@ public class ChatActivity extends AppCompatActivity {
                     }
                     case 2: {
                         RecoBrain.getJoke(this, this::addConversationToChats);
+                        handler.postDelayed(()->jokeFeedback(),5000);
                         break;
                     }
                     case 3: {
@@ -239,6 +250,12 @@ public class ChatActivity extends AppCompatActivity {
         addConversationToChats(chatModel);
         startHandler();
     }
+
+    private void jokeFeedback() {
+        ChatOptionModel optionModel = new ChatOptionModel(Joke_FEEDBACK, FEEDBACK);
+        ChatModel chatModel = new ChatModel(SENDER_BOT, "Want Another?", optionModel);
+        addConversationToChats(chatModel);
+        startHandler();
 
     private void wantSimilarSong() {
         ChatOptionModel optionModel = new ChatOptionModel(TYPE_SHOW_SIMILAR, FEEDBACK);
