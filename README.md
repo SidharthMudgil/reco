@@ -10,12 +10,12 @@ Reco is an AI-based Android application developed to recommend mood-based songs 
 - [Contribution Guidelines](#contribution-guidelines)
 
 ## Screenshots
-
-<img src="https://github.com/SidharthMudgil/Reco/blob/main/image/img1.png" width="200">
-<img src="https://github.com/SidharthMudgil/Reco/blob/main/image/img2.png" width="200">
-<img src="https://github.com/SidharthMudgil/Reco/blob/main/image/img3.png" width="200">
-<img src="https://github.com/SidharthMudgil/Reco/blob/main/image/img4.png" width="200">
-
+<p align="center">
+  <img src="https://github.com/SidharthMudgil/Reco/blob/main/image/img1.png" width="200">
+  <img src="https://github.com/SidharthMudgil/Reco/blob/main/image/img2.png" width="200">
+  <img src="https://github.com/SidharthMudgil/Reco/blob/main/image/img3.png" width="200">
+  <img src="https://github.com/SidharthMudgil/Reco/blob/main/image/img4.png" width="200">
+</p>
 ## Installation
 
 To install Reco, you have two options:
