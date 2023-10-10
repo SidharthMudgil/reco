@@ -8,7 +8,7 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/chatRight_marginStart"
     android:layout_marginEnd="@dimen/chatRight_marginEnd"
-    app:cardBackgroundColor="@color/song_black"
+    app:cardBackgroundColor="@color/dark_blue"
     app:cardCornerRadius="@dimen/songItem_cornerRadius">
 
     <LinearLayout

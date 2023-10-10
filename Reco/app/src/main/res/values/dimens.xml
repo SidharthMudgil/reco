@@ -54,7 +54,7 @@
 
     <dimen name="chatOption_marginStart">4dp</dimen>
     <dimen name="chatOption_layoutWidth">200dp</dimen>
-    <dimen name="chatOption_layoutHeight">40dp</dimen>
+    <dimen name="chatOption_layoutHeight">50dp</dimen>
     <dimen name="chatOption_marginBottom">2dp</dimen>
     <dimen name="chatOption_padding">8dp</dimen>
 

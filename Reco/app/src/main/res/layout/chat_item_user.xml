@@ -38,6 +38,7 @@
                 android:paddingTop="@dimen/message_paddingTop"
                 android:paddingRight="@dimen/message_sidePadding"
                 android:textColor="@color/black"
+                android:textStyle="bold"
                 android:textSize="@dimen/alternateTV_textSize"
                 tool:text="Message" />
         </LinearLayout>
