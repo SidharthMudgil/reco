@@ -39,6 +39,7 @@
                 android:paddingStart="@dimen/message_sidePadding"
                 android:paddingTop="@dimen/message_paddingTop"
                 android:paddingEnd="@dimen/message_sidePadding"
+                android:textStyle="bold"
                 android:textColor="@color/white"
                 android:textSize="@dimen/message_textSize"
                 tool:text="This is a\n Message" />
