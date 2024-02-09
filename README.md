@@ -19,8 +19,6 @@ Reco is an AI-based Android application developed to recommend mood-based songs 
 
 ## Installation
 
-To install Reco, you have two options:
-
 ### Manual Installation
 
 1. Clone the repository to your local machine:
